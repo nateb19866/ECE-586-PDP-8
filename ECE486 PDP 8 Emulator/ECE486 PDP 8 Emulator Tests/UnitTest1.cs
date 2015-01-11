@@ -15,7 +15,7 @@ namespace ECE486_PDP_8_Emulator_Tests
 
             int result = test1.ExampleFunction(1, 2);
 
-            Assert.AreEqual(result,3);
+            Assert.AreEqual(result,4);
         }
     }
 }
