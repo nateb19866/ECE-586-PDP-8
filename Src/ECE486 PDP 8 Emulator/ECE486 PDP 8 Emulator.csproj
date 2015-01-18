@@ -41,18 +41,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinLoader.cs" />
+    <Compile Include="BinLoader.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classes\InstructionItems.cs" />
+    <Compile Include="Classes\MemArray.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classes\Operation.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Interfaces\IInstruction.cs" />
     <Compile Include="InstructionFactory.cs" />
-    <Compile Include="Interfaces\ILoader.cs" />
-    <Compile Include="Classes\MemArray.cs" />
-    <Compile Include="ObjLoader.cs" />
+    <Compile Include="Interfaces\IInstruction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\ILoader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjLoader.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Utils.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
