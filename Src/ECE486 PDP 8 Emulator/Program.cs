@@ -31,6 +31,12 @@ namespace ECE486_PDP_8_Emulator
 
         }
 
+        /// <summary>
+        /// This executes the instructions in the memory array
+        /// </summary>
+        /// <param name="loadRslt">The loaded array plus the starting address to use.</param>
+        /// <param name="pdp8Stats">The statistics object to populate.</param>
+        /// <returns>An updated statistic object</returns>
         static Statistics ExecuteInstructions(LoaderResult loadRslt, Statistics pdp8Stats)
         {
 
@@ -39,31 +45,31 @@ namespace ECE486_PDP_8_Emulator
 
             //Initialize all counters
             int ProgramCounter =  loadRslt.FirstInstructionAddress;
-            int CurInstruction =Pdp8MemArray.GetValue(loadRslt.FirstInstructionAddress);
-            int Accumulator = 0;
+            int CurInstructionOctal =Pdp8MemArray.GetValue(loadRslt.FirstInstructionAddress);
+            int AccumulatorOctal = 0;
             int CurPage = Utils.GetPage(loadRslt.FirstInstructionAddress);
 
 
             //Loop until the program is halted
-            while(CurInstruction != Constants.HLT)
+            while(CurInstructionOctal != Constants.HLT)
             {
-                Operation CurOp = Utils.DecodeOperationAddress(CurInstruction, Pdp8MemArray, CurPage);
+                Operation CurOp = Utils.DecodeOperationAddress(CurInstructionOctal, Pdp8MemArray, CurPage);
 
                 InstructionItems InstructionParams = new InstructionItems(){
-                 accumulator = Accumulator,
+                 accumulatorOctal = AccumulatorOctal,
                   MemoryAddress = CurOp.FinalMemAddress,
-                   MemoryValue = Pdp8MemArray.GetValue(CurOp.FinalMemAddress),
+                   MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress),
                     pcCounter = ProgramCounter,
-                     MicroCodes = CurInstruction
+                     MicroCodes = CurInstructionOctal
                   
                 };
 
 
                 InstructionResult Result = CurOp.Instruction.ExecuteInstruction(InstructionParams);
 
-                Accumulator = Result.accumulator;
+                AccumulatorOctal = Result.accumulatorOctal;
                 ProgramCounter = Result.pcCounter;
-                CurInstruction = Pdp8MemArray.GetValue(ProgramCounter);
+                CurInstructionOctal = Pdp8MemArray.GetValue(ProgramCounter);
 
                 //UpdateStats
                 pdp8Stats.ClockCyclesExecuted += CurOp.ExtraClockCyles + CurOp.Instruction.clockCycles;

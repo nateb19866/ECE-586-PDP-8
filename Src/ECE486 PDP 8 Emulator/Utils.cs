@@ -14,12 +14,22 @@ namespace ECE486_PDP_8_Emulator
             throw new NotImplementedException();
         }
 
-        public static Operation DecodeOperationAddress(int address, MemArray memoryArray, int curPage)
+        /// <summary>
+        /// Decodes operation addresses.  The addresses will be converted from octal to decimal, while the actual
+        /// instruction will remain in octal.  This will help with array storage and retrieval.
+        /// </summary>
+        /// <param name="addressValueOctal">The octal address value to be decoded</param>
+        /// <param name="memoryArray">The memory array in the event an indirect address is requested</param>
+        /// <param name="curPage">The current memory page (decimal)</param>
+        /// <returns>A populated Operation object containing the instruction, the final decoded memory address in decimal, and any additional
+        /// clock cycles that need to be accounted for.</returns>
+        public static Operation DecodeOperationAddress(int addressValueOctal, MemArray memoryArray, int curPage)
         {
 
 
 
             Operation FinalOperation = new Operation();
+
 
             FinalOperation.FinalMemAddress = 0;
             

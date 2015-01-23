@@ -11,7 +11,7 @@ namespace ECE486_PDP_8_Emulator
     public static class InstructionFactory
     {
      
-        IInstruction GetInstruction(Constants.OpCode opCode )
+       public static IInstruction GetInstruction(Constants.OpCode opCode )
         {
             switch (opCode)
             {
