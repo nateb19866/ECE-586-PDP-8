@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECE486_PDP_8_Emulator.Classes
 {
-    public class Operation
+    public class LoaderResult
     {
-       public IInstruction Instruction;
-        public int FinalMemAddress;
-        public int ExtraClockCyles;
+       public MemArray FinishedArray;
+        public int FirstInstructionAddress;
     }
 }

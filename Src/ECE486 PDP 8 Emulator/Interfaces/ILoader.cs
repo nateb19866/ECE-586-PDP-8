@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECE486_PDP_8_Emulator.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ECE486_PDP_8_Emulator.Interfaces
 {
     public static interface ILoader
     {
-        MemArray LoadFile(string path);
+        LoaderResult LoadFile(string filePath, string traceFilePath);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECE486_PDP_8_Emulator.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ECE486_PDP_8_Emulator
 {
-    interface IInstruction
+    public interface IInstruction
     {
         
-        int ExecuteInstruction(int memArray);
-        int MemArray { get; set; }
-        int clockCycle { get; set; }
+        InstructionResult ExecuteInstruction(InstructionItems instItems);
+        int clockCycles { get; }
+        Constants.OpCode instructionType { get; }
     }
 }

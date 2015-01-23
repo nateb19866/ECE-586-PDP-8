@@ -25,5 +25,10 @@ namespace ECE486_PDP_8_Emulator
             
             throw new NotImplementedException();
         }
+
+        public static int GetPage(int address)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

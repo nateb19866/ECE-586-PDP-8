@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECE486_PDP_8_Emulator.Classes
 {
-    public class Operation
+    public class InstructionTypeStat
     {
-       public IInstruction Instruction;
-        public int FinalMemAddress;
-        public int ExtraClockCyles;
+        public Constants.OpCode Operation;
+        public int Executions;
     }
 }

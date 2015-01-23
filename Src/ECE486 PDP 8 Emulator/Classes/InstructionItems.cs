@@ -8,10 +8,11 @@ namespace ECE486_PDP_8_Emulator.Classes
 {
     public class InstructionItems
     {
-        int accumulator;
-        int pcCounter;
-        int MemoryValue;
-        int MemoryAddress;
-        int NextInstructionAddress;
+        public int accumulator;
+       public  int pcCounter;
+        public int MemoryValue;
+        public int MemoryAddress;
+       public int MicroCodes;
+
     }
 }

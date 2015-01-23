@@ -8,7 +8,7 @@ namespace ECE486_PDP_8_Emulator
 {
     public static class Constants
     {
-        enum OpCodes
+        public enum OpCode
         {
             AND =0,
             TAD,
@@ -19,5 +19,8 @@ namespace ECE486_PDP_8_Emulator
             IOT,
             OPR
         }
+
+       public const int HLT = 7402;
+
     }
 }
