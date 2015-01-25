@@ -12,6 +12,8 @@ namespace ECE486_PDP_8_Emulator
     {
         public static LoaderResult LoadFile(string filePath, string traceFilePath)
         {
+
+            Convert.ToInt32("1233", 8);
             throw new NotImplementedException();
         }
     }

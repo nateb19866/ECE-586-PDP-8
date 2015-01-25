@@ -19,14 +19,27 @@ namespace ECE486_PDP_8_Emulator
             this.TraceFilePath = traceFilePath;
         }
 
-       public int GetValue(int address)
+        private void AppendToTraceFile(int address, OpType operationType)
         {
-           return 0;
+            throw new NotImplementedException();
+        }
+       public int GetValue(int address, bool isInstruction)
+        {
+            
+           AppendToTraceFile(address, isInstruction?OpType.InstructionFetch:OpType.DataRead);
+            return MemoryArray[address];
         }
 
       public void SetValue(int address, int value)
         {
+            AppendToTraceFile(address, OpType.DataWrite);
+            MemoryArray[address] = value;
+        }
 
+        enum OpType {
+            DataRead = 0,
+            DataWrite,
+            InstructionFetch
         }
     }
 }

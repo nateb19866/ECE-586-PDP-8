@@ -45,7 +45,7 @@ namespace ECE486_PDP_8_Emulator
 
             //Initialize all counters
             int ProgramCounter =  loadRslt.FirstInstructionAddress;
-            int CurInstructionOctal =Pdp8MemArray.GetValue(loadRslt.FirstInstructionAddress);
+            int CurInstructionOctal =Pdp8MemArray.GetValue(loadRslt.FirstInstructionAddress,true);
             int AccumulatorOctal = 0;
             int CurPage = Utils.GetPage(loadRslt.FirstInstructionAddress);
 
@@ -58,7 +58,7 @@ namespace ECE486_PDP_8_Emulator
                 InstructionItems InstructionParams = new InstructionItems(){
                  accumulatorOctal = AccumulatorOctal,
                   MemoryAddress = CurOp.FinalMemAddress,
-                   MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress),
+                   MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress,false),
                     pcCounter = ProgramCounter,
                      MicroCodes = CurInstructionOctal
                   
@@ -69,7 +69,7 @@ namespace ECE486_PDP_8_Emulator
 
                 AccumulatorOctal = Result.accumulatorOctal;
                 ProgramCounter = Result.pcCounter;
-                CurInstructionOctal = Pdp8MemArray.GetValue(ProgramCounter);
+                CurInstructionOctal = Pdp8MemArray.GetValue(ProgramCounter, true);
 
                 //UpdateStats
                 pdp8Stats.ClockCyclesExecuted += CurOp.ExtraClockCyles + CurOp.Instruction.clockCycles;

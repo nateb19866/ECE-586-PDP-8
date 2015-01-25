@@ -29,8 +29,8 @@ namespace ECE486_PDP_8_Emulator
 
 
             Operation FinalOperation = new Operation();
-
-
+            FinalOperation.Instruction = InstructionFactory.GetInstruction(Constants.OpCode.JMP);
+            memoryArray.GetValue(addressValueOctal, false);
             FinalOperation.FinalMemAddress = 0;
             
             throw new NotImplementedException();
