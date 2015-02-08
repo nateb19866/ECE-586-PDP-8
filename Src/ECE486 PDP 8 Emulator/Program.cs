@@ -13,14 +13,20 @@ namespace ECE486_PDP_8_Emulator
         {
 
             string FilePath = "";
-            string MemTraceFilePath = "";
+            string TraceFolder = "";
 
             Statistics Pdp8Stats = new Statistics();
+            Logger TraceLogger = new Logger(TraceFolder);
 
 
             LoaderResult LoadRslt;
 
-            LoadRslt = ObjLoader.LoadFile(FilePath,MemTraceFilePath);
+            LoadRslt = ObjLoader.LoadFile(FilePath);
+
+            //Subscribe the logger class to the memory trace event
+            LoadRslt.FinishedArray.TraceAppend += new TraceNotificationHandler(TraceLogger.AppendToMemTraceFile);
+
+
 
             Pdp8Stats = ExecuteInstructions(LoadRslt, Pdp8Stats);
 
@@ -69,6 +75,12 @@ namespace ECE486_PDP_8_Emulator
 
                 AccumulatorOctal = Result.accumulatorOctal;
                 ProgramCounter = Result.pcCounter;
+
+                //If a memory value needs to be stored, store it in the memory array
+                if (Result.SetMemValue)
+                    Pdp8MemArray.SetValue(Result.MemoryAddress, Result.MemoryValueOctal);
+
+                //Get the next instruction value
                 CurInstructionOctal = Pdp8MemArray.GetValue(ProgramCounter, true);
 
                 //UpdateStats

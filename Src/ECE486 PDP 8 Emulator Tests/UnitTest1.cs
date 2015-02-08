@@ -11,13 +11,11 @@ namespace ECE486_PDP_8_Emulator_Tests
         public void TestMethod1()
         {
 
-            InstructionFactory test1 = new InstructionFactory();
-
-            int result = test1.ExampleFunction(1, 2);
+       
 
 
 
-            Assert.AreEqual(result,3);
+            Assert.AreEqual(23,3);
         }
     }
 }

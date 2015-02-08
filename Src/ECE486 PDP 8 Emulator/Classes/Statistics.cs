@@ -27,5 +27,7 @@ namespace ECE486_PDP_8_Emulator.Classes
        public int ClockCyclesExecuted = 0;
 
        public List<InstructionTypeStat> InstructionTypeExecutions;
+
+
     }
 }

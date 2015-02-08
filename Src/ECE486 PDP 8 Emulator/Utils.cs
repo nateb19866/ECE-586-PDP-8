@@ -9,10 +9,6 @@ namespace ECE486_PDP_8_Emulator
 {
     public static class Utils
     {
-        public static int DecodeDataAddress(int octalAddress)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Decodes operation addresses.  The addresses will be converted from octal to decimal, while the actual
@@ -39,6 +35,31 @@ namespace ECE486_PDP_8_Emulator
         public static int GetPage(int address)
         {
             throw new NotImplementedException();
+        }
+
+        public static int DecimalToOctal(int inputBase10Dec)
+        {
+
+            int[] result = new int[32];
+            int OutputInt = 0;
+            int IntSize = 32;
+
+            //Loops until 0, dividing the input by 8 and adding it to the int array
+            for (; inputBase10Dec > 0; inputBase10Dec /= 8)
+            {
+                int Remainder = inputBase10Dec % 8;
+
+                result[--IntSize] = Remainder;
+            }
+
+            //Loop through and construct the octal number
+            for (int i = 0; i < result.Length; i++)
+            {
+                OutputInt += result[i];
+                OutputInt = OutputInt << 1;
+            }
+           
+            return OutputInt;
         }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECE486_PDP_8_Emulator.Classes
 {
-    public class InstructionResult:InstructionItems
+    public class MemTraceRow
     {
-       public  int NextInstructionAddress;
-       public bool SetMemValue;
+        public Constants.OpType OperationType;
+        public int Address;
     }
 }

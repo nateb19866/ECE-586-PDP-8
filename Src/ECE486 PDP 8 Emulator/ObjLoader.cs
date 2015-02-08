@@ -12,17 +12,15 @@ namespace ECE486_PDP_8_Emulator
 {
     public static class  ObjLoader:ILoader
     {
-        public static LoaderResult LoadFile(string filePath, string traceFilePath)
+        public static LoaderResult LoadFile(string filePath)
         {
 
-            throw new NotImplementedException();
-
-            {
+          
                 // Read in Text File 
-                filePath = "C:/Users/Donut/PAL/File.obj"; // Note this path will be changed and moved to ILoader.cs
+                //filePath = "C:/Users/Donut/PAL/File.obj"; // Note this path will be changed and moved to ILoader.cs
                 string line = null;
                 var ArrayCount = File.ReadLines(filePath).Count(); // Counts lines in file
-                int[] MemArray = new int[4096];  // Complete Memory Array, Fix to determine complete array length
+                int[,] MemArray = new int[4096,2];  // Complete Memory Array, Fix to determine complete array length
 
                 int TempArrayCnt = 0;  // Index for TempArray, reading in file
                 int MemArrayCnt = 0;  // Index for MemArray. Looking for 1xx
@@ -45,7 +43,8 @@ namespace ECE486_PDP_8_Emulator
 
                                 while (TempArray[TempArrayCnt].StartsWith("0") && (TempArrayCnt < ArrayCount)) // continue to add to MemArray if start with 0
                                 {
-                                    MemArray[MemArrayCnt] = Convert.ToInt32(TempArray[TempArrayCnt].Remove(0, 1) + TempArray[TempArrayCnt + 1].Remove(0, 1));
+                                    MemArray[MemArrayCnt,0] = Convert.ToInt32(TempArray[TempArrayCnt].Remove(0, 1) + TempArray[TempArrayCnt + 1].Remove(0, 1));
+                                    MemArray[MemArrayCnt, 1] = 1;
                                     TempArrayCnt = TempArrayCnt + 2;  // move 2 lines down
                                     MemArrayCnt++;
                                 }
@@ -58,7 +57,8 @@ namespace ECE486_PDP_8_Emulator
 
                                 while (TempArray[TempArrayCnt].StartsWith("0") && (TempArrayCnt < ArrayCount) && (MemArrayCnt < ArrayCount)) // continue to add to MemArray if start with 0
                                 {
-                                    MemArray[MemArrayCnt] = Convert.ToInt32(TempArray[TempArrayCnt].Remove(0, 1) + TempArray[TempArrayCnt + 1].Remove(0, 1));
+                                    MemArray[MemArrayCnt, 0] = Convert.ToInt32(TempArray[TempArrayCnt].Remove(0, 1) + TempArray[TempArrayCnt + 1].Remove(0, 1));
+                                    MemArray[MemArrayCnt, 1] = 1;
                                     TempArrayCnt = TempArrayCnt + 2;  // move 2 lines down
                                     MemArrayCnt++;
                                 }
@@ -68,9 +68,11 @@ namespace ECE486_PDP_8_Emulator
 
                     }
 
-                }
 
-            }
+                    return new LoaderResult() { FinishedArray = new MemArray(MemArray), FirstInstructionAddress = StartMemArrayCnt };
+
+                }
+            
         }
     }
 }

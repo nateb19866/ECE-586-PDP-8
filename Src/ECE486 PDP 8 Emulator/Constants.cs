@@ -20,6 +20,13 @@ namespace ECE486_PDP_8_Emulator
             OPR
         }
 
+       public enum OpType
+        {
+            DataRead = 0,
+            DataWrite,
+            InstructionFetch
+        }
+
        public const int HLT = 7402;
 
     }
