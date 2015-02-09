@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ECE486_PDP_8_Emulator.Interfaces
 {
-    public static interface ILoader
+    public interface ILoader
     {
-        LoaderResult LoadFile(string filePath, string traceFilePath);
+        LoaderResult LoadFile(string filePath);
     }
 }

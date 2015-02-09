@@ -11,5 +11,6 @@ namespace ECE486_PDP_8_Emulator.Classes
        public IInstruction Instruction;
         public int FinalMemAddress;
         public int ExtraClockCyles;
+        public bool IsIndirect;
     }
 }

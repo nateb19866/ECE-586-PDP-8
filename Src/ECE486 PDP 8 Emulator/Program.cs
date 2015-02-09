@@ -1,4 +1,5 @@
 ﻿using ECE486_PDP_8_Emulator.Classes;
+using ECE486_PDP_8_Emulator.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace ECE486_PDP_8_Emulator
 
             string FilePath = "";
             string TraceFolder = "";
+            int StartAddressOctal = 200;
 
             Statistics Pdp8Stats = new Statistics();
             Logger TraceLogger = new Logger(TraceFolder);
@@ -21,14 +23,16 @@ namespace ECE486_PDP_8_Emulator
 
             LoaderResult LoadRslt;
 
-            LoadRslt = ObjLoader.LoadFile(FilePath);
+            ILoader FileLoader = new ObjLoader();
+
+            LoadRslt = FileLoader.LoadFile(FilePath);
 
             //Subscribe the logger class to the memory trace event
             LoadRslt.FinishedArray.TraceAppend += new TraceNotificationHandler(TraceLogger.AppendToMemTraceFile);
 
 
 
-            Pdp8Stats = ExecuteInstructions(LoadRslt, Pdp8Stats);
+            Pdp8Stats = ExecuteInstructions(LoadRslt, Pdp8Stats, Convert.ToInt32(StartAddressOctal.ToString(),8));
 
             PrintStatistics(Pdp8Stats);
 
@@ -43,31 +47,32 @@ namespace ECE486_PDP_8_Emulator
         /// <param name="loadRslt">The loaded array plus the starting address to use.</param>
         /// <param name="pdp8Stats">The statistics object to populate.</param>
         /// <returns>An updated statistic object</returns>
-        static Statistics ExecuteInstructions(LoaderResult loadRslt, Statistics pdp8Stats)
+        static Statistics ExecuteInstructions(LoaderResult loadRslt, Statistics pdp8Stats, int firstInstructionAddress)
         {
 
             
             MemArray Pdp8MemArray = loadRslt.FinishedArray;
 
             //Initialize all counters
-            int ProgramCounter =  loadRslt.FirstInstructionAddress;
-            int CurInstructionOctal =Pdp8MemArray.GetValue(loadRslt.FirstInstructionAddress,true);
+            int ProgramCounter =  firstInstructionAddress;
+            int InstructionRegisterOctal =Pdp8MemArray.GetValue(firstInstructionAddress,true,false);
             int AccumulatorOctal = 0;
-            int CurPage = Utils.GetPage(loadRslt.FirstInstructionAddress);
+            int CurPage = Utils.GetPage(firstInstructionAddress);
 
 
             //Loop until the program is halted
-            while(CurInstructionOctal != Constants.HLT)
+            while(InstructionRegisterOctal != Constants.HLT)
             {
-                Operation CurOp = Utils.DecodeOperationAddress(CurInstructionOctal, Pdp8MemArray, CurPage);
+                Operation CurOp = Utils.DecodeOperationAddress(InstructionRegisterOctal, Pdp8MemArray, CurPage);
 
-                InstructionItems InstructionParams = new InstructionItems(){
-                 accumulatorOctal = AccumulatorOctal,
-                  MemoryAddress = CurOp.FinalMemAddress,
-                   MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress,false),
+                InstructionItems InstructionParams = new InstructionItems()
+                {
+                    accumulatorOctal = AccumulatorOctal,
+                    MemoryAddress = CurOp.FinalMemAddress,
+                    MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress, false, CurOp.IsIndirect),
                     pcCounter = ProgramCounter,
-                     MicroCodes = CurInstructionOctal
-                  
+                    MicroCodes = InstructionRegisterOctal
+
                 };
 
 
@@ -75,13 +80,14 @@ namespace ECE486_PDP_8_Emulator
 
                 AccumulatorOctal = Result.accumulatorOctal;
                 ProgramCounter = Result.pcCounter;
+                CurPage = Utils.GetPage(ProgramCounter);
 
                 //If a memory value needs to be stored, store it in the memory array
                 if (Result.SetMemValue)
                     Pdp8MemArray.SetValue(Result.MemoryAddress, Result.MemoryValueOctal);
 
                 //Get the next instruction value
-                CurInstructionOctal = Pdp8MemArray.GetValue(ProgramCounter, true);
+                InstructionRegisterOctal = Pdp8MemArray.GetValue(ProgramCounter, true, Result.NextInstructionIsIndirect);
 
                 //UpdateStats
                 pdp8Stats.ClockCyclesExecuted += CurOp.ExtraClockCyles + CurOp.Instruction.clockCycles;
@@ -89,10 +95,7 @@ namespace ECE486_PDP_8_Emulator
 
                 //Update the stats on the type of instruction being executed
                 pdp8Stats.InstructionTypeExecutions.Single(i => i.Operation == CurOp.Instruction.instructionType).Executions++;
-                
-
-                
-
+  
             }
 
             

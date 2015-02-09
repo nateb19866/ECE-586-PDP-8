@@ -35,9 +35,17 @@ namespace ECE486_PDP_8_Emulator
             
         }
       
-       public int GetValue(int address, bool isInstruction)
+       public int GetValue(int address, bool isInstruction, bool isIndirect)
         {
-            
+           
+            //Handle auto-increment addresses - since array is in decimal, addresses are 8-15
+            if (address >= 8 && address <= 15 && isIndirect)
+            {
+                MemoryArray[address, 0] = Utils.DecimalToOctal( Convert.ToInt32(MemoryArray[address, 0].ToString(), 8) + 1);
+                MemoryArray[address, 1] = 1;
+            }
+
+
            OnTraced(EventArgs.Empty, address, isInstruction?Constants.OpType.InstructionFetch:Constants.OpType.DataRead);
             return MemoryArray[address,0];
         }

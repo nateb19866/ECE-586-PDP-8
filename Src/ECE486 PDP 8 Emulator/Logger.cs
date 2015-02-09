@@ -21,7 +21,7 @@ namespace ECE486_PDP_8_Emulator
        {
            this.TraceFolderPath = traceFolderPath;
        }
-       public ~Logger()
+        ~Logger()
        {
            //At the end of the program, dump all caches to disk
            DumpAllCachesToFile();

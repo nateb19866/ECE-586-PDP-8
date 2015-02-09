@@ -26,7 +26,7 @@ namespace ECE486_PDP_8_Emulator
 
             Operation FinalOperation = new Operation();
             FinalOperation.Instruction = InstructionFactory.GetInstruction(Constants.OpCode.JMP);
-            memoryArray.GetValue(addressValueOctal, false);
+            memoryArray.GetValue(addressValueOctal, false,true);
             FinalOperation.FinalMemAddress = 0;
             
             throw new NotImplementedException();
@@ -40,9 +40,9 @@ namespace ECE486_PDP_8_Emulator
         public static int DecimalToOctal(int inputBase10Dec)
         {
 
-            int[] result = new int[32];
+            int[] result = new int[4];
             int OutputInt = 0;
-            int IntSize = 32;
+            int IntSize = 4;
 
             //Loops until 0, dividing the input by 8 and adding it to the int array
             for (; inputBase10Dec > 0; inputBase10Dec /= 8)

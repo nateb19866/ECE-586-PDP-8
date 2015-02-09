@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ECE486_PDP_8_Emulator
 {
-    public static class BinLoader:ILoader
+    public class BinLoader:ILoader
     {
-        public static LoaderResult LoadFile(string filePath, string traceFilePath)
+        public LoaderResult LoadFile(string filePath)
         {
             throw new NotImplementedException();
         }

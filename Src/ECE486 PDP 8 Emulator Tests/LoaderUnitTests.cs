@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ECE486_PDP_8_Emulator;
 using ECE486_PDP_8_Emulator.Classes;
+using ECE486_PDP_8_Emulator.Interfaces;
 
 namespace ECE486_PDP_8_Emulator_Tests
 {
@@ -12,21 +13,21 @@ namespace ECE486_PDP_8_Emulator_Tests
         public void TestBinLoading()
         {
            
-            int[] FinalArray = new int[4096];
+            int[,] FinalArray = new int[4096,2];
 
-            FinalArray[200] = 2;
+            FinalArray[200,0] = 2;
 
-            MemArray FinalMemArray = new MemArray(FinalArray, "MemTrace.tr");
+            MemArray FinalMemArray = new MemArray(FinalArray);
 
 
             LoaderResult FinalLoaderRslt = new LoaderResult()
             {
-                FinishedArray = FinalMemArray,
-                FirstInstructionAddress = 200
+                FinishedArray = FinalMemArray
 
             };
 
-            LoaderResult TestMemArray = BinLoader.LoadFile(".\\TestFile.bin", ".\\Trace.tr");
+            ILoader FileLoader = new BinLoader();
+            LoaderResult TestMemArray = FileLoader.LoadFile(".\\TestFile.bin");
 
             Assert.AreEqual(FinalMemArray,TestMemArray);
 

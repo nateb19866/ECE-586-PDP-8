@@ -10,9 +10,9 @@ using System.IO;
 
 namespace ECE486_PDP_8_Emulator
 {
-    public static class  ObjLoader:ILoader
+    public class  ObjLoader:ILoader
     {
-        public static LoaderResult LoadFile(string filePath)
+        public LoaderResult LoadFile(string filePath)
         {
 
           
@@ -69,7 +69,7 @@ namespace ECE486_PDP_8_Emulator
                     }
 
 
-                    return new LoaderResult() { FinishedArray = new MemArray(MemArray), FirstInstructionAddress = StartMemArrayCnt };
+                    return new LoaderResult() { FinishedArray = new MemArray(MemArray)};
 
                 }
             
