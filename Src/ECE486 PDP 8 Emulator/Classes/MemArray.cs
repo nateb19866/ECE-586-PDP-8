@@ -15,7 +15,6 @@ namespace ECE486_PDP_8_Emulator
         private int[,] MemoryArray;
         public int MemReads = 0;
         public int MemWrites = 0;
-        private string TraceFilePath;
 
         public event TraceNotificationHandler TraceAppend;
 
@@ -41,18 +40,23 @@ namespace ECE486_PDP_8_Emulator
             //Handle auto-increment addresses - since array is in decimal, addresses are 8-15
             if (address >= 8 && address <= 15 && isIndirect)
             {
+                //Because the value stored in the array is in octal, need to convert to decimal, add one, and then convert back to octal
                 MemoryArray[address, 0] = Utils.DecimalToOctal( Convert.ToInt32(MemoryArray[address, 0].ToString(), 8) + 1);
+                
+                //Set the valid bit
                 MemoryArray[address, 1] = 1;
             }
 
-
+           //Fire the event to handle the trace file
            OnTraced(EventArgs.Empty, address, isInstruction?Constants.OpType.InstructionFetch:Constants.OpType.DataRead);
             return MemoryArray[address,0];
         }
 
       public void SetValue(int address, int value)
         {
-            OnTraced(EventArgs.Empty, address, Constants.OpType.DataWrite);
+            
+          //Fire the event to handle the trace file
+          OnTraced(EventArgs.Empty, address, Constants.OpType.DataWrite);
             MemoryArray[address,0] = value;
             MemoryArray[address, 1] = 1;
         }
