@@ -41,7 +41,7 @@ namespace ECE486_PDP_8_Emulator
         {
 
             int[] result = new int[4];
-            int OutputInt = 0;
+            string OutputStr = "";
             int IntSize = 4;
 
             //Loops until 0, dividing the input by 8 and adding it to the int array
@@ -55,11 +55,11 @@ namespace ECE486_PDP_8_Emulator
             //Loop through and construct the octal number
             for (int i = 0; i < result.Length; i++)
             {
-                OutputInt += result[i];
-                OutputInt = OutputInt << 1;
+                OutputStr += result[i];
+                
             }
            
-            return OutputInt;
+            return Convert.ToInt32( OutputStr);
         }
     }
 }

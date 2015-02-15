@@ -58,6 +58,7 @@ namespace ECE486_PDP_8_Emulator
             int InstructionRegisterOctal =Pdp8MemArray.GetValue(firstInstructionAddress,true,false);
             int AccumulatorOctal = 0;
             int CurPage = Utils.GetPage(firstInstructionAddress);
+            bool LinkBit = false;
 
 
             //Loop until the program is halted
@@ -71,7 +72,8 @@ namespace ECE486_PDP_8_Emulator
                     MemoryAddress = CurOp.FinalMemAddress,
                     MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress, false, CurOp.IsIndirect),
                     pcCounter = ProgramCounter,
-                    MicroCodes = InstructionRegisterOctal
+                    MicroCodes = InstructionRegisterOctal,
+                    LinkBit = LinkBit
 
                 };
 
@@ -80,6 +82,7 @@ namespace ECE486_PDP_8_Emulator
 
                 AccumulatorOctal = Result.accumulatorOctal;
                 ProgramCounter = Result.pcCounter;
+                LinkBit = Result.LinkBit;
                 CurPage = Utils.GetPage(ProgramCounter);
 
                 //If a memory value needs to be stored, store it in the memory array

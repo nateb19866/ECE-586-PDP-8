@@ -13,6 +13,7 @@ namespace ECE486_PDP_8_Emulator.Classes
         public int MemoryValueOctal;
         public int MemoryAddress;
        public int MicroCodes;
+       public bool LinkBit;
 
     }
 }
