@@ -10,14 +10,46 @@ namespace ECE486_PDP_8_Emulator
     {
         public enum OpCode
         {
+            //MRI = Xnnn
             AND =0,
-            TAD,
-            ISZ,
-            DCA,
-            JMS,
-            JMP,
-            IOT,
-            OPR
+            TAD = 1000,
+            ISZ = 2000,
+            DCA = 3000,
+            JMS = 4000,
+            JMP = 5000,
+            // IOT,
+            // OPR,
+            /*Microinstructions 1 Opcode 7
+            |1|1|1|0|CLA|CLL|CMA|CML|RAR|RAL|0/1|IAC| */
+            NOP = 7000,
+            CLA = 7200,
+            CLL = 7100,
+            CMA = 7040,
+            CML = 7020,
+            IAC = 7001,
+            RAR = 7010,
+            RTR = 7012,
+            RAL = 7004,
+            RTL = 7006,
+            /* Microinstructions 2 Opcode 7
+            |1|1|1|1|CLA|SMA|SZA|SNL|0/1|OSR|HLT|0| */
+            SMA = 7500,
+            SZA = 7440,
+            SNL = 7420,
+            SPA = 7510,
+            SNA = 7450,
+            SZL = 7430,
+            SKP = 7410,
+            CLA = 7600,
+            OSR = 7404,
+            HLT = 7402,
+            /*Microinstructions 3 Opcode 7
+             |1|1|1|1|CLA|MQA| |MQL| | | |1| */
+            CLA = 7601,
+            MQL = 7421,
+            MQA = 7501,
+            SWP = 7521,
+            CAM = 7621,
         }
 
        public enum OpType
