@@ -17,12 +17,12 @@ namespace ECE486_PDP_8_Emulator
             DCA = 3000,
             JMS = 4000,
             JMP = 5000,
-            // IOT,
-            // OPR,
+             IOT,
+             OPR,
             /*Microinstructions 1 Opcode 7
             |1|1|1|0|CLA|CLL|CMA|CML|RAR|RAL|0/1|IAC| */
             NOP = 7000,
-            CLA = 7200,
+            M1_CLA = 7200,
             CLL = 7100,
             CMA = 7040,
             CML = 7020,
@@ -40,12 +40,12 @@ namespace ECE486_PDP_8_Emulator
             SNA = 7450,
             SZL = 7430,
             SKP = 7410,
-            CLA = 7600,
+            M2_CLA = 7600,
             OSR = 7404,
             HLT = 7402,
             /*Microinstructions 3 Opcode 7
              |1|1|1|1|CLA|MQA| |MQL| | | |1| */
-            CLA = 7601,
+            M3_CLA = 7601,
             MQL = 7421,
             MQA = 7501,
             SWP = 7521,

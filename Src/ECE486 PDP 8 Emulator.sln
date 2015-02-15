@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECE486 PDP 8 Emulator", "ECE486 PDP 8 Emulator\ECE486 PDP 8 Emulator.csproj", "{66BE6462-CEB1-470B-B528-A76ACB2F80A2}"
 EndProject
