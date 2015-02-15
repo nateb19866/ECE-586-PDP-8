@@ -12,8 +12,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
        
         private int ClockCycles = 2;
         private Constants.OpCode InstructionType = Constants.OpCode.AND;
-
-
+       
+        
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
 
@@ -39,10 +39,11 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 SetMemValue = false
             };
 
+
         }
-        
 
        
+
 
         public int clockCycles
         {

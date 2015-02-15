@@ -15,6 +15,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
+            // Call Function to get EA and AC
+            ///MemArray[AC] = MemArray[AC] + MemArray[EA];
+            //? Complement Link if carry out?
             throw new NotImplementedException();
         }
 
