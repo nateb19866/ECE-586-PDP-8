@@ -64,6 +64,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="InstructionFactory.cs" />
     <Compile Include="Instructions\AndInstruction.cs" />
+    <Compile Include="Instructions\CamInstruction.cs" />
     <Compile Include="Instructions\CllInstruction.cs" />
     <Compile Include="Instructions\CmaInstruction.cs" />
     <Compile Include="Instructions\CmlInstruction.cs" />
@@ -76,6 +77,8 @@
     <Compile Include="Instructions\JmsInstruction.cs" />
     <Compile Include="Instructions\M2_ClaInsruction.cs" />
     <Compile Include="Instructions\M3_ClaInstruction.cs" />
+    <Compile Include="Instructions\MqaInstruction.cs" />
+    <Compile Include="Instructions\MqlInstruction.cs" />
     <Compile Include="Instructions\OprInstruction.cs" />
     <Compile Include="Instructions\RalInstruction.cs" />
     <Compile Include="Instructions\RarInstruction.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Instructions\SnaInstruction.cs" />
     <Compile Include="Instructions\SnlInstruction.cs" />
     <Compile Include="Instructions\SpaInstructioncs.cs" />
+    <Compile Include="Instructions\SwpInstruction.cs" />
     <Compile Include="Instructions\SzaInstruction.cs" />
     <Compile Include="Instructions\SzlInstruction.cs" />
     <Compile Include="Instructions\TadInstruction.cs" />
