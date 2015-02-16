@@ -62,7 +62,5 @@ namespace ECE486_PDP_8_Emulator
             InstructionFetch
         }
 
-       public const int HLT = 7402;
-
     }
 }

@@ -56,7 +56,7 @@ namespace ECE486_PDP_8_Emulator
 
 
            //Loop until the program is halted
-           while (InstructionRegisterOctal != Constants.HLT)
+           while (InstructionRegisterOctal != (int)Constants.Microcode.HLT)
            {
                Operation CurOp = Utils.DecodeOperationAddress(InstructionRegisterOctal, Pdp8MemArray, CurPage);
 
@@ -111,6 +111,7 @@ namespace ECE486_PDP_8_Emulator
                        break;
                }
 
+               //Store results of instruction
                AccumulatorOctal = Result.accumulatorOctal;
                ProgramCounter = Result.pcCounter;
                LinkBit = Result.LinkBit;
