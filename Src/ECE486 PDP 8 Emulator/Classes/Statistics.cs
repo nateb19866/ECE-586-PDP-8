@@ -28,6 +28,7 @@ namespace ECE486_PDP_8_Emulator.Classes
 
        public List<InstructionTypeStat> InstructionTypeExecutions;
 
+       public List<MemArrayRow> MemContents;
 
     }
 }

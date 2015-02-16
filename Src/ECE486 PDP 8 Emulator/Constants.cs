@@ -19,6 +19,9 @@ namespace ECE486_PDP_8_Emulator
             JMP = 5000,
              IOT,
              OPR,
+        }
+        public enum Microcode
+        {
             /*Microinstructions 1 Opcode 7
             |1|1|1|0|CLA|CLL|CMA|CML|RAR|RAL|0/1|IAC| */
             NOP = 7000,

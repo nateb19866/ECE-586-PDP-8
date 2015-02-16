@@ -18,7 +18,18 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // Call Function to get EA and AC
             //MemArray[EA] = MemArray[AC];
             //MemArray[AC] = 0;
-            throw new NotImplementedException();
+            return new InstructionResult()
+            {
+                accumulatorOctal = 0,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.accumulatorOctal,
+                pcCounter = instItems.pcCounter++,
+                MicroCodes = instItems.MicroCodes,
+                SetMemValue = true,
+                BranchTaken = false
+
+            };
         }
 
         public int clockCycles

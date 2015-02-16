@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ECE486_PDP_8_Emulator.Classes
 {
-    public class InstructionResult:InstructionItems
+   public class BranchTraceRow
     {
-       public bool SetMemValue;
-       public bool BranchTaken;
+       public int ProgramCounter;
+       public Constants.OpCode BranchType;
+       public int MemoryAddress;
+       public bool branchTaken;
     }
 }

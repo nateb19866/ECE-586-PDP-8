@@ -35,9 +35,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryValueOctal = 7777,
                 pcCounter = 5649,
                 MicroCodes = 7402,
-                SetMemValue = false,
-                NextInstructionIsIndirect = false
-
+                SetMemValue = false
             };
 
            IInstruction TestAndInstruction = new AndInstruction();
@@ -52,7 +50,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.MicroCodes, ActualResult.MicroCodes);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
-            Assert.AreEqual(ExpectedItems.NextInstructionIsIndirect, ActualResult.NextInstructionIsIndirect);
         }
 
 
@@ -82,8 +79,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryValueOctal = 0000,
                 pcCounter = 5649,
                 MicroCodes = 7402,
-                SetMemValue = false,
-                NextInstructionIsIndirect = false
+                SetMemValue = false
 
             };
 

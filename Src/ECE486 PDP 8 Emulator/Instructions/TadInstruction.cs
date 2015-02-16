@@ -18,7 +18,37 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // Call Function to get EA and AC
             ///MemArray[AC] = MemArray[AC] + MemArray[EA];
             //? Complement Link if carry out?
-            throw new NotImplementedException();
+
+           int FinalAccumulator = Convert.ToInt32(instItems.MemoryValueOctal.ToString(),8) + Convert.ToInt32(instItems.accumulatorOctal.ToString(),8);
+           bool FinalLinkBit = instItems.LinkBit;
+            //Check to see if they're both positive, and if so, check for carry-out condition and mask the extra bit out
+            if(instItems.MemoryValueOctal <= 3777 && instItems.accumulatorOctal <= 3777 && FinalAccumulator > 3777)
+            {
+                FinalLinkBit = !FinalLinkBit;
+
+                FinalAccumulator = FinalAccumulator & 0x000007FF;
+
+
+            }
+            else if(instItems.MemoryValueOctal > 3777 && instItems.accumulatorOctal > 3777 && FinalAccumulator >7777)
+            {
+                FinalLinkBit = !FinalLinkBit;
+                FinalAccumulator = FinalAccumulator & 0x00000FFF;
+            }
+
+            return new InstructionResult()
+            {
+                accumulatorOctal = FinalAccumulator,
+                LinkBit = FinalLinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
+                SetMemValue = false,
+                pcCounter = instItems.pcCounter++,
+                 BranchTaken = false
+
+            };
+               
         }
 
         public int clockCycles

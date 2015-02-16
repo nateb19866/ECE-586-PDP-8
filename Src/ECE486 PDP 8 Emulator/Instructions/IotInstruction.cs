@@ -16,7 +16,18 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            throw new NotImplementedException();
+            return new InstructionResult()
+            {
+                accumulatorOctal = instItems.accumulatorOctal,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
+                SetMemValue = false,
+                pcCounter = instItems.pcCounter++,
+                 BranchTaken = false
+
+            };
         }
 
         public int clockCycles

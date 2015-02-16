@@ -19,8 +19,31 @@ namespace ECE486_PDP_8_Emulator.Instructions
             ///MemArray[AC] = MemArray[AC] + MemArray[EA];
             //if(MemArray[EA] ==0)
             //MemArray[PC] = MemArray[PC] +1;
-          
-            throw new NotImplementedException();
+           int FinalValue = 0;
+           int IncrementedPcCounter = instItems.pcCounter;
+
+           if (instItems.MemoryValueOctal == 7777)
+           {
+               FinalValue = 0;
+               instItems.pcCounter++;
+           }
+
+           else
+               FinalValue = Utils.DecimalToOctal(Convert.ToInt32(instItems.MemoryValueOctal.ToString(), 8) + 1);
+
+
+           return new InstructionResult()
+           {
+               accumulatorOctal = instItems.accumulatorOctal,
+               LinkBit = instItems.LinkBit,
+               MemoryAddress = instItems.MemoryAddress,
+               MemoryValueOctal = FinalValue,
+               MicroCodes = instItems.MicroCodes,
+               SetMemValue = true,
+               pcCounter = IncrementedPcCounter++,
+               BranchTaken = FinalValue == 0
+
+           };
         }
 
         public int clockCycles

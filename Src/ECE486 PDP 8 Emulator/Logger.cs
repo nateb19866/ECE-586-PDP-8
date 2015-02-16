@@ -13,9 +13,13 @@ namespace ECE486_PDP_8_Emulator
     {
        private string TraceFolderPath;
        private string MemTraceFileName = "MemTrace.tr";
+       private string BranchTraceFileName = "BranchTrace.tr";
 
        private List<MemTraceRow> MemTrace = new List<MemTraceRow>();
        private int MemTraceCount = 0;
+
+       private List<BranchTraceRow> BranchTrace = new List<BranchTraceRow>();
+       private int BranchTraceCount = 0;
 
        public Logger(string traceFolderPath)
        {
@@ -45,10 +49,30 @@ namespace ECE486_PDP_8_Emulator
 
        }
 
+       public void AppendToBranchTraceFile(object sender, EventArgs e, BranchTraceRow rowToAppend)
+       {
+
+           //To avoid unnecessary I/O, track a number of memory events before dumping to disk
+           BranchTrace.Add(rowToAppend);
+           BranchTraceCount++;
+
+           if (BranchTraceCount > Convert.ToInt32(Resources.RowsBeforeDumpToFile))
+           {
+
+               DumpBranchCacheToFile();
+
+               //Truncate memory array and reset counter
+               BranchTrace = new List<BranchTraceRow>();
+               BranchTraceCount = 0;
+           }
+
+       }
+
        //Dumps the contents of all trace files to disk
        public void DumpAllCachesToFile()
        {
            DumpMemCacheToFile();
+           DumpBranchCacheToFile();
        }
 
        private void DumpMemCacheToFile()
@@ -58,11 +82,22 @@ namespace ECE486_PDP_8_Emulator
 
                foreach (var MemTraceRow in MemTrace)
                {
-                   sw.WriteLine("{0}    {1}", Utils.DecimalToOctal(MemTraceRow.Address).ToString(), MemTraceRow.OperationType.ToString());
+                   sw.WriteLine("{0}	{1}", Utils.DecimalToOctal(MemTraceRow.Address).ToString(), MemTraceRow.OperationType.ToString());
                }
            }
        }
 
+       private void DumpBranchCacheToFile()
+       {
 
+           using (StreamWriter sw = File.CreateText(TraceFolderPath + BranchTraceFileName))
+           {
+               foreach (var TraceRow in BranchTrace)
+               {
+                   sw.WriteLine("{0}	{1}		{2}		{3}		{4}", Utils.DecimalToOctal(TraceRow.ProgramCounter).ToString(), TraceRow.BranchType.ToString(), Utils.DecimalToOctal(TraceRow.MemoryAddress).ToString(), TraceRow.branchTaken.ToString());
+                   
+               }
+           }
+       }
     }
 }
