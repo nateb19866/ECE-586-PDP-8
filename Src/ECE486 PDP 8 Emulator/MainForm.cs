@@ -53,6 +53,7 @@ namespace ECE486_PDP_8_Emulator
             statusProgBar.Visible = true;
 
             //Clear statistics boxes
+            lblProgName.Text = "Program Name: " + Path.GetFileName(txtProgramPath.Text);
             lblClockCycles.Text = "Total Clock Cycles: " ;
             lblInstExecuted.Text = "Total Instructions Executed: " ;
             lblInstAnd.Text = "AND: " ;
