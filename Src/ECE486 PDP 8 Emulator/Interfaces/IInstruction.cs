@@ -9,9 +9,10 @@ namespace ECE486_PDP_8_Emulator
 {
     public interface IInstruction
     {
-        
+        int value;
         InstructionResult ExecuteInstruction(InstructionItems instItems);
         int clockCycles { get; }
         Constants.OpCode instructionType { get; }
+     
     }
 }

@@ -64,12 +64,21 @@
     <Compile Include="Constants.cs" />
     <Compile Include="InstructionFactory.cs" />
     <Compile Include="Instructions\AndInstruction.cs" />
+    <Compile Include="Instructions\CllInstruction.cs" />
+    <Compile Include="Instructions\CmaInstruction.cs" />
+    <Compile Include="Instructions\CmlInstruction.cs" />
+    <Compile Include="Instructions\IacInstruction.cs" />
+    <Compile Include="Instructions\M1_ClaInstruction.cs" />
     <Compile Include="Instructions\DcaInstruction.cs" />
     <Compile Include="Instructions\IotInstruction.cs" />
     <Compile Include="Instructions\IszInstruction.cs" />
     <Compile Include="Instructions\JmpInstruction.cs" />
     <Compile Include="Instructions\JmsInstruction.cs" />
     <Compile Include="Instructions\OprInstruction.cs" />
+    <Compile Include="Instructions\RalInstruction.cs" />
+    <Compile Include="Instructions\RarInstruction.cs" />
+    <Compile Include="Instructions\RtlInstruction.cs" />
+    <Compile Include="Instructions\RtrInstruction.cs" />
     <Compile Include="Instructions\TadInstruction.cs" />
     <Compile Include="Interfaces\IInstruction.cs">
       <SubType>Code</SubType>
