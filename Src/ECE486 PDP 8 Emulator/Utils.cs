@@ -16,26 +16,54 @@ namespace ECE486_PDP_8_Emulator
         /// </summary>
         /// <param name="addressValueOctal">The octal address value to be decoded</param>
         /// <param name="memoryArray">The memory array in the event an indirect address is requested</param>
-        /// <param name="curPage">The current memory page (decimal)</param>
+        /// <param name="curPageOctal">The current memory page (decimal)</param>
         /// <returns>A populated Operation object containing the instruction, the final decoded memory address in decimal, and any additional
         /// clock cycles that need to be accounted for.</returns>
-        public static Operation DecodeOperationAddress(int addressValueOctal, MemArray memoryArray, int curPage)
+        public static Operation DecodeOperationAddress(int addressValueOctal, MemArray memoryArray, int curPageOctal)
         {
 
+            int addressValueInt = Convert.ToInt32(addressValueOctal.ToString(), 8);
+            int curPageInt = Convert.ToInt32(curPageOctal.ToString(), 8);
+            int OpCode = addressValueInt >> 9;
+            int Offset = addressValueInt & 0x7F;
+
+            bool IsIndirect = ((addressValueInt & 0x100) >> 8) == 1;
+
+            bool IsCurPage = ((addressValueInt & 0x080) >> 7) == 1;
 
 
             Operation FinalOperation = new Operation();
-            FinalOperation.Instruction = InstructionFactory.GetInstruction(Constants.OpCode.JMP);
-            memoryArray.GetValue(addressValueOctal, false,true);
-            FinalOperation.FinalMemAddress = 0;
+            FinalOperation.IsIndirect = IsIndirect;
+            FinalOperation.Instruction = InstructionFactory.GetInstruction((Constants.OpCode)OpCode);
+            FinalOperation.ExtraClockCyles = 0;
+
+            int EffectiveMemoryAddress = Offset;
+
+            if (IsCurPage)
+                EffectiveMemoryAddress = Offset | (curPageInt << 7);
+
+           
+            if (IsIndirect)
+            {
+                FinalOperation.FinalMemAddress = Convert.ToInt32(memoryArray.GetValue(EffectiveMemoryAddress, false, true).ToString(),8);
+                FinalOperation.ExtraClockCyles = 1;
+
+                if(IsAutoIncrementRegister(EffectiveMemoryAddress ))
+                    FinalOperation.ExtraClockCyles += 2;
+
+            }
+            else
+                FinalOperation.FinalMemAddress = EffectiveMemoryAddress;
+
 
             
-            throw new NotImplementedException();
+            
+            return FinalOperation;
         }
 
         public static int GetPage(int address)
         {
-            throw new NotImplementedException();
+            return address >> 7;
         }
 
         public static int DecimalToOctal(int inputBase10Dec)
@@ -61,6 +89,11 @@ namespace ECE486_PDP_8_Emulator
             }
            
             return Convert.ToInt32( OutputStr);
+        }
+
+        public static bool IsAutoIncrementRegister(int memoryAddressDec)
+        {
+            return memoryAddressDec >= 8 && memoryAddressDec <= 15;
         }
     }
 }
