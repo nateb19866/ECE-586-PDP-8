@@ -39,19 +39,19 @@
             this.statusProgBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblProgName = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblInstMicrocodes = new System.Windows.Forms.Label();
+            this.lblInstIot = new System.Windows.Forms.Label();
+            this.lblInstJmp = new System.Windows.Forms.Label();
+            this.lblInstJms = new System.Windows.Forms.Label();
+            this.lblInstDca = new System.Windows.Forms.Label();
+            this.lblInstIsz = new System.Windows.Forms.Label();
+            this.lblInstAnd = new System.Windows.Forms.Label();
+            this.lblClockCycles = new System.Windows.Forms.Label();
+            this.lblInstExecuted = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMemContents = new System.Windows.Forms.TextBox();
-            this.lblInstExecuted = new System.Windows.Forms.Label();
-            this.lblClockCycles = new System.Windows.Forms.Label();
-            this.lblInstAnd = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblInstIsz = new System.Windows.Forms.Label();
-            this.lblInstDca = new System.Windows.Forms.Label();
-            this.lblInstJms = new System.Windows.Forms.Label();
-            this.lblInstJmp = new System.Windows.Forms.Label();
-            this.lblInstIot = new System.Windows.Forms.Label();
-            this.lblInstMicrocodes = new System.Windows.Forms.Label();
-            this.lblProgName = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -132,7 +132,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgBar,
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 464);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 471);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(768, 22);
             this.statusStrip1.TabIndex = 3;
@@ -165,50 +165,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Statistics of Last Program";
             // 
-            // label4
+            // lblProgName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(452, 61);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Memory Contents";
-            // 
-            // txtMemContents
-            // 
-            this.txtMemContents.Location = new System.Drawing.Point(455, 78);
-            this.txtMemContents.Multiline = true;
-            this.txtMemContents.Name = "txtMemContents";
-            this.txtMemContents.Size = new System.Drawing.Size(294, 366);
-            this.txtMemContents.TabIndex = 6;
-            this.txtMemContents.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // lblInstExecuted
-            // 
-            this.lblInstExecuted.AutoSize = true;
-            this.lblInstExecuted.Location = new System.Drawing.Point(7, 50);
-            this.lblInstExecuted.Name = "lblInstExecuted";
-            this.lblInstExecuted.Size = new System.Drawing.Size(139, 13);
-            this.lblInstExecuted.TabIndex = 0;
-            this.lblInstExecuted.Text = "Total Instructions Executed:";
-            // 
-            // lblClockCycles
-            // 
-            this.lblClockCycles.AutoSize = true;
-            this.lblClockCycles.Location = new System.Drawing.Point(48, 74);
-            this.lblClockCycles.Name = "lblClockCycles";
-            this.lblClockCycles.Size = new System.Drawing.Size(98, 13);
-            this.lblClockCycles.TabIndex = 1;
-            this.lblClockCycles.Text = "Total Clock Cycles:";
-            // 
-            // lblInstAnd
-            // 
-            this.lblInstAnd.AutoSize = true;
-            this.lblInstAnd.Location = new System.Drawing.Point(18, 27);
-            this.lblInstAnd.Name = "lblInstAnd";
-            this.lblInstAnd.Size = new System.Drawing.Size(33, 13);
-            this.lblInstAnd.TabIndex = 2;
-            this.lblInstAnd.Text = "AND:";
+            this.lblProgName.AutoSize = true;
+            this.lblProgName.Location = new System.Drawing.Point(66, 25);
+            this.lblProgName.Name = "lblProgName";
+            this.lblProgName.Size = new System.Drawing.Size(80, 13);
+            this.lblProgName.TabIndex = 4;
+            this.lblProgName.Text = "Program Name:";
             // 
             // groupBox3
             // 
@@ -227,41 +191,14 @@
             this.groupBox3.Text = "Instructions Executed";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
-            // lblInstIsz
+            // lblInstMicrocodes
             // 
-            this.lblInstIsz.AutoSize = true;
-            this.lblInstIsz.Location = new System.Drawing.Point(24, 49);
-            this.lblInstIsz.Name = "lblInstIsz";
-            this.lblInstIsz.Size = new System.Drawing.Size(27, 13);
-            this.lblInstIsz.TabIndex = 3;
-            this.lblInstIsz.Text = "ISZ:";
-            // 
-            // lblInstDca
-            // 
-            this.lblInstDca.AutoSize = true;
-            this.lblInstDca.Location = new System.Drawing.Point(19, 72);
-            this.lblInstDca.Name = "lblInstDca";
-            this.lblInstDca.Size = new System.Drawing.Size(32, 13);
-            this.lblInstDca.TabIndex = 4;
-            this.lblInstDca.Text = "DCA:";
-            // 
-            // lblInstJms
-            // 
-            this.lblInstJms.AutoSize = true;
-            this.lblInstJms.Location = new System.Drawing.Point(18, 95);
-            this.lblInstJms.Name = "lblInstJms";
-            this.lblInstJms.Size = new System.Drawing.Size(31, 13);
-            this.lblInstJms.TabIndex = 5;
-            this.lblInstJms.Text = "JMS:";
-            // 
-            // lblInstJmp
-            // 
-            this.lblInstJmp.AutoSize = true;
-            this.lblInstJmp.Location = new System.Drawing.Point(197, 27);
-            this.lblInstJmp.Name = "lblInstJmp";
-            this.lblInstJmp.Size = new System.Drawing.Size(31, 13);
-            this.lblInstJmp.TabIndex = 6;
-            this.lblInstJmp.Text = "JMP:";
+            this.lblInstMicrocodes.AutoSize = true;
+            this.lblInstMicrocodes.Location = new System.Drawing.Point(168, 72);
+            this.lblInstMicrocodes.Name = "lblInstMicrocodes";
+            this.lblInstMicrocodes.Size = new System.Drawing.Size(65, 13);
+            this.lblInstMicrocodes.TabIndex = 8;
+            this.lblInstMicrocodes.Text = "Microcodes:";
             // 
             // lblInstIot
             // 
@@ -272,29 +209,92 @@
             this.lblInstIot.TabIndex = 7;
             this.lblInstIot.Text = "IOT:";
             // 
-            // lblInstMicrocodes
+            // lblInstJmp
             // 
-            this.lblInstMicrocodes.AutoSize = true;
-            this.lblInstMicrocodes.Location = new System.Drawing.Point(168, 72);
-            this.lblInstMicrocodes.Name = "lblInstMicrocodes";
-            this.lblInstMicrocodes.Size = new System.Drawing.Size(65, 13);
-            this.lblInstMicrocodes.TabIndex = 8;
-            this.lblInstMicrocodes.Text = "Microcodes:";
+            this.lblInstJmp.AutoSize = true;
+            this.lblInstJmp.Location = new System.Drawing.Point(197, 27);
+            this.lblInstJmp.Name = "lblInstJmp";
+            this.lblInstJmp.Size = new System.Drawing.Size(31, 13);
+            this.lblInstJmp.TabIndex = 6;
+            this.lblInstJmp.Text = "JMP:";
             // 
-            // lblProgName
+            // lblInstJms
             // 
-            this.lblProgName.AutoSize = true;
-            this.lblProgName.Location = new System.Drawing.Point(66, 25);
-            this.lblProgName.Name = "lblProgName";
-            this.lblProgName.Size = new System.Drawing.Size(80, 13);
-            this.lblProgName.TabIndex = 4;
-            this.lblProgName.Text = "Program Name:";
+            this.lblInstJms.AutoSize = true;
+            this.lblInstJms.Location = new System.Drawing.Point(18, 95);
+            this.lblInstJms.Name = "lblInstJms";
+            this.lblInstJms.Size = new System.Drawing.Size(31, 13);
+            this.lblInstJms.TabIndex = 5;
+            this.lblInstJms.Text = "JMS:";
+            // 
+            // lblInstDca
+            // 
+            this.lblInstDca.AutoSize = true;
+            this.lblInstDca.Location = new System.Drawing.Point(19, 72);
+            this.lblInstDca.Name = "lblInstDca";
+            this.lblInstDca.Size = new System.Drawing.Size(32, 13);
+            this.lblInstDca.TabIndex = 4;
+            this.lblInstDca.Text = "DCA:";
+            // 
+            // lblInstIsz
+            // 
+            this.lblInstIsz.AutoSize = true;
+            this.lblInstIsz.Location = new System.Drawing.Point(24, 49);
+            this.lblInstIsz.Name = "lblInstIsz";
+            this.lblInstIsz.Size = new System.Drawing.Size(27, 13);
+            this.lblInstIsz.TabIndex = 3;
+            this.lblInstIsz.Text = "ISZ:";
+            // 
+            // lblInstAnd
+            // 
+            this.lblInstAnd.AutoSize = true;
+            this.lblInstAnd.Location = new System.Drawing.Point(18, 27);
+            this.lblInstAnd.Name = "lblInstAnd";
+            this.lblInstAnd.Size = new System.Drawing.Size(33, 13);
+            this.lblInstAnd.TabIndex = 2;
+            this.lblInstAnd.Text = "AND:";
+            // 
+            // lblClockCycles
+            // 
+            this.lblClockCycles.AutoSize = true;
+            this.lblClockCycles.Location = new System.Drawing.Point(48, 74);
+            this.lblClockCycles.Name = "lblClockCycles";
+            this.lblClockCycles.Size = new System.Drawing.Size(98, 13);
+            this.lblClockCycles.TabIndex = 1;
+            this.lblClockCycles.Text = "Total Clock Cycles:";
+            // 
+            // lblInstExecuted
+            // 
+            this.lblInstExecuted.AutoSize = true;
+            this.lblInstExecuted.Location = new System.Drawing.Point(7, 50);
+            this.lblInstExecuted.Name = "lblInstExecuted";
+            this.lblInstExecuted.Size = new System.Drawing.Size(139, 13);
+            this.lblInstExecuted.TabIndex = 0;
+            this.lblInstExecuted.Text = "Total Instructions Executed:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(452, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(89, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Memory Contents";
+            // 
+            // txtMemContents
+            // 
+            this.txtMemContents.Location = new System.Drawing.Point(455, 78);
+            this.txtMemContents.Multiline = true;
+            this.txtMemContents.Name = "txtMemContents";
+            this.txtMemContents.Size = new System.Drawing.Size(294, 366);
+            this.txtMemContents.TabIndex = 6;
+            this.txtMemContents.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 486);
+            this.ClientSize = new System.Drawing.Size(768, 493);
             this.Controls.Add(this.txtMemContents);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);

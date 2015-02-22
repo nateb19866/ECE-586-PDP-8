@@ -39,7 +39,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             return new InstructionResult()
             {
-                accumulatorOctal = FinalAccumulator,
+                accumulatorOctal = Utils.DecimalToOctal(FinalAccumulator),
                 LinkBit = FinalLinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
