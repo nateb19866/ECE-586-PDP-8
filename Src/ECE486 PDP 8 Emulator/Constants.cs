@@ -12,11 +12,11 @@ namespace ECE486_PDP_8_Emulator
         {
             //MRI = Xnnn
             AND =0,
-            TAD = 1000,
-            ISZ = 2000,
-            DCA = 3000,
-            JMS = 4000,
-            JMP = 5000,
+            TAD,
+            ISZ,
+            DCA,
+            JMS,
+            JMP,
              IOT,
              OPR,
         }

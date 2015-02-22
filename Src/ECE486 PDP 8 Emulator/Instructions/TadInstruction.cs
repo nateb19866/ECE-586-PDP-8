@@ -30,6 +30,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
 
             }
+                //if they're both negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
             else if(instItems.MemoryValueOctal > 3777 && instItems.accumulatorOctal > 3777 && FinalAccumulator >7777)
             {
                 FinalLinkBit = !FinalLinkBit;
@@ -44,7 +45,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
                 SetMemValue = false,
-                pcCounter = instItems.pcCounter++,
+                pcCounter = ++instItems.pcCounter,
                  BranchTaken = false
 
             };

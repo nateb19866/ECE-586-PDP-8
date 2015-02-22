@@ -33,7 +33,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 7777,
-                pcCounter = 5649,
+                pcCounter = 5650,
                 MicroCodes = 7402,
                 SetMemValue = false
             };
@@ -77,7 +77,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
-                pcCounter = 5649,
+                pcCounter = 5650,
                 MicroCodes = 7402,
                 SetMemValue = false
 

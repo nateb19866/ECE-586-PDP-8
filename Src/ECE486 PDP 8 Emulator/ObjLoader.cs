@@ -23,7 +23,7 @@ namespace ECE486_PDP_8_Emulator
                 int[,] MemArray = new int[4096,2];  // Complete Memory Array, Fix to determine complete array length
 
                 int TempArrayCnt = 0;  // Index for TempArray, reading in file
-                int MemArrayCnt = 0;  // Index for MemArray. Looking for 1xx
+                int MemArrayCnt = 0;  // Index for MemArray. Looking for 1xx+
                 int StartMemArrayCnt = 0;  // Index for Start of MemArray = 200
 
                 using (StreamReader TxtFile = new StreamReader(filePath))

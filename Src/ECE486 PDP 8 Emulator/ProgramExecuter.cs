@@ -64,7 +64,7 @@ namespace ECE486_PDP_8_Emulator
                {
                    accumulatorOctal = AccumulatorOctal,
                    MemoryAddress = CurOp.FinalMemAddress,
-                   MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress, false, CurOp.IsIndirect),
+                   MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress, false, false),
                    pcCounter = ProgramCounter,
                    MicroCodes = InstructionRegisterOctal,
                    LinkBit = LinkBit
