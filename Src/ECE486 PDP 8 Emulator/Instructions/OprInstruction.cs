@@ -7,11 +7,11 @@ using ECE486_PDP_8_Emulator.Classes;
 
 namespace ECE486_PDP_8_Emulator.Instructions
 {
-    public class OprInstruction:IInstruction
+    public class OprInstruction : IInstruction
     {
         private int ClockCycles = 1;
         private Constants.OpCode InstructionType = Constants.OpCode.OPR;
- 
+
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
@@ -21,8 +21,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             switch ((Constants.Microcode)instItems.MicroCodes)
             {
-                
-                
+
+
                 case Constants.Microcode.NOP:
                     Rslt = NopInstruction(instItems);
                     break;
