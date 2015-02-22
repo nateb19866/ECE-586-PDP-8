@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ECE486_PDP_8_Emulator;
+using ECE486_PDP_8_Emulator.Classes;
 
 namespace ECE486_PDP_8_Emulator_Tests
 {
@@ -8,15 +9,92 @@ namespace ECE486_PDP_8_Emulator_Tests
     public class UtilsTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestIsAutoIncrementRegister()
         {
+            //Test lower bound
+            Assert.AreEqual(false, Utils.IsAutoIncrementRegister(7));
 
+            //Test upper bound
+            Assert.AreEqual(false, Utils.IsAutoIncrementRegister(16));
+
+            //Test middle value
+            Assert.AreEqual(true, Utils.IsAutoIncrementRegister(10));
+
+            //Test lower edge case
+            Assert.AreEqual(true, Utils.IsAutoIncrementRegister(8));
+
+            //Test upper edge case
+            Assert.AreEqual(true, Utils.IsAutoIncrementRegister(15));
         }
 
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestOperationAddressDecode()
         {
+            int[,] TestMemArray = new int[4096,2];
+
+            int CurPage = 1;
+
+            //For page 0, no auto-increment test with indirect
+            TestMemArray[1, 0] = 4444;
+            TestMemArray[1, 1] = 1;
+
+
+            //For auto-increment test with indirect
+            TestMemArray[9,0] = 4;
+            TestMemArray[9,1] = 1;
+
+            //Cur page, indirect
+            TestMemArray[Convert.ToInt32(200.ToString(), 8),0] = 2222;
+            TestMemArray[Convert.ToInt32(200.ToString(), 8),1] = 1;
+
+
+            MemArray TestPdp8MemArray = new MemArray(TestMemArray);
+            
+            //Test 0 page, no indirect, no auto-increment register
+
+            Operation RsltOp = Utils.DecodeOperationAddress(1100, TestPdp8MemArray, CurPage);
+            Assert.AreEqual(Convert.ToInt32(100.ToString(),8),RsltOp.FinalMemAddress) ;
+            Assert.AreEqual(0, RsltOp.ExtraClockCyles);
+            Assert.AreEqual(false, RsltOp.IsIndirect);
+
+
+            //test 0 page, indirect, no auto-increment register
+            RsltOp = Utils.DecodeOperationAddress(1401, TestPdp8MemArray, CurPage);
+            Assert.AreEqual(Convert.ToInt32(4444.ToString(), 8), RsltOp.FinalMemAddress);
+            Assert.AreEqual(1, RsltOp.ExtraClockCyles);
+            Assert.AreEqual(true, RsltOp.IsIndirect);
+
+            //test 0 page, no indirect, auto-increment register
+            RsltOp = Utils.DecodeOperationAddress(1010, TestPdp8MemArray, CurPage);
+            Assert.AreEqual(8, RsltOp.FinalMemAddress);
+            Assert.AreEqual(0, RsltOp.ExtraClockCyles);
+            Assert.AreEqual(false, RsltOp.IsIndirect);
+
+
+            //test 0 page, indirect, auto-increment register
+            RsltOp = Utils.DecodeOperationAddress(1411, TestPdp8MemArray, CurPage);
+            Assert.AreEqual(5, RsltOp.FinalMemAddress);
+            Assert.AreEqual(3, RsltOp.ExtraClockCyles);
+            Assert.AreEqual(true, RsltOp.IsIndirect);
+
+
+            //Test cur page, no indirect
+            RsltOp = Utils.DecodeOperationAddress(1222, TestPdp8MemArray, CurPage);
+            Assert.AreEqual(Convert.ToInt32(222.ToString(),8), RsltOp.FinalMemAddress);
+            Assert.AreEqual(0, RsltOp.ExtraClockCyles);
+            Assert.AreEqual(false, RsltOp.IsIndirect);
+
+            //Test cur page, indirect, and opcode
+            RsltOp = Utils.DecodeOperationAddress(1600, TestPdp8MemArray, CurPage);
+            Assert.AreEqual(Convert.ToInt32(2222.ToString(),8), RsltOp.FinalMemAddress);
+            Assert.AreEqual(1, RsltOp.ExtraClockCyles);
+            Assert.AreEqual(true, RsltOp.IsIndirect);
+            Assert.AreEqual(Constants.OpCode.TAD, RsltOp.Instruction.instructionType);
+
+
+           
+
         }
     }
 }
