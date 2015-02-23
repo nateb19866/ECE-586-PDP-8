@@ -52,6 +52,8 @@
             this.lblInstExecuted = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMemContents = new System.Windows.Forms.TextBox();
+            this.btnProgPathPicker = new System.Windows.Forms.Button();
+            this.btnTraceFolderPicker = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -69,6 +71,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnTraceFolderPicker);
+            this.groupBox1.Controls.Add(this.btnProgPathPicker);
             this.groupBox1.Controls.Add(this.btnRunProgram);
             this.groupBox1.Controls.Add(this.txtTraceFolder);
             this.groupBox1.Controls.Add(this.label3);
@@ -96,7 +100,7 @@
             // 
             this.txtTraceFolder.Location = new System.Drawing.Point(86, 56);
             this.txtTraceFolder.Name = "txtTraceFolder";
-            this.txtTraceFolder.Size = new System.Drawing.Size(277, 20);
+            this.txtTraceFolder.Size = new System.Drawing.Size(250, 20);
             this.txtTraceFolder.TabIndex = 3;
             this.txtTraceFolder.TextChanged += new System.EventHandler(this.txtTraceFolder_TextChanged);
             // 
@@ -113,7 +117,7 @@
             // 
             this.txtProgramPath.Location = new System.Drawing.Point(86, 22);
             this.txtProgramPath.Name = "txtProgramPath";
-            this.txtProgramPath.Size = new System.Drawing.Size(277, 20);
+            this.txtProgramPath.Size = new System.Drawing.Size(250, 20);
             this.txtProgramPath.TabIndex = 1;
             this.txtProgramPath.TextChanged += new System.EventHandler(this.txtProgramPath_TextChanged);
             // 
@@ -290,6 +294,26 @@
             this.txtMemContents.TabIndex = 6;
             this.txtMemContents.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // btnProgPathPicker
+            // 
+            this.btnProgPathPicker.Location = new System.Drawing.Point(342, 22);
+            this.btnProgPathPicker.Name = "btnProgPathPicker";
+            this.btnProgPathPicker.Size = new System.Drawing.Size(29, 20);
+            this.btnProgPathPicker.TabIndex = 5;
+            this.btnProgPathPicker.Text = "...";
+            this.btnProgPathPicker.UseVisualStyleBackColor = true;
+            this.btnProgPathPicker.Click += new System.EventHandler(this.btnProgPathPicker_Click);
+            // 
+            // btnTraceFolderPicker
+            // 
+            this.btnTraceFolderPicker.Location = new System.Drawing.Point(342, 56);
+            this.btnTraceFolderPicker.Name = "btnTraceFolderPicker";
+            this.btnTraceFolderPicker.Size = new System.Drawing.Size(29, 20);
+            this.btnTraceFolderPicker.TabIndex = 6;
+            this.btnTraceFolderPicker.Text = "...";
+            this.btnTraceFolderPicker.UseVisualStyleBackColor = true;
+            this.btnTraceFolderPicker.Click += new System.EventHandler(this.btnTraceFolderPicker_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,5 +367,7 @@
         private System.Windows.Forms.Label lblInstDca;
         private System.Windows.Forms.Label lblInstIsz;
         private System.Windows.Forms.Label lblProgName;
+        private System.Windows.Forms.Button btnTraceFolderPicker;
+        private System.Windows.Forms.Button btnProgPathPicker;
     }
 }

@@ -124,5 +124,30 @@ namespace ECE486_PDP_8_Emulator
         {
 
         }
+
+        private void btnProgPathPicker_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ProgPathDlg = new OpenFileDialog();
+
+            ProgPathDlg.Title = "Pick an Object File...";
+            ProgPathDlg.CheckFileExists = true;
+            ProgPathDlg.CheckPathExists = true;
+            ProgPathDlg.Filter = "Object Files (.obj)|*.obj";
+
+            if (ProgPathDlg.ShowDialog() == DialogResult.OK)
+            {
+                txtProgramPath.Text = ProgPathDlg.FileName;
+            }
+        }
+
+        private void btnTraceFolderPicker_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog FolderPickerDlg = new FolderBrowserDialog();
+
+            FolderPickerDlg.ShowNewFolderButton = true;
+
+            if (FolderPickerDlg.ShowDialog() == DialogResult.OK)
+                txtTraceFolder.Text = FolderPickerDlg.SelectedPath;
+        }
     }
 }
