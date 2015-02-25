@@ -160,10 +160,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult CMLInstruction(InstructionItems instItems)
         {
-            // complement every bit of AC
+            // complement Link Bitr
             return new InstructionResult()
             {
-
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = !(instItems.LinkBit),
                 // If used in conjunction with CLL, this sets the link bit to one. 
@@ -234,7 +233,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 tempLink = 0;
 
             // Rotate 13 Bit Link/AC right by 1
-            int FinalWord = (tempLink + TestWord1Bytes) << 1;
+            int FinalWord = (tempLink + TestWord1Bytes) >> 1;
 
             int finalAC = Convert.ToInt16(FinalWord.ToString(), 12);
             tempLink = Convert.ToInt16(FinalWord.ToString().Remove(12, 1), 1); // return 13th bit
@@ -553,9 +552,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // Clear AC of uInstruction-2
             return new InstructionResult()
             {
-                //Only important part
                 accumulatorOctal = Utils.DecimalToOctal(0),
-                //Rest is just copying from inputs
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
