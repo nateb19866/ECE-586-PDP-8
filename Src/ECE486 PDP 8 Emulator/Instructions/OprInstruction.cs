@@ -383,10 +383,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
             int tempPC = 0;
 
             Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
-            int tempACsign = Convert.ToInt16(instItems.accumulatorOctal.ToString().Remove(12, 1), 1); // return 13th bit
+            int tempACsign = Convert.ToInt16(instItems.accumulatorOctal.ToString().Remove(11, 1), 1); // return 12th bit
 
             if (tempACsign == 1)
-                tempPC = instItems.pcCounter++;
+                tempPC = ++instItems.pcCounter;
             else
                 tempPC = instItems.pcCounter;
 
@@ -415,7 +415,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
 
             if (TestWord1Bytes == 0)
-                tempPC = instItems.pcCounter++;
+                tempPC = ++instItems.pcCounter;
             else
                 tempPC = instItems.pcCounter;
 
@@ -466,7 +466,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             int tempPC = 0;
 
             Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
-            int tempACsign = Convert.ToInt16(instItems.accumulatorOctal.ToString().Remove(12, 1), 1); // return 13th bit
+            int tempACsign = Convert.ToInt16(instItems.accumulatorOctal.ToString().Remove(11, 1), 1); // return 12th bit
 
             if (tempACsign == 0)
                 tempPC = instItems.pcCounter++;
@@ -540,11 +540,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult SKPInstruction(InstructionItems instItems)
         {
-            // Need to implement
-
             return new InstructionResult()
             {
-            
+                pcCounter = ++instItems.pcCounter,
             };
         }
         public InstructionResult M2_CLAInstruction(InstructionItems instItems)
