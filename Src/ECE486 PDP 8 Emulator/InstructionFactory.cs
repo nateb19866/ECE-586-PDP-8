@@ -16,9 +16,7 @@ namespace ECE486_PDP_8_Emulator
             switch (opCode)
             {
                 case Constants.OpCode.AND:
-
                     return new AndInstruction();
-                   
                 case Constants.OpCode.TAD:
                     return new TadInstruction();
                 case Constants.OpCode.ISZ:

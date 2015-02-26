@@ -12,6 +12,5 @@ namespace ECE486_PDP_8_Emulator
         InstructionResult ExecuteInstruction(InstructionItems instItems);
         int clockCycles { get; }
         Constants.OpCode instructionType { get; }
-        //Constants.Microcode instructionType { get; }
     }
 }

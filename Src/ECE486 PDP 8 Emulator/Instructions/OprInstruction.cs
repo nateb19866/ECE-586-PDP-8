@@ -12,17 +12,12 @@ namespace ECE486_PDP_8_Emulator.Instructions
         private int ClockCycles = 1;
         private Constants.OpCode InstructionType = Constants.OpCode.OPR;
 
-
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-
-
             InstructionResult Rslt = new InstructionResult();
 
             switch ((Constants.Microcode)instItems.MicroCodes)
             {
-
-
                 case Constants.Microcode.NOP:
                     Rslt = NopInstruction(instItems);
                     break;
@@ -117,7 +112,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,    
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false 
             };
@@ -133,7 +128,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,   
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
@@ -153,7 +148,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,  
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
@@ -169,7 +164,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
@@ -209,7 +204,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,   
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
@@ -250,7 +245,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false, 
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
@@ -290,7 +285,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,   
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
@@ -329,7 +324,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,   
                 pcCounter = instItems.pcCounter++,
                 SetMemValue = false     
             };
@@ -369,7 +364,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false, 
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
@@ -397,7 +392,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,  
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -426,7 +421,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,  
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -452,7 +447,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,  
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -480,7 +475,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false, 
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -507,7 +502,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false, 
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -532,7 +527,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,  
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -555,32 +550,67 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,    //?
+                BranchTaken = false,  
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
 
         }
-        public InstructionResult OSRInstruction(InstructionItems instItems)
-        {
-            // Need to implement
-            ClockCycles = 2;
-            return new InstructionResult()
-            {
-            
-            };
-        }
-
         // halt is caught in program executer
         public InstructionResult HLTInstruction(InstructionItems instItems)
         {
-            // Need to implement
+            // Confirm with Nathan if this is handled elsewhereNeed to implement
 
             return new InstructionResult()
             {
 
             };
         }
+         
+        // Microinstruction set 3: 
+        public InstructionResult M3_CLA(InstructionItems instItems)
+        {
+            return new InstructionResult()
+            {
+                pcCounter = ++instItems.pcCounter,
+            };
+        }
 
+        public InstructionResult MQL(InstructionItems instItems)
+        {
+         
+            return new InstructionResult()
+            {
+                pcCounter = ++instItems.pcCounter,
+            };
+        }
+
+          public InstructionResult MQA(InstructionItems instItems)
+        {
+          
+            return new InstructionResult()
+            {
+                pcCounter = ++instItems.pcCounter,
+            };
+        }
+
+
+        public InstructionResult SWP(InstructionItems instItems)
+        {
+            
+            return new InstructionResult()
+            {
+                pcCounter = ++instItems.pcCounter,
+            };
+        }
+         
+        public InstructionResult CAM(InstructionItems instItems)
+        {
+         
+            return new InstructionResult()
+            {
+                pcCounter = ++instItems.pcCounter,
+            };
+        }
     }
 }

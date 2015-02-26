@@ -17,8 +17,8 @@ namespace ECE486_PDP_8_Emulator
             DCA,
             JMS,
             JMP,
-             IOT,
-             OPR,
+            IOT,
+            OPR,
         }
         public enum Microcode
         {
@@ -54,7 +54,28 @@ namespace ECE486_PDP_8_Emulator
             SWP = 7521,
             CAM = 7621,
         }
+        public enum IOCode
+        {
+            // Keyboard 
+            KCF = 6030,
+            KSF = 6031,
+            KCC = 6032,
+            KRS = 6034,
+            KRB = 6036,
 
+            // Printer
+            TFL = 6040,
+            TSF = 6041,
+            TCF = 6042,
+            TPC = 6044,
+            TLS = 6046,
+
+            // Interrupt System
+            SKON = 6000,
+            ION = 6001,
+            IOF = 6002,
+        }
+        
        public enum OpType
         {
             DataRead = 0,
