@@ -9,7 +9,7 @@ namespace ECE486_PDP_8_Emulator.Classes
    public class BranchTraceRow
     {
        public int ProgramCounter;
-       public Constants.OpCode BranchType;
+       public Constants.BranchType BranchType;
        public int MemoryAddress;
        public bool branchTaken;
     }
