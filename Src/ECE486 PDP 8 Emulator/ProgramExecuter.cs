@@ -101,7 +101,7 @@ namespace ECE486_PDP_8_Emulator
                            new BranchTraceRow()
                            {
                                branchTaken = Result.BranchTaken,
-                               BranchType = CurOp.Instruction.instructionType,
+                               BranchType = (Constants.BranchType)Result.BranchType, 
                                MemoryAddress = Result.pcCounter,
                                ProgramCounter = ProgramCounter
                            });
