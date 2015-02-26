@@ -28,7 +28,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MicroCodes = instItems.MicroCodes,
                 MemoryValueOctal = instItems.pcCounter,
                 SetMemValue = true,
-                 BranchTaken = true
+                 BranchTaken = true,
+                 BranchType = Constants.BranchType.Subroutine
             };
 
 
