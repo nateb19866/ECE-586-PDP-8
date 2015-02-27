@@ -230,29 +230,31 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
         }
 
-
+        /* 
+         * RAR Instruction Rotates the 13 bit Link and AC right once.
+         */
         public InstructionResult RARInstruction(InstructionItems instItems)
         {
             int tempLink = 0;
             bool LinkReturn;
 
-            //Rotate 13 bit Link/AC left by 2 ( 2 of RAL )
-
             //Converting to byte array to make things easier.
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
+            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8); // = 511 as decimal
 
-            // Concatenante Linkbit and AC
+            // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
-                tempLink = 1;
-            else // =0
-                tempLink = 0;
+                TestWord1Bytes |= (1 << 12);
+            else // Link bit false = 0
+                TestWord1Bytes &= ~(1 << 12);
 
             // Rotate 13 Bit Link/AC right by 1
-            int FinalWord = (tempLink + TestWord1Bytes) >> 1;
 
-            int finalAC = Convert.ToInt16(FinalWord.ToString(), 12);
-            tempLink = Convert.ToInt16(FinalWord.ToString().Remove(12, 1), 1); // return 13th bit
+            // AND with mask to get 12 bits with rotate right once
+            int finalAC = ((TestWord1Bytes >> 1) | (TestWord1Bytes << 12)) & 0xfff;
+            // AND with mask to get 13th bit with rotate right once
+            tempLink = ((((TestWord1Bytes >> 1) | (TestWord1Bytes << 12)) >> 12) & 1);
 
+            // Set Link Bit to bool accordingly
             if (tempLink == 0)
                 LinkReturn = false;
             else
@@ -271,6 +273,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
 
         }
+
         public InstructionResult RTRInstruction(InstructionItems instItems)
         {
             int tempLink = 0;
