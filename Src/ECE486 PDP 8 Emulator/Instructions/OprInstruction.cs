@@ -106,7 +106,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-        * M1_CLA Instuction Clears AC.
+        * M1_CLA instruction Clears AC.
         */
         public InstructionResult M1_CLAInstruction(InstructionItems instItems)
         {
@@ -124,7 +124,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-       * CLL Instuction Clears Link, sets to false.
+       * CLL instruction Clears Link, sets to false.
        */
         public InstructionResult CLLInstruction(InstructionItems instItems)
         {
@@ -143,7 +143,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-       * CMA Instuction Compmlements every bit of AC.
+       * CMA instruction Complements every bit of AC.
        */
         public InstructionResult CMAInstruction(InstructionItems instItems)
         {
@@ -166,7 +166,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-       * CML Instuction Complements Link Bit
+       * CML instruction Complements Link Bit
        */
         public InstructionResult CMLInstruction(InstructionItems instItems)
         {
@@ -185,7 +185,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-         * IAC Instruction increments 13 bit of Link an AC
+         * IAC instruction increments 13 bit of Link an AC
          */
         public InstructionResult IACInstruction(InstructionItems instItems)
         {
@@ -231,7 +231,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-         * RAR Instruction Rotates the 13 bit Link and AC right once.
+         * RAR instruction Rotates the 13 bit Link and AC right once.
          */
         public InstructionResult RARInstruction(InstructionItems instItems)
         {
@@ -275,7 +275,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-        * RAR Instruction Rotates the 13 bit Link and AC right twice.
+        * RAR instruction Rotates the 13 bit Link and AC right twice.
         */
         public InstructionResult RTRInstruction(InstructionItems instItems)
         {
@@ -319,7 +319,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-       * RAL Instruction Rotates the 13 bit Link and AC right once.
+       * RAL instruction Rotates the 13 bit Link and AC right once.
        */
         public InstructionResult RALInstruction(InstructionItems instItems)
         {
@@ -364,7 +364,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         /* 
-        * RAL Instruction Rotates the 13 bit Link and AC right twice.
+        * RAL instruction Rotates the 13 bit Link and AC right twice.
         */
         public InstructionResult RTLInstruction(InstructionItems instItems)
         {
@@ -407,18 +407,25 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
 
         }
+
+        /* 
+        * SMA instruction: Skips next instruction, increment PC by 2, if AC is negative
+         */
         public InstructionResult SMAInstruction(InstructionItems instItems)
         {
-            //If AC sign bit = 1, 
+            //If sign bit of AC = 1
             //Skips next instruction (increment PC )
 
             int tempPC = 0;
 
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
-            int tempACsign = Convert.ToInt16(instItems.accumulatorOctal.ToString().Remove(11, 1), 1); // return 12th bit
+            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
 
-            if (tempACsign == 1)
-                tempPC = ++instItems.pcCounter;
+            // AND with mask to get 12th sign bit of AC
+            int ACsign = TestWord1Bytes & 0x800;
+
+            // PC + 2 if sign is 1 ( neg )
+            if (ACsign == 1)
+                tempPC = instItems.pcCounter + 2;
             else
                 tempPC = instItems.pcCounter;
 
@@ -429,25 +436,24 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,  
+                BranchTaken = false,
                 pcCounter = tempPC,
-                SetMemValue = false    
+                SetMemValue = false
             };
 
-
-
         }
+
+        /* 
+        * SZA instruction: Skips next instruction, increment PC by 2, if AC is 0.
+         */
         public InstructionResult SZAInstruction(InstructionItems instItems)
         {
-            //If AC = 0, 
-            //Skips next instruction (increment PC )
-
             int tempPC = 0;
 
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
+            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
 
             if (TestWord1Bytes == 0)
-                tempPC = ++instItems.pcCounter;
+                tempPC = instItems.pcCounter + 2;
             else
                 tempPC = instItems.pcCounter;
 
@@ -462,18 +468,17 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
-
         }
+
+        /* 
+        * SNL instruction: Skips next instruction, increment PC by 2, if link bit is 0.
+         */
         public InstructionResult SNLInstruction(InstructionItems instItems)
         {
-            //If LinkBit is not 0, 
-            //Skips next instruction (increment PC )
-
             int tempPC = 0;
 
-
             if (instItems.LinkBit == true)
-                tempPC = instItems.pcCounter++;
+                tempPC = instItems.pcCounter + 2;
             else
                 tempPC = instItems.pcCounter;
 
@@ -490,6 +495,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
 
         }
+
+        /*
+       * SPA instruction skips next instruction, increment PC by 2, if AC is positive.
+       * */
         public InstructionResult SPAInstruction(InstructionItems instItems)
         {
             //If AC sign bit = 0 (pos), 
@@ -497,11 +506,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             int tempPC = 0;
 
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
-            int tempACsign = Convert.ToInt16(instItems.accumulatorOctal.ToString().Remove(11, 1), 1); // return 12th bit
+            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
 
-            if (tempACsign == 0)
-                tempPC = instItems.pcCounter++;
+            // AND with mask to get 12th sign bit of AC
+            int ACsign = TestWord1Bytes & 0x800;
+
+            // PC + 2 if sign is 0 ( pos )
+            if (ACsign == 0)
+                tempPC = instItems.pcCounter + 2;
             else
                 tempPC = instItems.pcCounter;
 
@@ -517,18 +529,21 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 SetMemValue = false    
             };
 
-
         }
+
+        /*
+       * SNA instruction skips next instruction, increment PC by 2, if any bit of AC is not 0.
+       * */
         public InstructionResult SNAInstruction(InstructionItems instItems)
         {
-            //If AC sign bit = 0 (pos), 
+            // If AC is not 0 
             //Skips next instruction (increment PC )
 
             int tempPC = 0;
 
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
+            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
             if (TestWord1Bytes != 0)
-                tempPC = instItems.pcCounter++;
+                tempPC = instItems.pcCounter + 2;
             else
                 tempPC = instItems.pcCounter;
 
@@ -544,16 +559,16 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 SetMemValue = false    
             };
         }
+
+        /*
+        * SZL instruction skips next instruction, increment PC by 2, if link bit is 0.
+        * */
         public InstructionResult SZLInstruction(InstructionItems instItems)
         {
-            //If LinkBit is 0, 
-            //Skips next instruction (increment PC )
-
             int tempPC = 0;
 
-
             if (instItems.LinkBit == false)
-                tempPC = instItems.pcCounter++;
+                tempPC = instItems.pcCounter+2;
             else
                 tempPC = instItems.pcCounter;
 
@@ -570,16 +585,30 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
 
         }
+        
+        /*
+         * SKP instruction skips next instruction, increment PC by 2.
+         * */
         public InstructionResult SKPInstruction(InstructionItems instItems)
         {
             return new InstructionResult()
             {
-                pcCounter = ++instItems.pcCounter,
+                accumulatorOctal = instItems.accumulatorOctal,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
+                BranchTaken = false, 
+                pcCounter = instItems.pcCounter + 2,
+                SetMemValue = false  
             };
         }
+
+        /*
+         *M2_CLA instruction: clears AC.
+         */
         public InstructionResult M2_CLAInstruction(InstructionItems instItems)
         {
-            // Clear AC of uInstruction-2
             return new InstructionResult()
             {
                 accumulatorOctal = Utils.DecimalToOctal(0),
@@ -593,23 +622,29 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
 
         }
-        // halt is caught in program executer
+
+        // Halt is caught in program executer
         public InstructionResult HLTInstruction(InstructionItems instItems)
         {
-            // Confirm with Nathan if this is handled elsewhereNeed to implement
-
             return new InstructionResult()
             {
 
             };
         }
          
-        // Microinstruction set 3: 
+        // Microinstruction set 3: Handle by only incrementing PC and instr count.
         public InstructionResult M3_CLA(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
 
@@ -618,26 +653,46 @@ namespace ECE486_PDP_8_Emulator.Instructions
          
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
 
-          public InstructionResult MQA(InstructionItems instItems)
+        public InstructionResult MQA(InstructionItems instItems)
         {
           
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
-
 
         public InstructionResult SWP(InstructionItems instItems)
         {
             
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
          
@@ -646,7 +701,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
          
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
     }

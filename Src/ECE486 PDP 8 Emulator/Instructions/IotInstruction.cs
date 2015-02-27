@@ -52,12 +52,19 @@ namespace ECE486_PDP_8_Emulator.Instructions
             return Rslt;
         }
 
-        // Check if we can just include all items and increment PC for all IOs
+        // Only increment PC for all IOs
         public InstructionResult KCF(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
 
@@ -65,28 +72,56 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult KCC(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult KRS(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult KRB(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
           
@@ -94,35 +129,70 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult TSF(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult TCF(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult TPC(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult TLS(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
            
@@ -130,7 +200,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
             
@@ -138,14 +215,28 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
         public InstructionResult IOF(InstructionItems instItems)
         {
             return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                MicroCodes = instItems.MicroCodes,
                 pcCounter = ++instItems.pcCounter,
+                SetMemValue = false
             };
         }
 
