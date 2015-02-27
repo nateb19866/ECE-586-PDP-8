@@ -87,6 +87,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
             get { return InstructionType; }
         }
 
+        /* 
+        * NOP instruction does nothing. Passes all parameters as is.
+        */
         private InstructionResult NopInstruction(InstructionItems instItems)
         {
             return new InstructionResult()
@@ -102,9 +105,11 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
         }
 
+        /* 
+        * M1_CLA Instuction Clears AC.
+        */
         public InstructionResult M1_CLAInstruction(InstructionItems instItems)
         {
-            // Clear AC of uInstruction-1
             return new InstructionResult()
             {
                 accumulatorOctal = Utils.DecimalToOctal(0),
@@ -118,6 +123,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
             };
         }
 
+        /* 
+       * CLL Instuction Clears Link, sets to false.
+       */
         public InstructionResult CLLInstruction(InstructionItems instItems)
         {
             // Clear Link of uInstruction-1
@@ -132,8 +140,11 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
-
         }
+
+        /* 
+       * CMA Instuction Compmlements every bit of AC.
+       */
         public InstructionResult CMAInstruction(InstructionItems instItems)
         {
             // complement every bit of AC
@@ -153,9 +164,12 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 SetMemValue = false    
             };
         }
+
+        /* 
+       * CML Instuction Complements Link Bit
+       */
         public InstructionResult CMLInstruction(InstructionItems instItems)
         {
-            // complement Link Bitr
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -169,29 +183,35 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 SetMemValue = false    
             };
         }
+
+        /* 
+         * IAC Instruction increments 13 bit of Link an AC
+         */
         public InstructionResult IACInstruction(InstructionItems instItems)
         {
             int tempLink = 0;
             bool LinkReturn;
-            //Increment 13 BitConverter Link/AC
+
             //Used with CMA, this computes the 2's complement. 
             //Used with CLA, this loads the constant 1. 
 
             //Converting to byte array to make things easier.
             Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
 
-            // Concatenante Linkbit and AC
+            // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
-                tempLink = 1;
-            else // =0
-                tempLink = 0;
+                TestWord1Bytes |= (1 << 12);
+            else // Link bit false = 0
+                TestWord1Bytes &= ~(1 << 12);
 
-            //Increment 13 Bit Link/AC
-            int FinalWord = (tempLink + TestWord1Bytes) + 1;
+            // Link and AC value by 1
+            TestWord1Bytes = ++TestWord1Bytes; 
 
-            int finalAC = Convert.ToInt16(FinalWord.ToString(), 12);
-            tempLink = Convert.ToInt16(FinalWord.ToString().Remove(12, 1), 1); // return 13th bit
-
+            // AND with mask to get last 12 bits
+            int finalAC = TestWord1Bytes & 0xfff;
+            tempLink = (TestWord1Bytes>>13) & 1;
+           
+            // Set Link Bit to bool accordingly
             if (tempLink == 0)
                 LinkReturn = false;
             else
@@ -208,9 +228,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false    
             };
-
-
         }
+
+
         public InstructionResult RARInstruction(InstructionItems instItems)
         {
             int tempLink = 0;
