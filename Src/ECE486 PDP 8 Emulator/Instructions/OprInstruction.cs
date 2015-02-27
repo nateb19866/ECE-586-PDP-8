@@ -209,7 +209,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             // AND with mask to get last 12 bits
             int finalAC = TestWord1Bytes & 0xfff;
-            tempLink = (TestWord1Bytes>>13) & 1;
+            tempLink = (TestWord1Bytes>> 12) & 1;
            
             // Set Link Bit to bool accordingly
             if (tempLink == 0)
