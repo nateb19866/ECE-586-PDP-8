@@ -196,7 +196,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             //Used with CLA, this loads the constant 1. 
 
             //Converting to byte array to make things easier.
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 12);
+            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
 
             // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
