@@ -436,7 +436,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,
+                BranchTaken = true,
+                BranchType = Constants.BranchType.Conditional,
                 pcCounter = tempPC,
                 SetMemValue = false
             };
@@ -464,7 +465,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,  
+                BranchTaken = true,
+                BranchType = Constants.BranchType.Conditional,
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -489,7 +491,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,  
+                BranchTaken = true,
+                BranchType = Constants.BranchType.Conditional,
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -524,7 +527,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false, 
+                BranchTaken = true,
+                BranchType = Constants.BranchType.Conditional,
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -554,7 +558,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false, 
+                BranchTaken = true,
+                BranchType = Constants.BranchType.Conditional,
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -579,7 +584,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false,  
+                BranchTaken = true,
+                BranchType = Constants.BranchType.Conditional,
                 pcCounter = tempPC,
                 SetMemValue = false    
             };
@@ -598,9 +604,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
-                BranchTaken = false, 
+                BranchTaken = true, 
                 pcCounter = instItems.pcCounter + 2,
-                SetMemValue = false  
+                SetMemValue = false,
+                BranchType = Constants.BranchType.Unconditional
             };
         }
 
