@@ -5,7 +5,6 @@ using ECE486_PDP_8_Emulator.Classes;
 using ECE486_PDP_8_Emulator;
 using ECE486_PDP_8_Emulator.Instructions;
 
-// Not yet implemented
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
@@ -84,70 +83,86 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            /* Test cases place octals (1)  EA = PC, (2) PC = EA + 1 */
-            /* Test for PC and EA update correctly */
+            /* Test cases place octals (1)  EA = EA + AC, (2) PC = EA + 1 */
+            /* Test for Link and EA update correctly */
 
-            //Test (1) mem can hold max PC, then PC = 1112
-            TestItems.MemoryValueOctal = 1111;
-            TestItems.pcCounter = 7777;
-
-            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test (2) mem can hold max PC, then PC = 0
+            //Test (1) Carry out complements link
             TestItems.MemoryValueOctal = 7777;
-            TestItems.pcCounter = 7777;
+            TestItems.accumulatorOctal = 7777;
+            TestItems.LinkBit = false;
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(0, ActualResult.LinkBit);
 
 
-            //Test (3) mem can hold max PC and mem first octal increments, then PC = 4227
-            TestItems.MemoryValueOctal = 4226;
-            TestItems.pcCounter = 7777;
-
-            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test (4) mem can hold max PC and mem 2nd octal increments, then PC = 4230
-            TestItems.MemoryValueOctal = 4227;
-            TestItems.pcCounter = 7777;
+            //Test (2) Carry out complements link
+            TestItems.MemoryValueOctal = 7777;
+            TestItems.accumulatorOctal = 7777;
+            TestItems.LinkBit = true;
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(0, ActualResult.LinkBit);
 
 
-            //Test (5) mem can hold max PC and mem 3rd octal increments, then PC = 4300
-            TestItems.MemoryValueOctal = 4277;
-            TestItems.pcCounter = 7777;
-
-            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test (6) mem updates and mem 4th octal increments, then PC = 0000
-            TestItems.MemoryValueOctal = 1;
-            TestItems.pcCounter = 7777;
+            //Test (3) No carry out, link = link
+            TestItems.MemoryValueOctal = 7777;
+            TestItems.accumulatorOctal = 0000;
+            TestItems.LinkBit = true;
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(0, ActualResult.LinkBit);
 
 
-            //Test (7) mem updates and mem 4th octal increments, then PC = 1
-            TestItems.MemoryValueOctal = 0;
-            TestItems.pcCounter = 4001;
+            //Test (4) No carry out, link = link
+            TestItems.MemoryValueOctal = 7777;
+            TestItems.accumulatorOctal = 0000;
+            TestItems.LinkBit = false;
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(0, ActualResult.LinkBit);
+
+            //Test (5) switch EA and AC above, No carry out, link = link
+            TestItems.MemoryValueOctal = 0000;
+            TestItems.accumulatorOctal = 7777;
+            TestItems.LinkBit = true;
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.LinkBit);
+
+
+            //Test (6) switch EA and AC above, No carry out, link = link
+            TestItems.MemoryValueOctal = 0000;
+            TestItems.accumulatorOctal = 7777;
+            TestItems.LinkBit = false;
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.LinkBit);
+
+
+            //Test (7) test AC for carry out 
+            TestItems.MemoryValueOctal = 7000;
+            TestItems.accumulatorOctal = 7777;
+            TestItems.LinkBit = false;
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.LinkBit);
+
+
+            //Test (8) test AC for carry out 
+            TestItems.MemoryValueOctal = 7000;
+            TestItems.accumulatorOctal = 7777;
+            TestItems.LinkBit = true;
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.LinkBit);
 
         }
     }
