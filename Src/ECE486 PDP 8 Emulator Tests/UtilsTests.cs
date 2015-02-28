@@ -53,40 +53,40 @@ namespace ECE486_PDP_8_Emulator_Tests
             
             //Test 0 page, no indirect, no auto-increment register
 
-            Operation RsltOp = Utils.DecodeOperationAddress(1100, TestPdp8MemArray, CurPage);
+            Operation RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1100.ToString(), 8), TestPdp8MemArray, CurPage);
             Assert.AreEqual(Convert.ToInt32(100.ToString(),8),RsltOp.FinalMemAddress) ;
             Assert.AreEqual(0, RsltOp.ExtraClockCyles);
             Assert.AreEqual(false, RsltOp.IsIndirect);
 
 
             //test 0 page, indirect, no auto-increment register
-            RsltOp = Utils.DecodeOperationAddress(1401, TestPdp8MemArray, CurPage);
+            RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1401.ToString(), 8), TestPdp8MemArray, CurPage);
             Assert.AreEqual(Convert.ToInt32(4444.ToString(), 8), RsltOp.FinalMemAddress);
             Assert.AreEqual(1, RsltOp.ExtraClockCyles);
             Assert.AreEqual(true, RsltOp.IsIndirect);
 
             //test 0 page, no indirect, auto-increment register
-            RsltOp = Utils.DecodeOperationAddress(1010, TestPdp8MemArray, CurPage);
+            RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1010.ToString(), 8), TestPdp8MemArray, CurPage);
             Assert.AreEqual(8, RsltOp.FinalMemAddress);
             Assert.AreEqual(0, RsltOp.ExtraClockCyles);
             Assert.AreEqual(false, RsltOp.IsIndirect);
 
 
             //test 0 page, indirect, auto-increment register
-            RsltOp = Utils.DecodeOperationAddress(1411, TestPdp8MemArray, CurPage);
+            RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1411.ToString(), 8), TestPdp8MemArray, CurPage);
             Assert.AreEqual(5, RsltOp.FinalMemAddress);
             Assert.AreEqual(3, RsltOp.ExtraClockCyles);
             Assert.AreEqual(true, RsltOp.IsIndirect);
 
 
             //Test cur page, no indirect
-            RsltOp = Utils.DecodeOperationAddress(1222, TestPdp8MemArray, CurPage);
+            RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1222.ToString(), 8), TestPdp8MemArray, CurPage);
             Assert.AreEqual(Convert.ToInt32(222.ToString(),8), RsltOp.FinalMemAddress);
             Assert.AreEqual(0, RsltOp.ExtraClockCyles);
             Assert.AreEqual(false, RsltOp.IsIndirect);
 
             //Test cur page, indirect, and opcode
-            RsltOp = Utils.DecodeOperationAddress(1600, TestPdp8MemArray, CurPage);
+            RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1600.ToString(), 8), TestPdp8MemArray, CurPage);
             Assert.AreEqual(Convert.ToInt32(2222.ToString(),8), RsltOp.FinalMemAddress);
             Assert.AreEqual(1, RsltOp.ExtraClockCyles);
             Assert.AreEqual(true, RsltOp.IsIndirect);

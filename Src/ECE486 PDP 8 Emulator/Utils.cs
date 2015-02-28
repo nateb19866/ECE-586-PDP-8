@@ -21,14 +21,14 @@ namespace ECE486_PDP_8_Emulator
         public static Operation DecodeOperationAddress(int addressValueOctal, MemArray memoryArray, int curPageOctal)
         {
 
-            int addressValueInt = Convert.ToInt32(addressValueOctal.ToString(), 8);
+            
             int curPageInt = Convert.ToInt32(curPageOctal.ToString(), 8);
-            int OpCode = addressValueInt >> 9;
-            int Offset = addressValueInt & 0x7F;
+            int OpCode = addressValueOctal >> 9;
+            int Offset = addressValueOctal & 0x7F;
 
-            bool IsIndirect = ((addressValueInt & 0x100) >> 8) == 1;
+            bool IsIndirect = ((addressValueOctal & 0x100) >> 8) == 1;
 
-            bool IsCurPage = ((addressValueInt & 0x080) >> 7) == 1;
+            bool IsCurPage = ((addressValueOctal & 0x080) >> 7) == 1;
 
 
             Operation FinalOperation = new Operation();

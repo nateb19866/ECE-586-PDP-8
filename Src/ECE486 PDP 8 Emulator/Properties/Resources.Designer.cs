@@ -61,7 +61,7 @@ namespace ECE486_PDP_8_Emulator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 100000.
+        ///   Looks up a localized string similar to 1000.
         /// </summary>
         internal static string RowsBeforeDumpToFile {
             get {

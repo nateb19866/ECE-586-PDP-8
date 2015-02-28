@@ -23,8 +23,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = instItems.LinkBit,
-                MemoryAddress = Convert.ToInt32(instItems.MemoryValueOctal.ToString(), 8),
-                pcCounter = Convert.ToInt32(instItems.MemoryValueOctal.ToString(), 8) + 1,
+                MemoryAddress = instItems.MemoryValueOctal,
+                pcCounter = ++instItems.MemoryValueOctal,
                 MicroCodes = instItems.MicroCodes,
                 MemoryValueOctal = instItems.pcCounter,
                 SetMemValue = true,

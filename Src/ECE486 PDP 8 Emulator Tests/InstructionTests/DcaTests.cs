@@ -11,7 +11,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
     public class DcaTests
     {
         [TestMethod]
-        public void TestAndArgumentPassthrough()
+        public void TestDcaArgumentPassthrough()
         {
             InstructionItems TestItems = new InstructionItems()
             {

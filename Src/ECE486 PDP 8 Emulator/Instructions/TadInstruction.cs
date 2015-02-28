@@ -18,17 +18,22 @@ namespace ECE486_PDP_8_Emulator.Instructions
             ///MemArray[AC] = MemArray[AC] + MemArray[EA];
             //Complement Link if carry out
 
-           int FinalAccumulator = Convert.ToInt32(instItems.MemoryValueOctal.ToString(),8) + Convert.ToInt32(instItems.accumulatorOctal.ToString(),8);
+           int FinalAccumulator = instItems.MemoryValueOctal + instItems.accumulatorOctal;
            bool FinalLinkBit = instItems.LinkBit;
             //Check to see if they're both positive, and if so, check for carry-out condition and mask the extra bit out
-            if(instItems.MemoryValueOctal <= 3777 && instItems.accumulatorOctal <= 3777 && FinalAccumulator > 3777)
+            /*
+             * 3777 = 011 111 111 111  - In hex - 0111 1111 1111 = 0x3FF
+             * 
+             * */
+
+           if (instItems.MemoryValueOctal <= 0x3FF && instItems.accumulatorOctal <= 0x3FF && FinalAccumulator > 0x3FF)
             {
                 FinalLinkBit = !FinalLinkBit;
 
                 FinalAccumulator = FinalAccumulator & 0x000007FF;
             }
                 //if they're both negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
-            else if(instItems.MemoryValueOctal > 3777 && instItems.accumulatorOctal > 3777 && FinalAccumulator >7777)
+           else if (instItems.MemoryValueOctal > 0x3FF && instItems.accumulatorOctal > 0x3FF && FinalAccumulator > 0xFFF)
             {
                 FinalLinkBit = !FinalLinkBit;
                 FinalAccumulator = FinalAccumulator & 0x00000FFF;
@@ -36,7 +41,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             return new InstructionResult()
             {
-                accumulatorOctal = Utils.DecimalToOctal(FinalAccumulator),
+                accumulatorOctal = FinalAccumulator,
                 LinkBit = FinalLinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,

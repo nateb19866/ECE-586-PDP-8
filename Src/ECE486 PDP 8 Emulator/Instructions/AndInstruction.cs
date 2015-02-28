@@ -18,8 +18,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
 
             //Converting to byte array to make things easier.
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
-            Int16 TestWord2Bytes = Convert.ToInt16(instItems.MemoryValueOctal.ToString(), 8);
+            int TestWord1Bytes = instItems.accumulatorOctal;
+            int TestWord2Bytes = instItems.MemoryValueOctal;
 
 
             int FinalWord = (TestWord1Bytes & TestWord2Bytes);
@@ -27,7 +27,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             return new InstructionResult()
             {
                 //Only important part
-                accumulatorOctal = Utils.DecimalToOctal(FinalWord),
+                accumulatorOctal = FinalWord,
                 //Rest is just copying from inputs
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,

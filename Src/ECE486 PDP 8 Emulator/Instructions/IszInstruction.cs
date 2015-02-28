@@ -22,14 +22,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
            int FinalValue = 0;
            int IncrementedPcCounter = instItems.pcCounter;
 
-           if (instItems.MemoryValueOctal == 7777)
+           if (instItems.MemoryValueOctal == Convert.ToInt32(7777.ToString(), 8))
            {
                FinalValue = 0;
                instItems.pcCounter++;
            }
 
            else
-               FinalValue = Utils.DecimalToOctal(Convert.ToInt32(instItems.MemoryValueOctal.ToString(), 8) + 1);
+               FinalValue = ++instItems.MemoryValueOctal;
 
 
            return new InstructionResult()
