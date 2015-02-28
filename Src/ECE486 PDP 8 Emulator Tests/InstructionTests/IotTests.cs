@@ -8,10 +8,10 @@ using ECE486_PDP_8_Emulator.Instructions;
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class DcaTests
+    public class IotTests
     {
         [TestMethod]
-        public void TestDcaArgumentPassthrough()
+        public void TestIotArgumentPassthrough()
         {
             InstructionItems TestItems = new InstructionItems()
             {
@@ -37,9 +37,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 SetMemValue = false
             };
 
-            IInstruction TestDcaInstruction = new DcaInstruction();
+            IInstruction TestIotInstruction = new IotInstruction();
 
-            InstructionResult ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
 
 
             Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
@@ -53,7 +53,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
         [TestMethod]
-        public void TestDcaOperation()
+        public void TestIotOperation()
         {
             //First is test 0 anded with 0 - need to initialize the instruction items for the first time
             InstructionItems TestItems = new InstructionItems()
@@ -80,75 +80,85 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             };
 
-            IInstruction TestDcaInstruction = new DcaInstruction();
+            IInstruction TestIotInstruction = new IotInstruction();
 
-            InstructionResult ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            /* Test cases place octals into AC, result will affect EA and AC: EA = AC, AC - 0 */
+            /* Test cases place octals into PC and observe PC incremented by 1 */
 
-            //Test 0: EA = AC, AC - 0
-            TestItems.accumulatorOctal = 0;
-            TestItems.MemoryValueOctal = 7777;
+            //Test 0
+            TestItems.pcCounter = 0;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
             //Test 1
-            TestItems.accumulatorOctal = 1;
-            TestItems.MemoryValueOctal = 7777;
+            TestItems.pcCounter = 1;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+            
 
+            //Test all 1's, should loop back to 0
+            TestItems.pcCounter = 7777;
 
-            //Test all 1s
-            TestItems.accumulatorOctal = 7777;
-            TestItems.MemoryValueOctal = 1111;
-
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
             
 
             //Test alternating pattern of 1s and 0s - Start with 1
-            TestItems.accumulatorOctal = 5252;
-            TestItems.MemoryValueOctal = 2525;
+            TestItems.pcCounter = 5252;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+            
 
             //Test alternating pattern of 1s and 0s - Start with 0
-            TestItems.accumulatorOctal = 2525;
-            TestItems.MemoryValueOctal = 4444;
+            TestItems.pcCounter = 2525;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
 
             //Test 0 for first and last octals, ensure not losing octals on ends
-            TestItems.accumulatorOctal = 0770;
-            TestItems.MemoryValueOctal = 2222;
+            TestItems.pcCounter = 0770;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+            
 
             //Test end 1's
-            TestItems.accumulatorOctal = 4001;
-            TestItems.MemoryValueOctal = 0770;
+            TestItems.pcCounter = 4001;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+
+            //Test last octal 0
+            TestItems.pcCounter = 70;
+
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+            //Test last 2 octals 0
+            TestItems.pcCounter = 700;
+
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+            //Test last octal 1
+            TestItems.pcCounter = 771;
+
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+            //Test last 3 octals 7, end case, 1777
+            TestItems.pcCounter = 777;
+
+            ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
         }
     }

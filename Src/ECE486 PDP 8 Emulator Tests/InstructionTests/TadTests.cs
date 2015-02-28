@@ -5,13 +5,14 @@ using ECE486_PDP_8_Emulator.Classes;
 using ECE486_PDP_8_Emulator;
 using ECE486_PDP_8_Emulator.Instructions;
 
+// Not yet implemented
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class DcaTests
+    public class TadTests
     {
         [TestMethod]
-        public void TestDcaArgumentPassthrough()
+        public void TestTadArgumentPassthrough()
         {
             InstructionItems TestItems = new InstructionItems()
             {
@@ -21,8 +22,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryValueOctal = 7777,
                 pcCounter = 5649,
                 MicroCodes = 7402
-
-
             };
 
 
@@ -37,9 +36,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 SetMemValue = false
             };
 
-            IInstruction TestDcaInstruction = new DcaInstruction();
+            IInstruction TestTadInstruction = new IotInstruction();
 
-            InstructionResult ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
 
 
             Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
@@ -53,7 +52,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
         [TestMethod]
-        public void TestDcaOperation()
+        public void TestTadOperation()
         {
             //First is test 0 anded with 0 - need to initialize the instruction items for the first time
             InstructionItems TestItems = new InstructionItems()
@@ -67,7 +66,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MicroCodes = 7402
             };
 
-
             InstructionResult ExpectedItems = new InstructionResult()
             {
                 accumulatorOctal = 0000,
@@ -80,75 +78,76 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             };
 
-            IInstruction TestDcaInstruction = new DcaInstruction();
+            IInstruction TestTadInstruction = new TadInstruction();
 
-            InstructionResult ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            /* Test cases place octals into AC, result will affect EA and AC: EA = AC, AC - 0 */
+            /* Test cases place octals (1)  EA = PC, (2) PC = EA + 1 */
+            /* Test for PC and EA update correctly */
 
-            //Test 0: EA = AC, AC - 0
-            TestItems.accumulatorOctal = 0;
-            TestItems.MemoryValueOctal = 7777;
-
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-
-
-            //Test 1
-            TestItems.accumulatorOctal = 1;
-            TestItems.MemoryValueOctal = 7777;
-
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-
-
-            //Test all 1s
-            TestItems.accumulatorOctal = 7777;
+            //Test (1) mem can hold max PC, then PC = 1112
             TestItems.MemoryValueOctal = 1111;
+            TestItems.pcCounter = 7777;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-            
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
-            //Test alternating pattern of 1s and 0s - Start with 1
-            TestItems.accumulatorOctal = 5252;
-            TestItems.MemoryValueOctal = 2525;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            //Test (2) mem can hold max PC, then PC = 0
+            TestItems.MemoryValueOctal = 7777;
+            TestItems.pcCounter = 7777;
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
 
-            //Test alternating pattern of 1s and 0s - Start with 0
-            TestItems.accumulatorOctal = 2525;
-            TestItems.MemoryValueOctal = 4444;
+            //Test (3) mem can hold max PC and mem first octal increments, then PC = 4227
+            TestItems.MemoryValueOctal = 4226;
+            TestItems.pcCounter = 7777;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
 
-            //Test 0 for first and last octals, ensure not losing octals on ends
-            TestItems.accumulatorOctal = 0770;
-            TestItems.MemoryValueOctal = 2222;
+            //Test (4) mem can hold max PC and mem 2nd octal increments, then PC = 4230
+            TestItems.MemoryValueOctal = 4227;
+            TestItems.pcCounter = 7777;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
 
-            //Test end 1's
-            TestItems.accumulatorOctal = 4001;
-            TestItems.MemoryValueOctal = 0770;
+            //Test (5) mem can hold max PC and mem 3rd octal increments, then PC = 4300
+            TestItems.MemoryValueOctal = 4277;
+            TestItems.pcCounter = 7777;
 
-            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+
+            //Test (6) mem updates and mem 4th octal increments, then PC = 0000
+            TestItems.MemoryValueOctal = 1;
+            TestItems.pcCounter = 7777;
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+
+            //Test (7) mem updates and mem 4th octal increments, then PC = 1
+            TestItems.MemoryValueOctal = 0;
+            TestItems.pcCounter = 4001;
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
 
         }
     }
