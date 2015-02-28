@@ -12,10 +12,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
        private int ClockCycles = 2;
        private Constants.OpCode InstructionType = Constants.OpCode.DCA;
  
-       
        public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            // Call Function to get EA and AC
             //MemArray[EA] = MemArray[AC];
             //MemArray[AC] = 0;
             return new InstructionResult()

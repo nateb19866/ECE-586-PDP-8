@@ -66,8 +66,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryValueOctal = 0000,
                 pcCounter = 5649,
                 MicroCodes = 7402
-
-
             };
 
 

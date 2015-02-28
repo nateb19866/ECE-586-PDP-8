@@ -41,9 +41,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         }
 
-       
-
-
         public int clockCycles
         {
             get
@@ -52,7 +49,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
             }
           
         }
-
 
         public Constants.OpCode instructionType
         {

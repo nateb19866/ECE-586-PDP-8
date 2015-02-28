@@ -15,7 +15,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            // Call Function to get EA and AC
             // MemArray[PC] = MemArray[EA];
             return new InstructionResult()
             {

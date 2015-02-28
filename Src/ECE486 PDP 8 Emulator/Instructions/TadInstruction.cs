@@ -15,9 +15,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            // Call Function to get EA and AC
             ///MemArray[AC] = MemArray[AC] + MemArray[EA];
-            //? Complement Link if carry out?
+            //Complement Link if carry out
 
            int FinalAccumulator = Convert.ToInt32(instItems.MemoryValueOctal.ToString(),8) + Convert.ToInt32(instItems.accumulatorOctal.ToString(),8);
            bool FinalLinkBit = instItems.LinkBit;
@@ -27,8 +26,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 FinalLinkBit = !FinalLinkBit;
 
                 FinalAccumulator = FinalAccumulator & 0x000007FF;
-
-
             }
                 //if they're both negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
             else if(instItems.MemoryValueOctal > 3777 && instItems.accumulatorOctal > 3777 && FinalAccumulator >7777)
