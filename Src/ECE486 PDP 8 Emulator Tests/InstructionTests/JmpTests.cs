@@ -8,10 +8,10 @@ using ECE486_PDP_8_Emulator.Instructions;
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class IszTests
+    public class JmmpTests
     {
         [TestMethod]
-        public void TestIszArgumentPassthrough()
+        public void TestJmpArgumentPassthrough()
         {
             InstructionItems TestItems = new InstructionItems()
             {
@@ -37,9 +37,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 SetMemValue = false
             };
 
-            IInstruction TestIszInstruction = new IotInstruction();
+            IInstruction TestJmpInstruction = new IotInstruction();
 
-            InstructionResult ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
 
 
             Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
@@ -53,7 +53,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
         [TestMethod]
-        public void TestIszOperation()
+        public void TestJmpOperation()
         {
             //First is test 0 anded with 0 - need to initialize the instruction items for the first time
             InstructionItems TestItems = new InstructionItems()
@@ -80,95 +80,84 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             };
 
-            IInstruction TestIszInstruction = new IszInstruction();
+            IInstruction TestJmpInstruction = new IotInstruction();
 
-            InstructionResult ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
             /* Test cases place octals into PC and observe PC incremented by 1 */
 
             //Test 0
-            TestItems.MemoryValueOctal = 0;
+            TestItems.pcCounter = 0;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
             //Test 1
-            TestItems.MemoryValueOctal = 1;
+            TestItems.pcCounter = 1;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
 
             //Test all 1's, should loop back to 0
-            TestItems.MemoryValueOctal = 7777;
+            TestItems.pcCounter = 7777;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
 
             //Test alternating pattern of 1s and 0s - Start with 1
-            TestItems.MemoryValueOctal = 5252;
+            TestItems.pcCounter = 5252;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
 
             //Test alternating pattern of 1s and 0s - Start with 0
-            TestItems.MemoryValueOctal = 2525;
+            TestItems.pcCounter = 2525;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
 
             //Test 0 for first and last octals, ensure not losing octals on ends
-            TestItems.MemoryValueOctal = 0770;
+            TestItems.pcCounter = 0770;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
 
             //Test end 1's
-            TestItems.MemoryValueOctal = 4001;
+            TestItems.pcCounter = 4001;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
 
             //Test last octal 0
-            TestItems.MemoryValueOctal = 70;
+            TestItems.pcCounter = 70;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
             //Test last 2 octals 0
-            TestItems.MemoryValueOctal = 700;
+            TestItems.pcCounter = 700;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
             //Test last octal 1
-            TestItems.MemoryValueOctal = 771;
+            TestItems.pcCounter = 771;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
             //Test last 3 octals 7, end case, 1777
-            TestItems.MemoryValueOctal = 777;
+            TestItems.pcCounter = 777;
 
-            ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
         }
