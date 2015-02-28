@@ -12,8 +12,8 @@ namespace ECE486_PDP_8_Emulator
     {
        public static Statistics ExecuteProgram(string filePath, string traceFolder)
        {
-           
-           int StartAddressOctal = 200;
+
+           int StartAddressOctal = Convert.ToInt32(200.ToString(), 8);
 
            Statistics Pdp8Stats = new Statistics();
            Logger TraceLogger = new Logger(traceFolder);
@@ -30,7 +30,7 @@ namespace ECE486_PDP_8_Emulator
 
 
 
-           Pdp8Stats = ExecuteInstructions(LoadRslt, Pdp8Stats, Convert.ToInt32(StartAddressOctal.ToString(), 8), TraceLogger);
+           Pdp8Stats = ExecuteInstructions(LoadRslt, Pdp8Stats, StartAddressOctal, TraceLogger);
 
            return Pdp8Stats;
        }

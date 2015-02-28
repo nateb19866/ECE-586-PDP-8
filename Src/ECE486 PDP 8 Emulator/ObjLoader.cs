@@ -17,54 +17,68 @@ namespace ECE486_PDP_8_Emulator
 
           
                 // Read in Text File 
-                //filePath = "C:/Users/Donut/PAL/File.obj"; // Note this path will be changed and moved to ILoader.cs
-                string line = null;
-                var ArrayCount = File.ReadLines(filePath).Count(); // Counts lines in file
+              
+               
+
                 int[,] MemArray = new int[4096,2];  // Complete Memory Array, Fix to determine complete array length
 
-                int TempArrayCnt = 0;  // Index for TempArray, reading in file
-                int MemArrayCnt = 0;  // Index for MemArray. Looking for 1xx+
-                int StartMemArrayCnt = 0;  // Index for Start of MemArray = 200
+
+              
 
                 using (StreamReader TxtFile = new StreamReader(filePath))
                 {
+                      int MemArrayCnt = 0;  // Index for MemArray. Looking for 1xx+
+                      bool StartOfFile = true;
+                     string line = null;
+                    string line2 = null;
+                    bool IncrementCtr = true;
                     // Read all lines into MemArray until EOF is reached
                     while ((line = TxtFile.ReadLine()) != null)
                     {
-                        string[] TempArray = File.ReadAllLines(filePath);      // Read all lines into TempArray
+                      
+                        //Catch exception with odd rows in file
+                        if((line2 = TxtFile.ReadLine()) == null)
+                            throw new NullReferenceException("The file contains an invalid number of rows!");
 
-                        for (TempArrayCnt = 0; TempArrayCnt < ArrayCount; TempArrayCnt++)    // Loop through complete array
+                        //Convert values to ints
+                        int StartInt = Convert.ToInt32(line.Trim().First().ToString());
+                        int value = Convert.ToInt32(line.Trim().Substring(1,2) + line2.Substring(1,2),8);
+
+
+                        //If the beginning of the program does not contain a memory reference, assume starting at page 1
+                        if(StartInt == 0 && StartOfFile)
+                            //200 octal(000 010 000 000) in hex(0000 1000 0000) 
+                            MemArrayCnt = 0x80;
+
+
+                        //If it contains a memory reference, set the value to whatever the memory reference is, and make sure not to increment the address for the next loop
+                        if(StartInt == 1)
                         {
-                            if (TempArray[TempArrayCnt].StartsWith("1") && (StartMemArrayCnt == 0) && (TempArrayCnt < ArrayCount) && (MemArrayCnt < ArrayCount))   // Find first 1XX, counter to start at MemArray 200
-                            {
-                                StartMemArrayCnt++;
-                                MemArrayCnt = MemArrayCnt + 200;      // Start of MemArray[200]
-                                TempArrayCnt = TempArrayCnt + 2;  // Go to 2 lines down for addr to store
-
-                                while (TempArray[TempArrayCnt].StartsWith("0") && (TempArrayCnt < ArrayCount)) // continue to add to MemArray if start with 0
-                                {
-                                    MemArray[MemArrayCnt,0] = Convert.ToInt32(TempArray[TempArrayCnt].Remove(0, 1) + TempArray[TempArrayCnt + 1].Remove(0, 1));
-                                    MemArray[MemArrayCnt, 1] = 1;
-                                    TempArrayCnt = TempArrayCnt + 2;  // move 2 lines down
-                                    MemArrayCnt++;
-                                }
-                            }
-
-                            if (TempArray[TempArrayCnt].StartsWith("1") && (TempArrayCnt < ArrayCount) && (MemArrayCnt < ArrayCount))   // Any found 1XX beyond the first 1XX, counter to start at MemArray at +50
-                            {
-                                MemArrayCnt = MemArrayCnt + 50;      // add 50 to current MemArray position
-                                TempArrayCnt = TempArrayCnt + 2;  // Go to 2 lines down for addr to store
-
-                                while (TempArray[TempArrayCnt].StartsWith("0") && (TempArrayCnt < ArrayCount) && (MemArrayCnt < ArrayCount)) // continue to add to MemArray if start with 0
-                                {
-                                    MemArray[MemArrayCnt, 0] = Convert.ToInt32(TempArray[TempArrayCnt].Remove(0, 1) + TempArray[TempArrayCnt + 1].Remove(0, 1));
-                                    MemArray[MemArrayCnt, 1] = 1;
-                                    TempArrayCnt = TempArrayCnt + 2;  // move 2 lines down
-                                    MemArrayCnt++;
-                                }
-                            }
+                            MemArrayCnt = value;
+                            IncrementCtr = false;
 
                         }
+                        else
+                        {
+                            //If the prior address was not a memory location, increment the counter and store the value.  Otherwise, just store the value.
+                            if(IncrementCtr)
+                                MemArrayCnt++;
+                            else
+                                IncrementCtr = true;
+
+                            //Catch out of range exceptions
+                            if (MemArrayCnt > 0xFFF)
+                                throw new IndexOutOfRangeException("The file contains a reference to an invalid memory location!");
+
+
+                            MemArray[MemArrayCnt,0] = value;
+                            MemArray[MemArrayCnt, 1] = 1;
+                        }
+
+
+                        StartOfFile = false;
+
+                        
 
                     }
 

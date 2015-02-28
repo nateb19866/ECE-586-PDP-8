@@ -17,33 +17,46 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             InstructionResult Rslt = new InstructionResult();
 
-            switch ((Constants.IOCode)instItems.IOCodes)
+            switch ((Constants.IOCode)(Utils.DecimalToOctal(instItems.IOCodes)))
             {
                 case Constants.IOCode.KCF:
+                    Rslt = KCF(instItems);
                     break;
                 case Constants.IOCode.KSF:
+                    Rslt = KSF(instItems);
                     break;
                 case Constants.IOCode.KCC:
+                    Rslt = KCC(instItems);
                     break;
                 case Constants.IOCode.KRS:
+                    Rslt = KRS(instItems);
                     break;
                 case Constants.IOCode.KRB:
+                    Rslt = KRB(instItems);
                     break;
                 case Constants.IOCode.TFL:
+                    Rslt = TFL(instItems);
                     break;
                 case Constants.IOCode.TSF:
+                    Rslt = TSF(instItems);
                     break;
                 case Constants.IOCode.TCF:
+                    Rslt = TCF(instItems);
                     break;
                 case Constants.IOCode.TPC:
+                    Rslt = TPC(instItems);
                     break;
                 case Constants.IOCode.TLS:
+                    Rslt = TLS(instItems);
                     break;
                 case Constants.IOCode.SKON:
+                    Rslt = SKON(instItems);
                     break;
                 case Constants.IOCode.ION:
+                    Rslt = ION(instItems);
                     break;
                 case Constants.IOCode.IOF:
+                    Rslt = IOF(instItems);
                     break;
                 default:
                     break;

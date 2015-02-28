@@ -12,8 +12,17 @@ namespace ECE486_PDP_8_Emulator
    public class Logger
     {
        private string TraceFolderPath;
-       private string MemTraceFileName = "MemTrace.tr";
-       private string BranchTraceFileName = "BranchTrace.tr";
+       private string MemTraceFileName = "MemTrace";
+       private string BranchTraceFileName = "BranchTrace";
+       private string TraceExtension = ".tr";
+
+       private string FinalMemTrFileName = "";
+       private string FinalBranchTrFileName = "";
+
+
+      private bool MemTraceFileCreated = false;
+       private bool BranchTraceFileCreated = false;
+
 
        private List<MemTraceRow> MemTrace = new List<MemTraceRow>();
        private int MemTraceCount = 0;
@@ -24,6 +33,25 @@ namespace ECE486_PDP_8_Emulator
        public Logger(string traceFolderPath)
        {
            this.TraceFolderPath = traceFolderPath;
+
+          FinalMemTrFileName = TraceFolderPath + "\\" + MemTraceFileName + "_"
+               + DateTime.Now.Year.ToString()
+               + DateTime.Now.Month.ToString()
+               + DateTime.Now.Day.ToString() + "_"
+               + DateTime.Now.Hour.ToString()
+               + DateTime.Now.Minute.ToString()
+               + DateTime.Now.Second.ToString()
+               + TraceExtension;
+
+
+          FinalBranchTrFileName = TraceFolderPath + "\\" + BranchTraceFileName + "_"
+             + DateTime.Now.Year.ToString()
+             + DateTime.Now.Month.ToString()
+             + DateTime.Now.Day.ToString() + "_"
+             + DateTime.Now.Hour.ToString()
+             + DateTime.Now.Minute.ToString()
+             + DateTime.Now.Second.ToString()
+             + TraceExtension;
        }
         ~Logger()
        {
@@ -77,8 +105,15 @@ namespace ECE486_PDP_8_Emulator
 
        private void DumpMemCacheToFile()
        {
-           using (StreamWriter sw = File.CreateText(TraceFolderPath + MemTraceFileName))
+           
+           
+           using (StreamWriter sw = File.CreateText(FinalMemTrFileName))
            {
+               if(!MemTraceFileCreated)
+               {
+                   sw.WriteLine("Addr	OpType");
+                   MemTraceFileCreated = true;
+               }
 
                foreach (var MemTraceRow in MemTrace)
                {
@@ -89,9 +124,16 @@ namespace ECE486_PDP_8_Emulator
 
        private void DumpBranchCacheToFile()
        {
-
-           using (StreamWriter sw = File.CreateText(TraceFolderPath + BranchTraceFileName))
+         
+           
+           using (StreamWriter sw = File.CreateText(FinalBranchTrFileName))
            {
+
+               if (!BranchTraceFileCreated)
+               {
+                   sw.WriteLine("PCtr	Type	Addr	Taken?");
+                   BranchTraceFileCreated = true;
+               } 
                foreach (var TraceRow in BranchTrace)
                {
                    sw.WriteLine("{0}	{1}		{2}		{3}		{4}", Utils.DecimalToOctal(TraceRow.ProgramCounter).ToString(), TraceRow.BranchType.ToString(), Utils.DecimalToOctal(TraceRow.MemoryAddress).ToString(), TraceRow.branchTaken.ToString());

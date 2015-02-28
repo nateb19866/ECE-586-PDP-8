@@ -16,58 +16,82 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             InstructionResult Rslt = new InstructionResult();
 
-            switch ((Constants.Microcode)instItems.MicroCodes)
+            switch ((Constants.Microcode)(Utils.DecimalToOctal(instItems.MicroCodes)))
             {
                 case Constants.Microcode.NOP:
                     Rslt = NopInstruction(instItems);
                     break;
                 case Constants.Microcode.M1_CLA:
+                    Rslt = M1_CLAInstruction(instItems);
                     break;
                 case Constants.Microcode.CLL:
+                    Rslt = CLLInstruction(instItems);
                     break;
                 case Constants.Microcode.CMA:
+                    Rslt = CMAInstruction(instItems);
                     break;
                 case Constants.Microcode.CML:
+                    Rslt = CMLInstruction(instItems);
                     break;
                 case Constants.Microcode.IAC:
+                    Rslt = IACInstruction(instItems);
                     break;
                 case Constants.Microcode.RAR:
+                    Rslt = RARInstruction(instItems);
                     break;
                 case Constants.Microcode.RTR:
+                    Rslt = RTRInstruction(instItems);
                     break;
                 case Constants.Microcode.RAL:
+                    Rslt = RALInstruction(instItems);
                     break;
                 case Constants.Microcode.RTL:
+                    Rslt = RTLInstruction(instItems);
                     break;
                 case Constants.Microcode.SMA:
+                    Rslt = SMAInstruction(instItems);
                     break;
                 case Constants.Microcode.SZA:
+                    Rslt = SZAInstruction(instItems);
                     break;
                 case Constants.Microcode.SNL:
+                    Rslt = SNLInstruction(instItems);
                     break;
                 case Constants.Microcode.SPA:
+                    Rslt = SPAInstruction(instItems);
                     break;
                 case Constants.Microcode.SNA:
+                    Rslt = SNAInstruction(instItems);
                     break;
                 case Constants.Microcode.SZL:
+                    Rslt = SZLInstruction(instItems);
                     break;
                 case Constants.Microcode.SKP:
+                    Rslt = SKPInstruction(instItems);
                     break;
                 case Constants.Microcode.M2_CLA:
+                    Rslt = M2_CLAInstruction(instItems);
                     break;
                 case Constants.Microcode.OSR:
+                    Rslt = OSRInstruction(instItems);
                     break;
                 case Constants.Microcode.HLT:
+                    Rslt = HLTInstruction(instItems);
                     break;
                 case Constants.Microcode.M3_CLA:
+                    Rslt = M3_CLA(instItems);
                     break;
                 case Constants.Microcode.MQL:
+                    Rslt = MQL(instItems);
                     break;
                 case Constants.Microcode.MQA:
+                    Rslt = MQA(instItems);
                     break;
                 case Constants.Microcode.SWP:
+                    Rslt = SWP(instItems);
                     break;
                 case Constants.Microcode.CAM:
+                    Rslt = CAM(instItems);
                     break;
                 default:
                     break;
@@ -630,6 +654,17 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         }
 
+
+        private InstructionResult OSRInstruction(InstructionItems instItems)
+        {
+
+            return new InstructionResult()
+
+            {
+
+
+            };
+        }
         // Halt is caught in program executer
         public InstructionResult HLTInstruction(InstructionItems instItems)
         {

@@ -61,11 +61,20 @@ namespace ECE486_PDP_8_Emulator_Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 100000.
+        ///   Looks up a localized string similar to 1000.
         /// </summary>
         internal static string RowsBeforeDumpToFile {
             get {
                 return ResourceManager.GetString("RowsBeforeDumpToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ../../TestFiles.
+        /// </summary>
+        internal static string TestFilePath {
+            get {
+                return ResourceManager.GetString("TestFilePath", resourceCulture);
             }
         }
     }
