@@ -31,8 +31,6 @@ namespace ECE486_PDP_8_Emulator_Tests
 
             Assert.AreEqual(FinalMemArray,TestMemArray);
 
-
-
         }
     }
 }

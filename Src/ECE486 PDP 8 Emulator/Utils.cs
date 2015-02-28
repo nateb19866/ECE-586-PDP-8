@@ -54,9 +54,6 @@ namespace ECE486_PDP_8_Emulator
             else
                 FinalOperation.FinalMemAddress = EffectiveMemoryAddress;
 
-
-            
-            
             return FinalOperation;
         }
 
