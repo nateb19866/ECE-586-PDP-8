@@ -87,7 +87,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual( 0, ActualResult.accumulatorOctal);
 
-
             //Test all 1s anded with all 0s
 
             TestItems.accumulatorOctal = 0000;

@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="InstructionTests\AndTests.cs" />
     <Compile Include="InstructionTests\DcaTests.cs" />
+    <Compile Include="InstructionTests\IotTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
