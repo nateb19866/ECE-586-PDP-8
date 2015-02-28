@@ -35,7 +35,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
             get { return ClockCycles; }
         }
 
-
         public Constants.OpCode instructionType
         {
             get { return InstructionType; }
