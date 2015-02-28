@@ -55,6 +55,7 @@
     <Compile Include="InstructionTests\IotTests.cs" />
     <Compile Include="InstructionTests\IszTests.cs" />
     <Compile Include="InstructionTests\JmpTests.cs" />
+    <Compile Include="InstructionTests\JmsTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -8,10 +8,10 @@ using ECE486_PDP_8_Emulator.Instructions;
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class JmpTests
+    public class JmsTests
     {
         [TestMethod]
-        public void TestJmpArgumentPassthrough()
+        public void TestJmsArgumentPassthrough()
         {
             InstructionItems TestItems = new InstructionItems()
             {
@@ -37,9 +37,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 SetMemValue = false
             };
 
-            IInstruction TestJmpInstruction = new IotInstruction();
+            IInstruction TestJmsInstruction = new IotInstruction();
 
-            InstructionResult ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
 
 
             Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
@@ -53,7 +53,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
         [TestMethod]
-        public void TestJmpOperation()
+        public void TestJmsOperation()
         {
             //First is test 0 anded with 0 - need to initialize the instruction items for the first time
             InstructionItems TestItems = new InstructionItems()
@@ -80,96 +80,75 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             };
 
-            IInstruction TestJmpInstruction = new IotInstruction();
+            IInstruction TestJmsInstruction = new IotInstruction();
 
-            InstructionResult ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
+            InstructionResult ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            /* Test cases place octals from EA into PC and observe PC update */
+            /* Test cases place octals (1)  EA = PC, (2) PC = EA + 1 */
+            /* Test for PC and EA update correctly */
 
-            //Test 0
-            TestItems.MemoryValueOctal = 0;
-            TestItems.pcCounter = 1;
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-            //Test 1
-            TestItems.MemoryValueOctal = 1;
-            TestItems.pcCounter = 10;
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test all 1's
-            TestItems.MemoryValueOctal = 7777;
-            TestItems.pcCounter = 7770;
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test alternating pattern of 1s and 0s - Start with 1
-            TestItems.MemoryValueOctal = 5252;
-            TestItems.pcCounter = 0;
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test alternating pattern of 1s and 0s - Start with 0
-            TestItems.MemoryValueOctal = 2525;
-            TestItems.pcCounter = 1;
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test 0 for first and last octals, ensure not losing octals on ends
-            TestItems.MemoryValueOctal = 0770;
-            TestItems.pcCounter = 2525;
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test end 1's
-            TestItems.MemoryValueOctal = 4001;
-            TestItems.pcCounter = 777;
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
-
-            //Test last octal 0
-            TestItems.MemoryValueOctal = 70;
+            //Test (1) mem can hold max PC, then PC = 1112
+            TestItems.MemoryValueOctal = 1111;
             TestItems.pcCounter = 7777;
 
-
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
+            ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
-            //Test last 2 octals 0
-            TestItems.MemoryValueOctal = 700;
-            TestItems.pcCounter = 1111;
 
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
+            //Test (2) mem can hold max PC, then PC = 0
+            TestItems.MemoryValueOctal = 7777;
+            TestItems.pcCounter = 7777;
+
+            ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
-            //Test last octal 1
-            TestItems.MemoryValueOctal = 7771;
-            TestItems.pcCounter = 4444;
 
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
+            //Test (3) mem can hold max PC and mem first octal increments, then PC = 4227
+            TestItems.MemoryValueOctal = 4226;
+            TestItems.pcCounter = 7777;
+
+            ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
-            //Test last 3 octals 7, end case, 1777
-            TestItems.MemoryValueOctal = 777;
-            TestItems.pcCounter = 3333;
 
-            ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
+            //Test (4) mem can hold max PC and mem 2nd octal increments, then PC = 4230
+            TestItems.MemoryValueOctal = 4227;
+            TestItems.pcCounter = 7777;
+
+            ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+
+            //Test (5) mem can hold max PC and mem 3rd octal increments, then PC = 4300
+            TestItems.MemoryValueOctal = 4277;
+            TestItems.pcCounter = 7777;
+
+            ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+
+            //Test (6) mem updates and mem 4th octal increments, then PC = 0000
+            TestItems.MemoryValueOctal = 1;
+            TestItems.pcCounter = 7777;
+
+            ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(0, ActualResult.pcCounter);
+
+
+            //Test (7) mem updates and mem 4th octal increments, then PC = 1
+            TestItems.MemoryValueOctal = 0;
+            TestItems.pcCounter = 4001;
+
+            ActualResult = TestJmsInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
             Assert.AreEqual(0, ActualResult.pcCounter);
 
         }

@@ -86,10 +86,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            /* Test cases place octals into AC, result will affect EA and AC */
+            /* Test cases place octals into AC, result will affect EA and AC: EA = AC, AC - 0 */
 
-            //Test 0
+            //Test 0: EA = AC, AC - 0
             TestItems.accumulatorOctal = 0;
+            TestItems.MemoryValueOctal = 7777;
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
@@ -98,6 +99,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test 1
             TestItems.accumulatorOctal = 1;
+            TestItems.MemoryValueOctal = 7777;
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
@@ -106,7 +108,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test all 1s
             TestItems.accumulatorOctal = 7777;
-            
+            TestItems.MemoryValueOctal = 1111;
+
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
@@ -114,6 +117,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test alternating pattern of 1s and 0s - Start with 1
             TestItems.accumulatorOctal = 5252;
+            TestItems.MemoryValueOctal = 2525;
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
@@ -122,6 +126,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test alternating pattern of 1s and 0s - Start with 0
             TestItems.accumulatorOctal = 2525;
+            TestItems.MemoryValueOctal = 4444;
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
@@ -130,6 +135,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test 0 for first and last octals, ensure not losing octals on ends
             TestItems.accumulatorOctal = 0770;
+            TestItems.MemoryValueOctal = 2222;
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
@@ -138,6 +144,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test end 1's
             TestItems.accumulatorOctal = 4001;
+            TestItems.MemoryValueOctal = 0770;
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
