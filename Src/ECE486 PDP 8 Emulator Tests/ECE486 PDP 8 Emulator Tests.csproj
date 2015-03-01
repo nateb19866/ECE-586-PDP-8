@@ -57,6 +57,15 @@
     <Compile Include="InstructionTests\JmpTests.cs" />
     <Compile Include="InstructionTests\JmsTests.cs" />
     <Compile Include="InstructionTests\TadTests.cs" />
+    <Compile Include="InstructionTests\CLLTests.cs" />
+    <Compile Include="InstructionTests\CMATests.cs" />
+    <Compile Include="InstructionTests\CMLTests.cs" />
+    <Compile Include="InstructionTests\IACTests.cs" />
+    <Compile Include="InstructionTests\RTRTests.cs" />
+    <Compile Include="InstructionTests\RTLTests.cs" />
+    <Compile Include="InstructionTests\M1_CLA.cs" />
+    <Compile Include="InstructionTests\RALTests.cs" />
+    <Compile Include="InstructionTests\RARTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
