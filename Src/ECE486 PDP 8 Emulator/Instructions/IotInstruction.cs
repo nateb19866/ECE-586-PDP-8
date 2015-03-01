@@ -17,7 +17,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             InstructionResult Rslt = new InstructionResult();
 
-            switch ((Constants.IOCode)(Utils.DecimalToOctal(instItems.IOCodes)))
+            switch ((Constants.IOCode)(Utils.DecimalToOctal(instItems.InstructionRegister)))
             {
                 case Constants.IOCode.KCF:
                     Rslt = KCF(instItems);
@@ -75,7 +75,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -90,7 +90,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -104,7 +104,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -118,7 +118,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -132,7 +132,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -147,7 +147,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -161,7 +161,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -175,7 +175,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -189,7 +189,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -203,7 +203,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -218,7 +218,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -233,7 +233,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };
@@ -247,7 +247,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };

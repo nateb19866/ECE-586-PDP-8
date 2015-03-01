@@ -21,7 +21,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 5649,
-                MicroCodes = Convert.ToInt32(7402.ToString(), 8)
+                InstructionRegister = Convert.ToInt32(7402.ToString(), 8)
 
 
             };
@@ -34,7 +34,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 5650,
-                MicroCodes = Convert.ToInt32(7402.ToString(), 8),
+                InstructionRegister = Convert.ToInt32(7402.ToString(), 8),
                 SetMemValue = false
             };
 
@@ -48,7 +48,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
-            Assert.AreEqual(ExpectedItems.MicroCodes, ActualResult.MicroCodes);
+            Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
         }
 
@@ -65,7 +65,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 
                 MemoryValueOctal = 0000,
                 pcCounter = 5649,
-                MicroCodes = Convert.ToInt32(7402.ToString(),8)
+                InstructionRegister = Convert.ToInt32(7402.ToString(),8)
             };
 
 
@@ -76,7 +76,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
                 pcCounter = 5650,
-                MicroCodes = Convert.ToInt32(7402.ToString(), 8),
+                InstructionRegister = Convert.ToInt32(7402.ToString(), 8),
                 SetMemValue = false
 
             };

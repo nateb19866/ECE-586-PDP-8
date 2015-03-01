@@ -12,8 +12,8 @@ namespace ECE486_PDP_8_Emulator.Classes
         public  int pcCounter;
         public int MemoryValueOctal;
         public int MemoryAddress;
-        public int MicroCodes;
-        public int IOCodes;
+        public int InstructionRegister;
+        
         public bool LinkBit;
 
     }

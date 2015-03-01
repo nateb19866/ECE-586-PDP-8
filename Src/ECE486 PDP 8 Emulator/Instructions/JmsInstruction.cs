@@ -25,7 +25,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryValueOctal,
                 pcCounter = ++instItems.MemoryValueOctal,
-                MicroCodes = instItems.MicroCodes,
+                InstructionRegister = instItems.InstructionRegister,
                 MemoryValueOctal = instItems.pcCounter,
                 SetMemValue = true,
                 BranchTaken = true,
