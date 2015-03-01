@@ -7,7 +7,7 @@ using ECE486_PDP_8_Emulator;
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class M2SmaTests
+    public class SmaTests
     {
          [TestMethod]
         public void TestM2SMAArgumentPassthrough()
