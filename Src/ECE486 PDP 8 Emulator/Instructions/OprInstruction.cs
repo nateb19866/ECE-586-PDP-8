@@ -113,6 +113,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     bool PassSMA = false;
                     bool PassSZA = false;
                     bool PassSNL = false;
+                     instItems.BranchType = Constants.BranchType.Conditional;
 
                     //SMA - mask 000 001 000 000 - hex 0000 0100 0000
                     if ((instItems.InstructionRegister & 0x40) == 0x40)
@@ -129,7 +130,13 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
 
                     if (PassSMA || PassSZA || PassSNL)
+                    {
                         instItems.pcCounter++;
+
+                        instItems.BranchTaken = true;
+                    }
+                    else
+                        instItems.BranchTaken = false;
                 }
                 else
                 {
@@ -137,6 +144,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     bool? PassSPA = null;
                     bool? PassSNA = null;
                     bool? PassSZL = null;
+                    instItems.BranchType = Constants.BranchType.Conditional;
                     //SPA - mask 000 001 001 000 - hex 0000 0100 1000
                     if ((instItems.InstructionRegister & 0x48) == 0x48)
                         PassSPA = instItems.accumulatorOctal <= 0x7FF;
@@ -156,10 +164,18 @@ namespace ECE486_PDP_8_Emulator.Instructions
                         && (PassSPA == null || PassSPA == true)
                         && (PassSZL == null || PassSZL == true)
                         )
+                    {
                         instItems.pcCounter++;
+                        instItems.BranchTaken = true;
+                    }
 
-                    else if(PassSNA == null && PassSPA == null && PassSZL == null)
+                    else if (PassSNA == null && PassSPA == null && PassSZL == null)
+                    {
                         instItems.pcCounter++;
+                        instItems.BranchTaken = true;
+                        instItems.BranchType = Constants.BranchType.Unconditional;
+
+                    }
 
 
                 }
@@ -525,7 +541,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                BranchTaken = false,
+                BranchTaken = instItems.BranchTaken,
                 pcCounter = ++instItems.pcCounter,
                 SetMemValue = false
             };

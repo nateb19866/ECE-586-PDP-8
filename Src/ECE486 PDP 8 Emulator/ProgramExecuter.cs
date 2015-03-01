@@ -91,15 +91,7 @@ namespace ECE486_PDP_8_Emulator
                    case Constants.OpCode.JMP:
                    case Constants.OpCode.OPR:
                        //Only log conditional microcodes
-                       if (InstructionRegisterOctal != (int)Constants.Microcode.SMA
-                           && InstructionRegisterOctal != (int)Constants.Microcode.SZA
-                           && InstructionRegisterOctal != (int)Constants.Microcode.SNL
-                           && InstructionRegisterOctal != (int)Constants.Microcode.SPA
-                           && InstructionRegisterOctal != (int)Constants.Microcode.SNA
-                           && InstructionRegisterOctal != (int)Constants.Microcode.SZL
-                           && InstructionRegisterOctal != (int)Constants.Microcode.SKP
-
-                           )
+                       if (Result.BranchType == null)
                            break;
 
 
