@@ -41,8 +41,11 @@
             this.statusProgBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnOpenBranchTrFile = new System.Windows.Forms.Button();
+            this.btnOpenMemTrFile = new System.Windows.Forms.Button();
             this.lblProgName = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblInstTad = new System.Windows.Forms.Label();
             this.lblInstMicrocodes = new System.Windows.Forms.Label();
             this.lblInstIot = new System.Windows.Forms.Label();
             this.lblInstJmp = new System.Windows.Forms.Label();
@@ -54,7 +57,6 @@
             this.lblInstExecuted = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMemContents = new System.Windows.Forms.TextBox();
-            this.lblInstTad = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -109,7 +111,7 @@
             // btnRunProgram
             // 
             this.btnRunProgram.Enabled = false;
-            this.btnRunProgram.Location = new System.Drawing.Point(234, 91);
+            this.btnRunProgram.Location = new System.Drawing.Point(242, 90);
             this.btnRunProgram.Name = "btnRunProgram";
             this.btnRunProgram.Size = new System.Drawing.Size(129, 23);
             this.btnRunProgram.TabIndex = 4;
@@ -157,7 +159,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgBar,
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 471);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(768, 22);
             this.statusStrip1.TabIndex = 3;
@@ -179,16 +181,40 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnOpenBranchTrFile);
+            this.groupBox2.Controls.Add(this.btnOpenMemTrFile);
             this.groupBox2.Controls.Add(this.lblProgName);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.lblClockCycles);
             this.groupBox2.Controls.Add(this.lblInstExecuted);
             this.groupBox2.Location = new System.Drawing.Point(37, 206);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(391, 238);
+            this.groupBox2.Size = new System.Drawing.Size(391, 266);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Statistics of Last Program";
+            // 
+            // btnOpenBranchTrFile
+            // 
+            this.btnOpenBranchTrFile.Enabled = false;
+            this.btnOpenBranchTrFile.Location = new System.Drawing.Point(247, 234);
+            this.btnOpenBranchTrFile.Name = "btnOpenBranchTrFile";
+            this.btnOpenBranchTrFile.Size = new System.Drawing.Size(136, 23);
+            this.btnOpenBranchTrFile.TabIndex = 6;
+            this.btnOpenBranchTrFile.Text = "Open Branch Trace File";
+            this.btnOpenBranchTrFile.UseVisualStyleBackColor = true;
+            this.btnOpenBranchTrFile.Click += new System.EventHandler(this.btnOpenBranchTrFile_Click);
+            // 
+            // btnOpenMemTrFile
+            // 
+            this.btnOpenMemTrFile.Enabled = false;
+            this.btnOpenMemTrFile.Location = new System.Drawing.Point(10, 234);
+            this.btnOpenMemTrFile.Name = "btnOpenMemTrFile";
+            this.btnOpenMemTrFile.Size = new System.Drawing.Size(136, 23);
+            this.btnOpenMemTrFile.TabIndex = 5;
+            this.btnOpenMemTrFile.Text = "Open Mem Trace File";
+            this.btnOpenMemTrFile.UseVisualStyleBackColor = true;
+            this.btnOpenMemTrFile.Click += new System.EventHandler(this.btnOpenMemTrFile_Click);
             // 
             // lblProgName
             // 
@@ -216,6 +242,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Instructions Executed";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // lblInstTad
+            // 
+            this.lblInstTad.AutoSize = true;
+            this.lblInstTad.Location = new System.Drawing.Point(197, 72);
+            this.lblInstTad.Name = "lblInstTad";
+            this.lblInstTad.Size = new System.Drawing.Size(32, 13);
+            this.lblInstTad.TabIndex = 9;
+            this.lblInstTad.Text = "TAD:";
             // 
             // lblInstMicrocodes
             // 
@@ -309,34 +344,28 @@
             // 
             // txtMemContents
             // 
+            this.txtMemContents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMemContents.Location = new System.Drawing.Point(455, 78);
             this.txtMemContents.Multiline = true;
             this.txtMemContents.Name = "txtMemContents";
-            this.txtMemContents.Size = new System.Drawing.Size(294, 366);
+            this.txtMemContents.Size = new System.Drawing.Size(294, 394);
             this.txtMemContents.TabIndex = 6;
             this.txtMemContents.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // lblInstTad
-            // 
-            this.lblInstTad.AutoSize = true;
-            this.lblInstTad.Location = new System.Drawing.Point(197, 72);
-            this.lblInstTad.Name = "lblInstTad";
-            this.lblInstTad.Size = new System.Drawing.Size(32, 13);
-            this.lblInstTad.TabIndex = 9;
-            this.lblInstTad.Text = "TAD:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 493);
+            this.ClientSize = new System.Drawing.Size(768, 517);
             this.Controls.Add(this.txtMemContents);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
-            this.MinimumSize = new System.Drawing.Size(784, 525);
+            this.MinimumSize = new System.Drawing.Size(784, 556);
             this.Name = "MainForm";
             this.Text = "PDP 8 Simulator";
             this.groupBox1.ResumeLayout(false);
@@ -381,5 +410,7 @@
         private System.Windows.Forms.Button btnTraceFolderPicker;
         private System.Windows.Forms.Button btnProgPathPicker;
         private System.Windows.Forms.Label lblInstTad;
+        private System.Windows.Forms.Button btnOpenBranchTrFile;
+        private System.Windows.Forms.Button btnOpenMemTrFile;
     }
 }

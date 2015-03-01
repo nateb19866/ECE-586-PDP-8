@@ -31,5 +31,8 @@ namespace ECE486_PDP_8_Emulator.Classes
 
        public List<MemArrayRow> MemContents;
 
+       public string MemTraceFilePath;
+       public string BranchTraceFilePath;
+
     }
 }

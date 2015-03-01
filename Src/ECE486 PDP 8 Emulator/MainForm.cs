@@ -16,7 +16,9 @@ namespace ECE486_PDP_8_Emulator
     {
 
         private bool IsRunning = false;
-        
+        private string LastMemTrFilePath = "";
+        private string LastBranchTrFilePath = "";
+
         public MainForm()
         {
             InitializeComponent();
@@ -80,6 +82,11 @@ namespace ECE486_PDP_8_Emulator
                 statusProgBar.Visible = false;
 
                 Statistics Result = task.Result;
+
+                LastBranchTrFilePath = Result.BranchTraceFilePath;
+                LastMemTrFilePath = Result.MemTraceFilePath;
+                btnOpenBranchTrFile.Enabled = true;
+                btnOpenMemTrFile.Enabled = true;
 
                 //Update the statistics boxes
                 lblClockCycles.Text = "Total Clock Cycles: " + Result.ClockCyclesExecuted.ToString();
@@ -149,6 +156,16 @@ namespace ECE486_PDP_8_Emulator
 
             if (FolderPickerDlg.ShowDialog() == DialogResult.OK)
                 txtTraceFolder.Text = FolderPickerDlg.SelectedPath;
+        }
+
+        private void btnOpenMemTrFile_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(LastMemTrFilePath);
+        }
+
+        private void btnOpenBranchTrFile_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(LastBranchTrFilePath);
         }
     }
 }

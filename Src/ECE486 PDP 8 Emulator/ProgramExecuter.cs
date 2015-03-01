@@ -138,6 +138,8 @@ namespace ECE486_PDP_8_Emulator
            pdp8Stats.ClockCyclesExecuted++;
            pdp8Stats.InstructionsExecuted++;
            pdp8Stats.InstructionTypeExecutions["OPR"] = (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions["OPR"]) + 1).ToString();
+           pdp8Stats.MemTraceFilePath = traceLogger.FinalMemTrFileName;
+           pdp8Stats.BranchTraceFilePath = traceLogger.FinalBranchTrFileName;
 
            //Transfer memory contents
            pdp8Stats.MemContents = Pdp8MemArray.DumpValidMemContents();

@@ -16,8 +16,8 @@ namespace ECE486_PDP_8_Emulator
        private string BranchTraceFileName = "BranchTrace";
        private string TraceExtension = ".tr";
 
-       private string FinalMemTrFileName = "";
-       private string FinalBranchTrFileName = "";
+       public string FinalMemTrFileName = "";
+       public string FinalBranchTrFileName = "";
 
 
       private bool MemTraceFileCreated = false;
