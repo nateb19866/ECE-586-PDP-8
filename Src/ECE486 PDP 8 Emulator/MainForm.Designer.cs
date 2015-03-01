@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnTraceFolderPicker = new System.Windows.Forms.Button();
+            this.btnProgPathPicker = new System.Windows.Forms.Button();
             this.btnRunProgram = new System.Windows.Forms.Button();
             this.txtTraceFolder = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,8 +54,7 @@
             this.lblInstExecuted = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMemContents = new System.Windows.Forms.TextBox();
-            this.btnProgPathPicker = new System.Windows.Forms.Button();
-            this.btnTraceFolderPicker = new System.Windows.Forms.Button();
+            this.lblInstTad = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -84,6 +85,26 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Run a Program";
+            // 
+            // btnTraceFolderPicker
+            // 
+            this.btnTraceFolderPicker.Location = new System.Drawing.Point(342, 56);
+            this.btnTraceFolderPicker.Name = "btnTraceFolderPicker";
+            this.btnTraceFolderPicker.Size = new System.Drawing.Size(29, 20);
+            this.btnTraceFolderPicker.TabIndex = 6;
+            this.btnTraceFolderPicker.Text = "...";
+            this.btnTraceFolderPicker.UseVisualStyleBackColor = true;
+            this.btnTraceFolderPicker.Click += new System.EventHandler(this.btnTraceFolderPicker_Click);
+            // 
+            // btnProgPathPicker
+            // 
+            this.btnProgPathPicker.Location = new System.Drawing.Point(342, 22);
+            this.btnProgPathPicker.Name = "btnProgPathPicker";
+            this.btnProgPathPicker.Size = new System.Drawing.Size(29, 20);
+            this.btnProgPathPicker.TabIndex = 5;
+            this.btnProgPathPicker.Text = "...";
+            this.btnProgPathPicker.UseVisualStyleBackColor = true;
+            this.btnProgPathPicker.Click += new System.EventHandler(this.btnProgPathPicker_Click);
             // 
             // btnRunProgram
             // 
@@ -180,6 +201,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblInstTad);
             this.groupBox3.Controls.Add(this.lblInstMicrocodes);
             this.groupBox3.Controls.Add(this.lblInstIot);
             this.groupBox3.Controls.Add(this.lblInstJmp);
@@ -198,7 +220,7 @@
             // lblInstMicrocodes
             // 
             this.lblInstMicrocodes.AutoSize = true;
-            this.lblInstMicrocodes.Location = new System.Drawing.Point(168, 72);
+            this.lblInstMicrocodes.Location = new System.Drawing.Point(163, 95);
             this.lblInstMicrocodes.Name = "lblInstMicrocodes";
             this.lblInstMicrocodes.Size = new System.Drawing.Size(65, 13);
             this.lblInstMicrocodes.TabIndex = 8;
@@ -294,25 +316,14 @@
             this.txtMemContents.TabIndex = 6;
             this.txtMemContents.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // btnProgPathPicker
+            // lblInstTad
             // 
-            this.btnProgPathPicker.Location = new System.Drawing.Point(342, 22);
-            this.btnProgPathPicker.Name = "btnProgPathPicker";
-            this.btnProgPathPicker.Size = new System.Drawing.Size(29, 20);
-            this.btnProgPathPicker.TabIndex = 5;
-            this.btnProgPathPicker.Text = "...";
-            this.btnProgPathPicker.UseVisualStyleBackColor = true;
-            this.btnProgPathPicker.Click += new System.EventHandler(this.btnProgPathPicker_Click);
-            // 
-            // btnTraceFolderPicker
-            // 
-            this.btnTraceFolderPicker.Location = new System.Drawing.Point(342, 56);
-            this.btnTraceFolderPicker.Name = "btnTraceFolderPicker";
-            this.btnTraceFolderPicker.Size = new System.Drawing.Size(29, 20);
-            this.btnTraceFolderPicker.TabIndex = 6;
-            this.btnTraceFolderPicker.Text = "...";
-            this.btnTraceFolderPicker.UseVisualStyleBackColor = true;
-            this.btnTraceFolderPicker.Click += new System.EventHandler(this.btnTraceFolderPicker_Click);
+            this.lblInstTad.AutoSize = true;
+            this.lblInstTad.Location = new System.Drawing.Point(197, 72);
+            this.lblInstTad.Name = "lblInstTad";
+            this.lblInstTad.Size = new System.Drawing.Size(32, 13);
+            this.lblInstTad.TabIndex = 9;
+            this.lblInstTad.Text = "TAD:";
             // 
             // MainForm
             // 
@@ -369,5 +380,6 @@
         private System.Windows.Forms.Label lblProgName;
         private System.Windows.Forms.Button btnTraceFolderPicker;
         private System.Windows.Forms.Button btnProgPathPicker;
+        private System.Windows.Forms.Label lblInstTad;
     }
 }

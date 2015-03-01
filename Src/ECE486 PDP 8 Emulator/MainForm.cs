@@ -84,14 +84,14 @@ namespace ECE486_PDP_8_Emulator
                 //Update the statistics boxes
                 lblClockCycles.Text = "Total Clock Cycles: " + Result.ClockCyclesExecuted.ToString();
                 lblInstExecuted.Text = "Total Instructions Executed: " + Result.InstructionsExecuted.ToString();
-                lblInstAnd.Text = "AND: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.AND).Executions.ToString();
-                lblInstAnd.Text = "ISZ: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.ISZ).Executions.ToString();
-                lblInstAnd.Text = "DCA: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.DCA).Executions.ToString();
-                lblInstAnd.Text = "JMS: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.JMS).Executions.ToString();
-                lblInstAnd.Text = "JMP: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.JMP).Executions.ToString();
-                lblInstAnd.Text = "TAD: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.TAD).Executions.ToString();
-                lblInstAnd.Text = "IOT: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.IOT).Executions.ToString();
-                lblInstAnd.Text = "Microcodes: " + Result.InstructionTypeExecutions.First(i => i.Operation == Constants.OpCode.OPR).Executions.ToString();
+                lblInstAnd.Text = "AND: " + Result.InstructionTypeExecutions[Constants.OpCode.AND.ToString()];
+                lblInstIsz.Text = "ISZ: " + Result.InstructionTypeExecutions[Constants.OpCode.ISZ.ToString()];
+                lblInstDca.Text = "DCA: " + Result.InstructionTypeExecutions[Constants.OpCode.DCA.ToString()];
+                lblInstJms.Text = "JMS: " + Result.InstructionTypeExecutions[Constants.OpCode.JMS.ToString()];
+                lblInstJmp.Text = "JMP: " + Result.InstructionTypeExecutions[Constants.OpCode.JMP.ToString()];
+                lblInstTad.Text = "TAD: " + Result.InstructionTypeExecutions[Constants.OpCode.TAD.ToString()];
+                lblInstIot.Text = "IOT: " + Result.InstructionTypeExecutions[Constants.OpCode.IOT.ToString()];
+                lblInstMicrocodes.Text = "Microcodes: " + Result.InstructionTypeExecutions[Constants.OpCode.OPR.ToString()];
 
                 //Print memory contents
                 StringBuilder FinalMemContents = new StringBuilder();
@@ -137,6 +137,7 @@ namespace ECE486_PDP_8_Emulator
             if (ProgPathDlg.ShowDialog() == DialogResult.OK)
             {
                 txtProgramPath.Text = ProgPathDlg.FileName;
+                txtTraceFolder.Text = Path.GetDirectoryName(ProgPathDlg.FileName);
             }
         }
 

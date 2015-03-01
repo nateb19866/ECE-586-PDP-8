@@ -56,15 +56,22 @@ namespace ECE486_PDP_8_Emulator
 
 
            //Loop until the program is halted
-           while (InstructionRegisterOctal != (int)Constants.Microcode.HLT)
+           while (Utils.DecimalToOctal(InstructionRegisterOctal) != (int)Constants.Microcode.HLT)
            {
                Operation CurOp = Utils.DecodeOperationAddress(InstructionRegisterOctal, Pdp8MemArray, CurPage);
+
+               int MemValueOctal = 0;
+               if(CurOp.Instruction.instructionType != Constants.OpCode.OPR 
+                   && CurOp.Instruction.instructionType != Constants.OpCode.IOT
+                   && CurOp.Instruction.instructionType != Constants.OpCode.DCA)
+                   MemValueOctal =  Pdp8MemArray.GetValue(CurOp.FinalMemAddress, false, false);
+
 
                InstructionItems InstructionParams = new InstructionItems()
                {
                    accumulatorOctal = AccumulatorOctal,
                    MemoryAddress = CurOp.FinalMemAddress,
-                   MemoryValueOctal = Pdp8MemArray.GetValue(CurOp.FinalMemAddress, false, false),
+                   MemoryValueOctal = MemValueOctal,
                    pcCounter = ProgramCounter,
                    InstructionRegister = InstructionRegisterOctal,
                    LinkBit = LinkBit
@@ -129,14 +136,22 @@ namespace ECE486_PDP_8_Emulator
                pdp8Stats.InstructionsExecuted++;
 
                //Update the stats on the type of instruction being executed
-               pdp8Stats.InstructionTypeExecutions.Single(i => i.Operation == CurOp.Instruction.instructionType).Executions++;
+               pdp8Stats.InstructionTypeExecutions[CurOp.Instruction.instructionType.ToString()] =
+                 (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions[CurOp.Instruction.instructionType.ToString()]) + 1).ToString();
+               
 
            }
 
-
+           //Update stats one last time
+           pdp8Stats.ClockCyclesExecuted++;
+           pdp8Stats.InstructionsExecuted++;
+           pdp8Stats.InstructionTypeExecutions["OPR"] = (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions["OPR"]) + 1).ToString();
 
            //Transfer memory contents
            pdp8Stats.MemContents = Pdp8MemArray.DumpValidMemContents();
+
+           //Dump any cached logs to file
+           traceLogger.DumpAllCachesToFile();
            return pdp8Stats;
        }
     }

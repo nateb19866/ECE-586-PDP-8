@@ -69,10 +69,10 @@ namespace ECE486_PDP_8_Emulator
       {
 
           List<MemArrayRow> OutputArray = new List<MemArrayRow>();
-            for (int i = 0; i < MemoryArray.Length; i++)
+            for (int i = 0; i < (MemoryArray.Length/2); i++)
           {
               if (MemoryArray[i, 1] == 1)
-                  OutputArray.Add(new MemArrayRow() { Address = i, Value = Utils.DecimalToOctal(MemoryArray[i, 0]) });
+                  OutputArray.Add(new MemArrayRow() { Address = Utils.DecimalToOctal(i), Value = Utils.DecimalToOctal(MemoryArray[i, 0]) });
           }
 
             return OutputArray;
