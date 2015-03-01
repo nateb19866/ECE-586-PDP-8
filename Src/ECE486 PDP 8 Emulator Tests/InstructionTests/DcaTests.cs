@@ -90,7 +90,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test 0: EA = AC, AC - 0
             TestItems.accumulatorOctal = 0;
-            TestItems.MemoryValueOctal = 7777;
+            TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.MemoryValueOctal);
@@ -98,57 +98,75 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
             //Test 1
-            TestItems.accumulatorOctal = 1;
-            TestItems.MemoryValueOctal = 7777;
+            TestItems.accumulatorOctal = Convert.ToInt32(5252.ToString(), 8);
+            TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(5252.ToString(), 8), ActualResult.MemoryValueOctal);
 
             //Test all 1s
-            TestItems.accumulatorOctal = 7777;
-            TestItems.MemoryValueOctal = 1111;
+            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.MemoryValueOctal = Convert.ToInt32(1111.ToString(), 8);
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.MemoryValueOctal);
             
 
             //Test alternating pattern of 1s and 0s - Start with 1
-            TestItems.accumulatorOctal = 5252;
-            TestItems.MemoryValueOctal = 2525;
-
+            TestItems.accumulatorOctal = Convert.ToInt32(5252.ToString(), 8);
+            TestItems.MemoryValueOctal = Convert.ToInt32(2525.ToString(), 8);
+            
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
-
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(5252.ToString(), 8), ActualResult.MemoryValueOctal);
+           
 
             //Test alternating pattern of 1s and 0s - Start with 0
-            TestItems.accumulatorOctal = 2525;
-            TestItems.MemoryValueOctal = 4444;
-
+            TestItems.accumulatorOctal = Convert.ToInt32(2525.ToString(), 8);
+            TestItems.MemoryValueOctal = Convert.ToInt32(5252.ToString(), 8);
+           
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(2525.ToString(), 8), ActualResult.MemoryValueOctal);
 
 
             //Test 0 for first and last octals, ensure not losing octals on ends
-            TestItems.accumulatorOctal = 0770;
-            TestItems.MemoryValueOctal = 2222;
-
+            TestItems.accumulatorOctal = Convert.ToInt32(0770.ToString(), 8);
+            TestItems.MemoryValueOctal = Convert.ToInt32(2222.ToString(), 8);
+           
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0770.ToString(), 8), ActualResult.MemoryValueOctal);
 
 
             //Test end 1's
-            TestItems.accumulatorOctal = 4001;
-            TestItems.MemoryValueOctal = 0770;
+             TestItems.accumulatorOctal = Convert.ToInt32(4001.ToString(), 8);
+             TestItems.MemoryValueOctal = Convert.ToInt32(0770.ToString(), 8);
+           
+            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(4001.ToString(), 8), ActualResult.MemoryValueOctal);
+
+
+            //Test 0
+            TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
+            TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.MemoryValueOctal);
+
+
+            //Test 1
+            TestItems.accumulatorOctal = Convert.ToInt32(1.ToString(), 8);
+            TestItems.MemoryValueOctal = Convert.ToInt32(7000.ToString(), 8);
+
+            ActualResult = TestDcaInstruction.ExecuteInstruction(TestItems);
+
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.MemoryValueOctal);
 
         }
     }

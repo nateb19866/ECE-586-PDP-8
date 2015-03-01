@@ -19,18 +19,37 @@ namespace ECE486_PDP_8_Emulator.Instructions
             //MemArray[AC] = MemArray[AC] + MemArray[EA];
             //if(MemArray[EA] ==0)
             //MemArray[PC] = MemArray[PC] +1;
-           int FinalValue = 0;
-           int IncrementedPcCounter = instItems.pcCounter;
+          
+           int IncrementedPcCounter = ++instItems.pcCounter;
 
-           if (instItems.MemoryValueOctal == Convert.ToInt32(7777.ToString(), 8))
+           // Increment memory & mask for 12 bits
+           int FinalValue = instItems.MemoryValueOctal;
+           FinalValue = ++FinalValue;
+           FinalValue = FinalValue & 0xfff;
+
+           //Skip next instruction if memory is 0
+           if (FinalValue == 0)
            {
-               FinalValue = 0;
-               instItems.pcCounter++;
+               IncrementedPcCounter = ++IncrementedPcCounter;
            }
 
-           else
-               FinalValue = ++instItems.MemoryValueOctal;
+           //Mask to get only 12 bits PcCounter
+           IncrementedPcCounter = IncrementedPcCounter & 0xfff;
 
+
+           ///* Original */
+           //int FinalValue = 0;
+           //int IncrementedPcCounter = instItems.pcCounter;
+
+           //if (instItems.MemoryValueOctal == 7777)
+           //{
+           //    FinalValue = 0;
+           //    instItems.pcCounter++;
+           //}
+
+           //else
+           //    FinalValue = Utils.DecimalToOctal(Convert.ToInt32(instItems.MemoryValueOctal.ToString(), 8) + 1);
+           ///* Original */
 
            return new InstructionResult()
            {
@@ -40,7 +59,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                MemoryValueOctal = FinalValue,
                InstructionRegister = instItems.InstructionRegister,
                SetMemValue = true,
-               pcCounter = ++IncrementedPcCounter,
+               pcCounter = IncrementedPcCounter,
                BranchTaken = FinalValue == 0,
                BranchType = Constants.BranchType.Conditional
 
