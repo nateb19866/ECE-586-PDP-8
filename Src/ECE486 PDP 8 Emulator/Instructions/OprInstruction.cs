@@ -102,7 +102,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         private InstructionResult Group2Microcodes(InstructionResult instItems)
         {
-
+            
             if ( (Constants.Microcode)instItems.InstructionRegister != Constants.Microcode.M2_CLA
                 && (Constants.Microcode)instItems.InstructionRegister != Constants.Microcode.OSR
                 )
@@ -415,8 +415,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             bool LinkReturn;
 
             //Converting to byte array to make things easier.
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
-
+           int TestWord1Bytes = instItems.accumulatorOctal;
             // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
                 TestWord1Bytes |= (1 << 12);
@@ -440,7 +439,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             return new InstructionResult()
             {
-                accumulatorOctal = Utils.DecimalToOctal(finalAC),
+                accumulatorOctal = finalAC,
                 LinkBit = LinkReturn,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
@@ -461,8 +460,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
             bool LinkReturn;
 
             //Converting to byte array to make things easier.
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
-
+            int TestWord1Bytes = instItems.accumulatorOctal;
+          
             // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
                 TestWord1Bytes |= (1 << 12);
@@ -487,7 +486,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             return new InstructionResult()
             {
-                accumulatorOctal = Utils.DecimalToOctal(finalAC),
+                accumulatorOctal = finalAC,
                 LinkBit = LinkReturn,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
