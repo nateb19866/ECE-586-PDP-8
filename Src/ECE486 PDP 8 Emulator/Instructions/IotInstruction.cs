@@ -69,9 +69,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
         // Only increment PC for all IOs
         public InstructionResult KCF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+       
 
             return new InstructionResult()
             {
@@ -88,9 +87,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult KSF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+           
 
             return new InstructionResult()
             {
@@ -106,9 +104,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult KCC(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+       
 
             return new InstructionResult()
             {
@@ -124,9 +121,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult KRS(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            
 
             return new InstructionResult()
             {
@@ -142,9 +138,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult KRB(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -161,9 +155,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
           
         public InstructionResult TFL(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -179,9 +171,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult TSF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -197,9 +187,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult TCF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -215,9 +203,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult TPC(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -233,9 +219,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult TLS(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -252,9 +236,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
            
         public InstructionResult SKON(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -271,9 +253,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             
         public InstructionResult ION(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -289,9 +269,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
         public InstructionResult IOF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = ++instItems.pcCounter;
-            //Mask to get only 12 bits PcCounter
-            IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {

@@ -21,8 +21,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
             int TestWord1Bytes = instItems.accumulatorOctal;
             int TestWord2Bytes = instItems.MemoryValueOctal;
 
-
             int FinalWord = (TestWord1Bytes & TestWord2Bytes);
+
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -34,7 +35,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
 

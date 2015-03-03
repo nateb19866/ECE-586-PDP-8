@@ -34,22 +34,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
            }
 
            //Mask to get only 12 bits PcCounter
-           IncrementedPcCounter = IncrementedPcCounter & 0xfff;
+           IncrementedPcCounter = IncrementedPcCounter & 0xFFF;
 
-
-           ///* Original */
-           //int FinalValue = 0;
-           //int IncrementedPcCounter = instItems.pcCounter;
-
-           //if (instItems.MemoryValueOctal == 7777)
-           //{
-           //    FinalValue = 0;
-           //    instItems.pcCounter++;
-           //}
-
-           //else
-           //    FinalValue = Utils.DecimalToOctal(Convert.ToInt32(instItems.MemoryValueOctal.ToString(), 8) + 1);
-           ///* Original */
 
            return new InstructionResult()
            {
