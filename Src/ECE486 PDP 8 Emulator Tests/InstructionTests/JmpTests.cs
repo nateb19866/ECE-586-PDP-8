@@ -17,12 +17,10 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             {
                 accumulatorOctal = 0000,
                 LinkBit = true,
-                MemoryAddress = 0,
-                MemoryValueOctal = 7777,
-                pcCounter = 5649,
-                InstructionRegister = 7402
-
-
+                MemoryAddress = 123,
+                MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
+                pcCounter = 1,
+                InstructionRegister = Convert.ToInt32(7402.ToString(), 8)
             };
 
 
@@ -30,14 +28,14 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             {
                 accumulatorOctal = 0000,
                 LinkBit = true,
-                MemoryAddress = 0,
-                MemoryValueOctal = 7777,
-                pcCounter = 5650,
-                InstructionRegister = 7402,
+                MemoryAddress = 123,
+                MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
+                pcCounter = 123,
+                InstructionRegister = Convert.ToInt32(7402.ToString(), 8),
                 SetMemValue = false
             };
 
-            IInstruction TestJmpInstruction = new IotInstruction();
+            IInstruction TestJmpInstruction = new JmpInstruction();
 
             InstructionResult ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
 
@@ -49,6 +47,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
         }
 
 
@@ -64,7 +64,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
                 MemoryValueOctal = 0000,
                 pcCounter = 5649,
-                InstructionRegister = 7402
+                InstructionRegister = Convert.ToInt32(7402.ToString(), 8)
             };
 
 
@@ -75,12 +75,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
                 pcCounter = 5650,
-                InstructionRegister = 7402,
+                InstructionRegister = Convert.ToInt32(7402.ToString(), 8),
                 SetMemValue = false
 
             };
 
-            IInstruction TestJmpInstruction = new IotInstruction();
+            IInstruction TestJmpInstruction = new JmpInstruction();
 
             InstructionResult ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
 
@@ -89,88 +89,90 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             /* Test cases place octals from EA into PC and observe PC update */
 
             //Test 0
-            TestItems.MemoryValueOctal = 0;
-            TestItems.pcCounter = 1;
+            TestItems.MemoryAddress = Convert.ToInt32(0.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(1.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
 
             //Test 1
-            TestItems.MemoryValueOctal = 1;
-            TestItems.pcCounter = 10;
+
+            TestItems.MemoryAddress = Convert.ToInt32(1.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(10.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
-
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
             //Test all 1's
-            TestItems.MemoryValueOctal = 7777;
-            TestItems.pcCounter = 7770;
+            TestItems.MemoryAddress = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.pcCounter);
 
 
             //Test alternating pattern of 1s and 0s - Start with 1
-            TestItems.MemoryValueOctal = 5252;
-            TestItems.pcCounter = 0;
+            TestItems.MemoryAddress = Convert.ToInt32(5252.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(5252.ToString(), 8), ActualResult.pcCounter);
 
 
             //Test alternating pattern of 1s and 0s - Start with 0
-            TestItems.MemoryValueOctal = 2525;
-            TestItems.pcCounter = 1;
+            TestItems.MemoryAddress = Convert.ToInt32(2525.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(1.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(2525.ToString(), 8), ActualResult.pcCounter);
 
-
+           
             //Test 0 for first and last octals, ensure not losing octals on ends
-            TestItems.MemoryValueOctal = 0770;
-            TestItems.pcCounter = 2525;
+            TestItems.MemoryAddress = Convert.ToInt32(0770.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(2525.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(0770.ToString(), 8), ActualResult.pcCounter);
 
 
             //Test end 1's
-            TestItems.MemoryValueOctal = 4001;
-            TestItems.pcCounter = 777;
+            TestItems.MemoryAddress = Convert.ToInt32(4001.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(777.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(4001.ToString(), 8), ActualResult.pcCounter);
 
 
             //Test last octal 0
-            TestItems.MemoryValueOctal = 70;
-            TestItems.pcCounter = 7777;
-
+            TestItems.MemoryAddress = Convert.ToInt32(70.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(70.ToString(), 8), ActualResult.pcCounter);
+
 
             //Test last 2 octals 0
-            TestItems.MemoryValueOctal = 700;
-            TestItems.pcCounter = 1111;
+            TestItems.MemoryAddress = Convert.ToInt32(700.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(1111.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(700.ToString(), 8), ActualResult.pcCounter);
+
 
             //Test last octal 1
-            TestItems.MemoryValueOctal = 7771;
-            TestItems.pcCounter = 4444;
+            TestItems.MemoryAddress = Convert.ToInt32(7771.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(4444.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(7771.ToString(), 8), ActualResult.pcCounter);
+
 
             //Test last 3 octals 7, end case, 1777
-            TestItems.MemoryValueOctal = 777;
-            TestItems.pcCounter = 3333;
+            TestItems.MemoryAddress = Convert.ToInt32(777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(3333.ToString(), 8); ;
 
             ActualResult = TestJmpInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(777.ToString(), 8), ActualResult.pcCounter);
 
         }
     }

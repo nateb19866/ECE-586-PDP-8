@@ -19,7 +19,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                  LinkBit = instItems.LinkBit,
                   MemoryAddress = instItems.MemoryAddress,
                    MemoryValueOctal = instItems.MemoryValueOctal,
-                    pcCounter = ++instItems.pcCounter,
+                    pcCounter = (++instItems.pcCounter) & 0xFFF,
                      SetMemValue = false,
                      BranchType = null
             };
@@ -202,10 +202,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
         * NOP instruction does nothing. Passes all parameters as is.
         */
 
-
-
         private InstructionResult NopInstruction(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -214,7 +214,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -225,6 +225,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult M1_CLAInstruction(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             return new InstructionResult()
             {
                 accumulatorOctal = Utils.DecimalToOctal(0),
@@ -233,7 +235,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -244,6 +246,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult CLLInstruction(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             // Clear Link of uInstruction-1
             return new InstructionResult()
             {
@@ -253,7 +257,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -264,20 +268,22 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult CMAInstruction(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            int AC = instItems.accumulatorOctal;
+            int accumulatorUpdate = (~AC) & 0xFFF;
+
             // complement every bit of AC
             return new InstructionResult()
             {
                 // complement every bit of AC
-                accumulatorOctal = ~(instItems.accumulatorOctal),
-
+                accumulatorOctal = accumulatorUpdate,
                 //If used in conjunction with CLA, set all 12 bits of AC to 1 ( = 7777 )
-
                 LinkBit = false,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -288,6 +294,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult CMLInstruction(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -297,7 +305,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -315,8 +323,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             //Used with CLA, this loads the constant 1.
 
             //Converting to byte array to make things easier.
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8);
-
+            int TestWord1Bytes = instItems.accumulatorOctal;
             // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
                 TestWord1Bytes |= (1 << 12);
@@ -336,15 +343,18 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else
                 LinkReturn = true;
 
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
             return new InstructionResult()
             {
-                accumulatorOctal = Utils.DecimalToOctal(finalAC),
+                accumulatorOctal = finalAC,
                 LinkBit = LinkReturn,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -355,12 +365,12 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult RARInstruction(InstructionResult instItems)
         {
+
             int tempLink = 0;
             bool LinkReturn;
 
             //Converting to byte array to make things easier.
-            Int16 TestWord1Bytes = Convert.ToInt16(instItems.accumulatorOctal.ToString(), 8); // = 511 as decimal
-
+            int TestWord1Bytes = instItems.accumulatorOctal;
             // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
                 TestWord1Bytes |= (1 << 12);
@@ -380,15 +390,17 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else
                 LinkReturn = true;
 
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             return new InstructionResult()
             {
-                accumulatorOctal = Utils.DecimalToOctal(finalAC),
+                accumulatorOctal = finalAC,
                 LinkBit = LinkReturn,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -424,6 +436,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else
                 LinkReturn = true;
 
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             return new InstructionResult()
             {
                 accumulatorOctal = Utils.DecimalToOctal(finalAC),
@@ -432,7 +446,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -468,6 +482,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else
                 LinkReturn = true;
 
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
             return new InstructionResult()
             {
                 accumulatorOctal = Utils.DecimalToOctal(finalAC),
@@ -476,7 +493,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -513,6 +530,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else
                 LinkReturn = true;
 
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             return new InstructionResult()
             {
                 accumulatorOctal = Utils.DecimalToOctal(finalAC),
@@ -521,7 +540,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
@@ -534,6 +553,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult M2_CLAInstruction(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
             return new InstructionResult()
             {
                 accumulatorOctal = Utils.DecimalToOctal(0),
@@ -542,24 +564,15 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = instItems.BranchTaken,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
 
         private InstructionResult OSRInstruction(InstructionResult instItems)
         {
-            return new InstructionResult()
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
-            {
-            };
-        }
-
-       
-
-        // Microinstruction set 3: Handle by only incrementing PC and instr count.
-        public InstructionResult M3_CLA(InstructionResult instItems)
-        {
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -568,13 +581,35 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
+                SetMemValue = false
+            };
+        }
+
+        // Microinstruction set 3: Handle by only incrementing PC and instr count.
+        public InstructionResult M3_CLA(InstructionResult instItems)
+        {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
+            return new InstructionResult()
+            {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                InstructionRegister = instItems.InstructionRegister,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
 
         public InstructionResult MQL(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -583,13 +618,16 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
 
         public InstructionResult MQA(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -598,13 +636,16 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
 
         public InstructionResult SWP(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -613,13 +654,16 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }
 
         public InstructionResult CAM(InstructionResult instItems)
         {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -628,7 +672,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 SetMemValue = false
             };
         }

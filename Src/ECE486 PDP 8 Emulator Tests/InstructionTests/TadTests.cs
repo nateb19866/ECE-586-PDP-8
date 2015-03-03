@@ -18,8 +18,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 accumulatorOctal = 0000,
                 LinkBit = true,
                 MemoryAddress = 0,
-                MemoryValueOctal = 7777,
-                pcCounter = 5649,
+                MemoryValueOctal = 0,
+                pcCounter = 1,
                 InstructionRegister = 7402
             };
 
@@ -29,13 +29,13 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 accumulatorOctal = 0000,
                 LinkBit = true,
                 MemoryAddress = 0,
-                MemoryValueOctal = 7777,
-                pcCounter = 5650,
+                MemoryValueOctal = 0,
+                pcCounter = 2,
                 InstructionRegister = 7402,
                 SetMemValue = false
             };
 
-            IInstruction TestTadInstruction = new IotInstruction();
+            IInstruction TestTadInstruction = new TadInstruction();
 
             InstructionResult ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
 

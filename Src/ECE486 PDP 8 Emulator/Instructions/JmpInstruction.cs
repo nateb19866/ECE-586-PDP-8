@@ -15,7 +15,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            // MemArray[PC] = MemArray[EA];
+            // MemArray[PC] = EA;
+            int TestWord2Bytes = instItems.MemoryAddress & 0xFFF;
+
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -23,7 +25,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.MemoryValueOctal,
+                pcCounter = TestWord2Bytes,
                 SetMemValue = false,
                 BranchTaken = true,
                 BranchType = Constants.BranchType.Unconditional

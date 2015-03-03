@@ -16,13 +16,15 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             //MemArray[EA] = MemArray[AC];
             //MemArray[AC] = 0;
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
             return new InstructionResult()
             {
                 accumulatorOctal = 0,
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.accumulatorOctal,
-                pcCounter = ++instItems.pcCounter,
+                pcCounter = IncrementedPcCounter,
                 InstructionRegister = instItems.InstructionRegister,
                 SetMemValue = true,
                 BranchTaken = false
