@@ -18,7 +18,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // MemArray[PC] = EA;
             int TestWord2Bytes = instItems.MemoryAddress & 0xFFF;
 
-
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
