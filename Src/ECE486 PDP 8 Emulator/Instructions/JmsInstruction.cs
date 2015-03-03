@@ -11,22 +11,27 @@ namespace ECE486_PDP_8_Emulator.Instructions
     {
        private int ClockCycles = 2;
        private Constants.OpCode InstructionType = Constants.OpCode.JMS;
- 
 
+       
        public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
             // Call Function to get EA and AC
             ///MemArray[EA] = MemArray[PC];
-            // MemArray[PC] = MemArray[EA]+1;
+            // MemArray[PC] = EA+1;
+           
+            int TestWord2Bytes = instItems.pcCounter;
+            int pCupdate = (++instItems.MemoryAddress) & 0xFFF;
+
+
             return new InstructionResult()
             {
 
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryValueOctal,
-                pcCounter = ++instItems.MemoryValueOctal,
+                pcCounter = pCupdate,
                 InstructionRegister = instItems.InstructionRegister,
-                MemoryValueOctal = instItems.pcCounter,
+                MemoryValueOctal = TestWord2Bytes,
                 SetMemValue = true,
                 BranchTaken = true,
                 BranchType = Constants.BranchType.Subroutine

@@ -33,7 +33,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
            }
 
                 //if they're both negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
-           else if (instItems.MemoryValueOctal > 0x3FF && instItems.accumulatorOctal > 0x3FF && FinalAccumulator > 0xFFF)
+           else if (instItems.MemoryValueOctal > 0x7FF && instItems.accumulatorOctal > 0x7FF && FinalAccumulator > 0x7FF)
            {
                FinalLinkBit = !FinalLinkBit;
                FinalAccumulator = FinalAccumulator & 0x00000FFF;

@@ -87,8 +87,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
             /* Test cases place octals into PC and observe PC incremented by 1 */
-
-
+         
             //Test 0
             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
