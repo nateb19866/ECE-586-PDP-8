@@ -76,7 +76,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
 
             }
-            //Group 2 microinstruction - mask with 000 1000 000 001, or 0001 0000 0001 in hex
+            //Group 2 microinstruction - mask with 000 100 000 001, or 0001 0000 0001 in hex
             else if((instItems.InstructionRegister & 0x101) == 0x100)
             {
                 Rslt = Group2Microcodes(Rslt);
@@ -107,7 +107,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 && (Constants.Microcode)instItems.InstructionRegister != Constants.Microcode.OSR
                 )
             {
-                //OR group
+                //OR group - when 8th bit is 0
                 if ((instItems.InstructionRegister & 0x8) == 0x0)
                 {
                     bool PassSMA = false;

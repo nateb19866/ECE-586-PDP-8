@@ -15,11 +15,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
         {
             InstructionItems TestItems = new InstructionItems()
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = 1,
                 LinkBit = true,
-                MemoryAddress = 0,
-                MemoryValueOctal = 7777,
-                pcCounter = 5649,
+                MemoryAddress = 123,
+                MemoryValueOctal = 4095,
+                pcCounter = 123,
                 InstructionRegister = 7402
 
 
@@ -28,16 +28,19 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             InstructionResult ExpectedItems = new InstructionResult()
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = 1,
                 LinkBit = true,
-                MemoryAddress = 0,
-                MemoryValueOctal = 7777,
-                pcCounter = 5650,
+                MemoryAddress = 123,
+                MemoryValueOctal = 0,
+                pcCounter = 125,
                 InstructionRegister = 7402,
-                SetMemValue = false
+                SetMemValue = true,
+                 BranchTaken = true,
+                 BranchType = Constants.BranchType.Conditional
+                
             };
 
-            IInstruction TestIszInstruction = new IotInstruction();
+            IInstruction TestIszInstruction = new IszInstruction();
 
             InstructionResult ActualResult = TestIszInstruction.ExecuteInstruction(TestItems);
 
@@ -49,6 +52,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(ExpectedItems.BranchType, ActualResult.BranchType);
         }
 
 

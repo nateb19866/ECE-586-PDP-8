@@ -15,11 +15,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
         {
             InstructionItems TestItems = new InstructionItems()
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = 1,
                 LinkBit = true,
-                MemoryAddress = 0,
+                MemoryAddress = 100,
                 MemoryValueOctal = 7777,
-                pcCounter = 5649,
+                pcCounter = 1,
                 InstructionRegister = 7402
 
 
@@ -30,11 +30,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             {
                 accumulatorOctal = 0000,
                 LinkBit = true,
-                MemoryAddress = 0,
-                MemoryValueOctal = 7777,
-                pcCounter = 5650,
+                MemoryAddress = 100,
+                MemoryValueOctal = 1,
+                pcCounter = 2,
                 InstructionRegister = 7402,
-                SetMemValue = false
+                SetMemValue = true
             };
 
             IInstruction TestDcaInstruction = new DcaInstruction();
@@ -49,6 +49,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
         }
 
 
