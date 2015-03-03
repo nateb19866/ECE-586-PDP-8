@@ -20,7 +20,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // MemArray[PC] = EA+1;
            
             int TestWord2Bytes = instItems.pcCounter;
-            int pCupdate = (++instItems.MemoryAddress) & 0xFFF;
+            int pCupdate = (instItems.MemoryAddress + 1) & 0xFFF;
 
 
             return new InstructionResult()
@@ -28,7 +28,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryValueOctal,
+                MemoryAddress = instItems.MemoryAddress,
                 pcCounter = pCupdate,
                 InstructionRegister = instItems.InstructionRegister,
                 MemoryValueOctal = TestWord2Bytes,
