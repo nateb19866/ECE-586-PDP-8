@@ -269,15 +269,15 @@ namespace ECE486_PDP_8_Emulator.Instructions
         public InstructionResult CMAInstruction(InstructionResult instItems)
         {
             int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            int AC = instItems.accumulatorOctal;
+            int accumulatorUpdate = (~AC) & 0xFFF;
 
             // complement every bit of AC
             return new InstructionResult()
             {
                 // complement every bit of AC
-                accumulatorOctal = ~(instItems.accumulatorOctal),
-
+                accumulatorOctal = accumulatorUpdate,
                 //If used in conjunction with CLA, set all 12 bits of AC to 1 ( = 7777 )
-
                 LinkBit = false,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
@@ -573,13 +573,20 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         private InstructionResult OSRInstruction(InstructionResult instItems)
         {
-            return new InstructionResult()
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
 
+            return new InstructionResult()
             {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                InstructionRegister = instItems.InstructionRegister,
+                pcCounter = IncrementedPcCounter,
+                SetMemValue = false
             };
         }
-
-       
 
         // Microinstruction set 3: Handle by only incrementing PC and instr count.
         public InstructionResult M3_CLA(InstructionResult instItems)
