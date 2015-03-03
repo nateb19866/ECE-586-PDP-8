@@ -19,7 +19,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                  LinkBit = instItems.LinkBit,
                   MemoryAddress = instItems.MemoryAddress,
                    MemoryValueOctal = instItems.MemoryValueOctal,
-                    pcCounter = ++instItems.pcCounter,
+                    pcCounter = (++instItems.pcCounter) & 0xFFF,
                      SetMemValue = false,
                      BranchType = null
             };
@@ -201,8 +201,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
         /*
         * NOP instruction does nothing. Passes all parameters as is.
         */
-
-
 
         private InstructionResult NopInstruction(InstructionResult instItems)
         {

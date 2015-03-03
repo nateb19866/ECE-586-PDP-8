@@ -17,9 +17,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             InstructionResult Rslt = new InstructionResult();
 
-           // switch ((Constants.IOCode)(Utils.DecimalToOctal(instItems.InstructionRegister)))
-            switch ((Constants.IOCode)((instItems.InstructionRegister)))  // convert dec to octal here
-            {
+           switch ((Constants.IOCode)(Utils.DecimalToOctal(instItems.InstructionRegister)))
+           // switch ((Constants.IOCode)instItems.InstructionRegister)  
+           {
                 case Constants.IOCode.KCF:
                     Rslt = KCF(instItems);
                     break;
