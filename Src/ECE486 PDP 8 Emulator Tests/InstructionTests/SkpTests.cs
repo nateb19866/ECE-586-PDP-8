@@ -7,7 +7,7 @@ using ECE486_PDP_8_Emulator.Instructions;
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class SkpTests
+    public class M2SKPTests
     {
         [TestMethod]
         public void TestM2SKPArgumentPassthrough()
@@ -91,16 +91,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
             //test whether the PC increments always
-
-            TestItems.pcCounter = 0;
-
+            TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(1, ActualResult.pcCounter);
 
             //Increments PC value
-
-
             TestItems.pcCounter = Convert.ToInt32(4001.ToString(), 8);
 
 

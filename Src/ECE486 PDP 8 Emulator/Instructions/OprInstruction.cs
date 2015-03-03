@@ -547,9 +547,30 @@ namespace ECE486_PDP_8_Emulator.Instructions
        
 
         /*
-         *M2_CLA instruction: clears AC.
-         */
+      * SKP instruction does nothing. Passes all parameters as is.
+      */
 
+        private InstructionResult SkpInstruction(InstructionResult instItems)
+        {
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+            return new InstructionResult()
+            {
+                accumulatorOctal = instItems.accumulatorOctal,
+                BranchTaken = false,
+                LinkBit = instItems.LinkBit,
+                MemoryAddress = instItems.MemoryAddress,
+                MemoryValueOctal = instItems.MemoryValueOctal,
+                InstructionRegister = instItems.InstructionRegister,
+                pcCounter = IncrementedPcCounter,
+                SetMemValue = false
+            };
+        }
+
+        /*
+       *M2_CLA instruction: clears AC.
+       */
         public InstructionResult M2_CLAInstruction(InstructionResult instItems)
         {
             int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
