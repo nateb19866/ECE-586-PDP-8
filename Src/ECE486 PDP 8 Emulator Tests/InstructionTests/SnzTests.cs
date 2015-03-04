@@ -26,7 +26,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             };
 
-
             InstructionResult ExpectedItems = new InstructionResult()
             {
                 accumulatorOctal = 0000,

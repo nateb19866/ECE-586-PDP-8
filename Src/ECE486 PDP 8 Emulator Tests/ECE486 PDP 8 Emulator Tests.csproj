@@ -73,6 +73,7 @@
     <Compile Include="InstructionTests\M1_CLA.cs" />
     <Compile Include="InstructionTests\RALTests.cs" />
     <Compile Include="InstructionTests\RARTests.cs" />
+    <Compile Include="InstructionTests\SzaTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
