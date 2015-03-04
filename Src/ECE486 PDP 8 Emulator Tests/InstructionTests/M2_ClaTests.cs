@@ -13,7 +13,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
         public void TestM2CLArgumentPassthrough()
         {
 
-
             InstructionItems TestItems = new InstructionItems()
 
             {

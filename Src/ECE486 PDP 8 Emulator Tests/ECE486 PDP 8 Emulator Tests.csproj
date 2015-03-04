@@ -74,6 +74,12 @@
     <Compile Include="InstructionTests\RALTests.cs" />
     <Compile Include="InstructionTests\RARTests.cs" />
     <Compile Include="InstructionTests\SzaTests.cs" />
+    <Compile Include="InstructionTests\OsrTests.cs" />
+    <Compile Include="InstructionTests\M3_ClaTests.cs" />
+    <Compile Include="InstructionTests\MqlTests.cs" />
+    <Compile Include="InstructionTests\MqaTests.cs" />
+    <Compile Include="InstructionTests\SwpTests.cs" />
+    <Compile Include="InstructionTests\CamTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
