@@ -94,28 +94,28 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(1, ActualResult.pcCounter);
+            Assert.AreEqual(2, ActualResult.pcCounter);
 
             //Increments PC value
             TestItems.pcCounter = Convert.ToInt32(4001.ToString(), 8);
 
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(Convert.ToInt32(4002.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(4003.ToString(), 8), ActualResult.pcCounter);
 
             //test 3
 
             TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(Convert.ToInt32(7771.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
 
             //Test for all 1s address goes back to 0000
 
             TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
         }
 
     }
