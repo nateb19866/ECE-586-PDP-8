@@ -18,7 +18,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5649,
+                pcCounter = 1500,
                 InstructionRegister = Convert.ToInt32(7010.ToString(), 8)
 
 
@@ -27,11 +27,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             InstructionResult ExpectedItems = new InstructionResult()
             {
-                accumulatorOctal = 0000,
-                LinkBit = true,
+                accumulatorOctal = Convert.ToInt32(4000.ToString(), 8),
+                LinkBit = false,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5650,
+                pcCounter = 1502,
                 InstructionRegister = Convert.ToInt32(7010.ToString(), 8),
                 SetMemValue = false
             };

@@ -15,11 +15,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
         {
             InstructionItems TestItems = new InstructionItems()
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = Convert.ToInt32(5555.ToString(), 8),
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5649,
+                pcCounter = 1500,
                 InstructionRegister = Convert.ToInt32(7200.ToString(), 8)
 
 
@@ -32,7 +32,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5650,
+                pcCounter = 1502,
                 InstructionRegister = Convert.ToInt32(7200.ToString(), 8),
                 SetMemValue = false
             };
@@ -58,12 +58,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             InstructionItems TestItems = new InstructionItems()
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = Convert.ToInt32(0000.ToString(), 8),
                 LinkBit = true,
                 MemoryAddress = 0,
 
                 MemoryValueOctal = 0000,
-                pcCounter = 5649,
+                pcCounter = 1500,
                 InstructionRegister = Convert.ToInt32(7200.ToString(), 8)
             };
 
@@ -74,7 +74,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
-                pcCounter = 5650,
+                pcCounter = 1502,
                 InstructionRegister = Convert.ToInt32(7200.ToString(), 8),
                 SetMemValue = false
 
