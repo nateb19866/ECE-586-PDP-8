@@ -86,86 +86,112 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            // Test1
+            // Test all 0s
             TestItems.accumulatorOctal = Convert.ToInt32(0000.ToString(), 8);
-            TestItems.LinkBit = false;
+            TestItems.LinkBit = false; 
+            TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-            // Test2
+            // Test link true with all 0s
             TestItems.accumulatorOctal = Convert.ToInt32(0000.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0001.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
 
-            // Test3
+            // Test link false with all 1s
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(7070.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7776.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(7071.ToString(), 8), ActualResult.pcCounter);
 
 
-            // Test4
+            // Test link true with all 1s
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(2.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(3.ToString(), 8), ActualResult.pcCounter);
 
-            // Test5
+            // Test link true with rotating 1's starting with 0
             TestItems.accumulatorOctal = Convert.ToInt32(2525.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(2525.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(5253.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(2526.ToString(), 8), ActualResult.pcCounter);
 
-            // Test6
+
+            // Test link false with rotating 1s starting with 0
             TestItems.accumulatorOctal = Convert.ToInt32(2525.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(4000.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(5252.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(4001.ToString(), 8), ActualResult.pcCounter);
 
-            // Test7
+
+            // Test link true with end bits 1
             TestItems.accumulatorOctal = Convert.ToInt32(4001.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(0101.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0003.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(0102.ToString(), 8), ActualResult.pcCounter);
 
-            // Test8
+
+            // Test link false with end bits 1
             TestItems.accumulatorOctal = Convert.ToInt32(4001.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(1111.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0002.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(1112.ToString(), 8), ActualResult.pcCounter);
 
-            // Test9
+
+            // Test link true with end octals 0
             TestItems.accumulatorOctal = Convert.ToInt32(0770.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(1010.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1761.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(1011.ToString(), 8), ActualResult.pcCounter);
 
-            // Test10
+
+            // Test link false with end octals 0
             TestItems.accumulatorOctal = Convert.ToInt32(0770.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(7070.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1760.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(7071.ToString(), 8), ActualResult.pcCounter);
+
         }
     }
 }
