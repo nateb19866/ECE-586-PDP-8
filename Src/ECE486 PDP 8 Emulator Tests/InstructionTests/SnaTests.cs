@@ -7,33 +7,33 @@ using ECE486_PDP_8_Emulator.Instructions;
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class SnzTests
+    public class SnaTests
     {
         [TestMethod]
-        public void TestM2SNZArgumentPassthrough()
+        public void TestM2SNAArgumentPassthrough()
 
         {
             InstructionItems TestItems = new InstructionItems()
 
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = 4444,
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 5649,
-                InstructionRegister = Convert.ToInt32(7402.ToString(), 8)
+                InstructionRegister = Convert.ToInt32(7450.ToString(), 8)
 
 
             };
 
             InstructionResult ExpectedItems = new InstructionResult()
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = 4444,
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5650,
-                InstructionRegister = Convert.ToInt32(7402.ToString(), 8),
+                pcCounter = 5651,
+                InstructionRegister = Convert.ToInt32(7450.ToString(), 8),
                 SetMemValue = false
 
             };
@@ -47,14 +47,14 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.LinkBit, ActualResult.LinkBit);
             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
-            Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
         }
 
 
          [TestMethod]
-         public void TestM2SNZOperation()
+         public void TestM2SNAOperation()
          {
              //Need to initialize the instruction items for the first time
             
