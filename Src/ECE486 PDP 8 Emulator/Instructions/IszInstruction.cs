@@ -15,38 +15,41 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
        public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            
-            //MemArray[AC] = MemArray[AC] + MemArray[EA];
-            //if(MemArray[EA] ==0)
-            //MemArray[PC] = MemArray[PC] +1;
-          
-           int IncrementedPcCounter = ++instItems.pcCounter;
+          /* 
+           * ISZ: Increment and Skip on 0
+           * Mem[EA] = Mem[EA] + 1
+           * If Mem[EA] = 0
+           *    PC + 2 
+           */
 
-           // Increment memory & mask for 12 bits
-           int FinalValue = instItems.MemoryValueOctal;
-           FinalValue = ++FinalValue;
-           FinalValue = FinalValue & 0xfff;
 
-           //Skip next instruction if memory is 0
-           if (FinalValue == 0)
+            // Increment PC as normal
+            int IncrementedPcCounter = (++instItems.pcCounter);
+
+           // Increment mem Value and mask before checking, to ensure no overflow
+            instItems.MemoryValueOctal = (++instItems.MemoryValueOctal) & 0xFFF;
+
+           //Skip next instruction if mem Value is 0
+            if (instItems.MemoryValueOctal == 0)
            {
+               // Increment PC to skip if Value = 0 
                IncrementedPcCounter = ++IncrementedPcCounter;
            }
 
-           //Mask to get only 12 bits PcCounter
-           IncrementedPcCounter = IncrementedPcCounter & 0xFFF;
-
+           // Mask PC to ensure no overflow.
+           instItems.pcCounter = IncrementedPcCounter & 0xFFF;
 
            return new InstructionResult()
            {
                accumulatorOctal = instItems.accumulatorOctal,
                LinkBit = instItems.LinkBit,
                MemoryAddress = instItems.MemoryAddress,
-               MemoryValueOctal = FinalValue,
+               MemoryValueOctal = instItems.MemoryValueOctal,
                InstructionRegister = instItems.InstructionRegister,
                SetMemValue = true,
-               pcCounter = IncrementedPcCounter,
-               BranchTaken = FinalValue == 0,
+               pcCounter = instItems.pcCounter,
+               // Conditional Branch from skip if mem Value = 0
+               BranchTaken = (instItems.MemoryValueOctal == 0),
                BranchType = Constants.BranchType.Conditional
 
            };

@@ -15,13 +15,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
        
        public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            // Call Function to get EA and AC
-            ///MemArray[EA] = MemArray[PC];
-            // MemArray[PC] = EA+1;
-           
-            int TestWord2Bytes = instItems.pcCounter;
-            int pCupdate = (instItems.MemoryAddress + 1) & 0xFFF;
+           /* Place PC to mem Value
+            * Increment Eff Addr and place into PC */
 
+            // PC to mem Value, mask to ensure no overflow
+            instItems.MemoryValueOctal = instItems.pcCounter & 0xFFF;
+
+           // Increment Eff Addr., mask off overflow, place into PC
+            instItems.pcCounter = (instItems.MemoryAddress + 1) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -29,9 +30,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
-                pcCounter = pCupdate,
+                pcCounter = instItems.pcCounter,
                 InstructionRegister = instItems.InstructionRegister,
-                MemoryValueOctal = TestWord2Bytes,
+                MemoryValueOctal = instItems.MemoryValueOctal,
                 SetMemValue = true,
                 BranchTaken = true,
                 BranchType = Constants.BranchType.Subroutine

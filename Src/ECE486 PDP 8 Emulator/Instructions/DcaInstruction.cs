@@ -14,9 +14,17 @@ namespace ECE486_PDP_8_Emulator.Instructions
  
        public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            //MemArray[EA] = MemArray[AC];
-            //MemArray[AC] = 0;
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            /* DAC: Place AC and assign to Value then Clear AC, PC + 1 */
+            
+           // Mask AC and assign to Value
+            instItems.MemoryValueOctal = instItems.accumulatorOctal & 0xFFF;
+
+            // Increment PC
+            int IncrementedPcCounter = (++instItems.pcCounter);
+
+            // Mask PC to ensure no overflow.
+            instItems.pcCounter = IncrementedPcCounter & 0xFFF;
+
 
             return new InstructionResult()
             {
@@ -24,7 +32,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.accumulatorOctal,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 InstructionRegister = instItems.InstructionRegister,
                 SetMemValue = true,
                 BranchTaken = false

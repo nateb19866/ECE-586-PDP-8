@@ -11,7 +11,7 @@ namespace ECE486_PDP_8_Emulator
         public enum OpCode
         {
             //MRI = Xnnn
-            AND =0,
+            AND = 0,
             TAD,
             ISZ,
             DCA,

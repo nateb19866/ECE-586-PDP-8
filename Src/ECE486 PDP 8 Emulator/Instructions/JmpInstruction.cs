@@ -15,8 +15,11 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            // MemArray[PC] = EA;
-            int TestWord2Bytes = instItems.MemoryAddress & 0xFFF;
+            /* JMP: Place Eff Addr to PC */
+            instItems.pcCounter = instItems.MemoryAddress & 0xFFF;
+
+            // Mask PC to ensure no overflow.
+            instItems.pcCounter = instItems.pcCounter & 0xFFF;
 
             return new InstructionResult()
             {
@@ -25,7 +28,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = TestWord2Bytes,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 BranchTaken = true,
                 BranchType = Constants.BranchType.Unconditional

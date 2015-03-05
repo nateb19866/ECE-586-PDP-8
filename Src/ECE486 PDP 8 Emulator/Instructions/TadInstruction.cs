@@ -15,44 +15,44 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
         {
-            ///MemArray[AC] = MemArray[AC] + MemArray[EA];
-            //Complement Link if carry out
-
-           int FinalAccumulator = instItems.MemoryValueOctal + instItems.accumulatorOctal;
-           bool FinalLinkBit = instItems.LinkBit;
+            /* 2's Complement Add
+             * AC = AC + memValue
+             * Complement Link if carry out
+             * Carry out occurs for 2 neg's and overflow */
+    
+           // AC = AC + memValue
+           instItems.accumulatorOctal = instItems.MemoryValueOctal + instItems.accumulatorOctal;
 
            //Check to see if they're both positive, and if so, check for carry-out condition and mask the extra bit out
            /*
             * 3777 = 011 111 111 111  - In hex - 0111 1111 1111 = 0x7FF
             * 
-            * */
+            */
 
-           if (instItems.MemoryValueOctal <= 0x7FF && instItems.accumulatorOctal <= 0x7FF && FinalAccumulator > 0x7FF)
+           //if (instItems.MemoryValueOctal <= 0x7FF && instItems.accumulatorOctal <= 0x7FF && instItems.accumulatorOctal > 0x7FF)
+           //{
+           //    instItems.LinkBit= !instItems.LinkBit;
+           //    instItems.accumulatorOctal = instItems.accumulatorOctal & 0x000007FF;
+           //}
+
+           if (instItems.accumulatorOctal > 0xFFF)
            {
-               FinalLinkBit = !FinalLinkBit;
-               FinalAccumulator = FinalAccumulator & 0x000007FF;
+               instItems.LinkBit= !instItems.LinkBit;
            }
 
-                //if they're both negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
-           else if (instItems.MemoryValueOctal > 0x7FF && instItems.accumulatorOctal > 0x7FF && FinalAccumulator > 0x7FF)
-           {
-               FinalLinkBit = !FinalLinkBit;
-               FinalAccumulator = FinalAccumulator & 0x00000FFF;
-           }
-
-
-           int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
-
+           // Mask to ensure no overflow for manipulated data
+           instItems.accumulatorOctal = instItems.accumulatorOctal & 0xFFF;
+           instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
-                accumulatorOctal = FinalAccumulator,
-                LinkBit = FinalLinkBit,
+                accumulatorOctal = instItems.accumulatorOctal,
+                LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 SetMemValue = false,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 BranchTaken = false
 
             };

@@ -83,89 +83,115 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            /* Test cases place octals (1)  EA = EA + AC, (2) PC = EA + 1 */
-            /* Test for Link and EA update correctly */
+            /* Test cases Add AC with mem Value, places this into AC
+             * If Carry out, complement Link
+             * Carry out occurs when adding 2 neg's or overflow of 2 pos's
+             *Test for Link and EA update correctly, PC always add 1 */
 
           
-            //Test (1) Carry out complements link
+            //Test (1) Carry out complements link, ensure mem Value remains
             TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7776.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
 
-            //Test (2) Carry out complements link
+            //Test (2) Carry out complements link, check link change
             TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7776.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
 
 
-            //Test (3) No carry out, link = link
+            //Test (3) negative AC does not produce carry out, link remains
             TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(0000.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(7070.ToString(), 8);
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(7071.ToString(), 8), ActualResult.pcCounter);
 
 
-            //Test (4) No carry out, link = link
+            //Test (4) negative AC does not produce carry out, link remains
             TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(0000.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(2.ToString(), 8);
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(3.ToString(), 8), ActualResult.pcCounter);
 
 
             //Test (5) switch EA and AC above, No carry out, link = link
             TestItems.MemoryValueOctal = Convert.ToInt32(0000.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(2525.ToString(), 8);
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(2526.ToString(), 8), ActualResult.pcCounter);
 
 
             //Test (6) switch EA and AC above, No carry out, link = link
             TestItems.MemoryValueOctal = Convert.ToInt32(0000.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(4000.ToString(), 8);
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(4001.ToString(), 8), ActualResult.pcCounter);
 
 
             //Test (7) test AC for carry out 
             TestItems.MemoryValueOctal = Convert.ToInt32(7000.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = true;
+            TestItems.pcCounter = Convert.ToInt32(0101.ToString(), 8);
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(6777.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7000.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(0102.ToString(), 8), ActualResult.pcCounter);
 
 
-            //Test (8) test AC for carry out 
+            //Test (8) test AC for carry out using opposite link
             TestItems.MemoryValueOctal = Convert.ToInt32(7000.ToString(), 8);
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(1010.ToString(), 8);
 
             ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(6777.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7000.ToString(), 8), ActualResult.MemoryValueOctal);
             Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(1011.ToString(), 8), ActualResult.pcCounter);
 
         }
     }
