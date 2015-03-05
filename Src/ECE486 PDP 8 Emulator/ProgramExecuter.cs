@@ -10,7 +10,7 @@ namespace ECE486_PDP_8_Emulator
 {
    public static class ProgramExecuter
     {
-       public static Statistics ExecuteProgram(string filePath, string traceFolder)
+       public static Statistics ExecuteProgram(string filePath, string traceFolder, int osrSwitchBits)
        {
 
            int StartAddressOctal = Convert.ToInt32(200.ToString(), 8);
@@ -30,7 +30,7 @@ namespace ECE486_PDP_8_Emulator
 
 
 
-           Pdp8Stats = ExecuteInstructions(LoadRslt, Pdp8Stats, StartAddressOctal, TraceLogger);
+           Pdp8Stats = ExecuteInstructions(LoadRslt, Pdp8Stats, StartAddressOctal, TraceLogger, osrSwitchBits);
 
            return Pdp8Stats;
        }
@@ -41,9 +41,9 @@ namespace ECE486_PDP_8_Emulator
        /// <param name="loadRslt">The loaded array plus the starting address to use.</param>
        /// <param name="pdp8Stats">The statistics object to populate.</param>
        /// <returns>An updated statistic object</returns>
-       static Statistics ExecuteInstructions(LoaderResult loadRslt, Statistics pdp8Stats, int firstInstructionAddress, Logger traceLogger)
+       static Statistics ExecuteInstructions(LoaderResult loadRslt, Statistics pdp8Stats, int firstInstructionAddress, Logger traceLogger, int osrSwitchBits )
        {
-
+          
 
            MemArray Pdp8MemArray = loadRslt.FinishedArray;
 
@@ -74,7 +74,8 @@ namespace ECE486_PDP_8_Emulator
                    MemoryValueOctal = MemValueOctal,
                    pcCounter = ProgramCounter,
                    InstructionRegister = InstructionRegisterOctal,
-                   LinkBit = LinkBit
+                   LinkBit = LinkBit,
+                   OsrSwitchBits = osrSwitchBits
 
                };
 
@@ -130,7 +131,8 @@ namespace ECE486_PDP_8_Emulator
                //Update the stats on the type of instruction being executed
                pdp8Stats.InstructionTypeExecutions[CurOp.Instruction.instructionType.ToString()] =
                  (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions[CurOp.Instruction.instructionType.ToString()]) + 1).ToString();
-               
+               if (Result.IsHalted)
+                   break;
 
            }
 
