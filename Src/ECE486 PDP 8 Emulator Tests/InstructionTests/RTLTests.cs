@@ -28,7 +28,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             InstructionResult ExpectedItems = new InstructionResult()
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = 0002,
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
@@ -59,7 +59,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionItems TestItems = new InstructionItems()
             {
                 accumulatorOctal = 0000,
-                LinkBit = true,
+                LinkBit = false,
                 MemoryAddress = 0,
 
                 MemoryValueOctal = 0000,
@@ -71,7 +71,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ExpectedItems = new InstructionResult()
             {
                 accumulatorOctal = 0000,
-                LinkBit = true,
+                LinkBit = false,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
                 pcCounter = 5650,
@@ -164,7 +164,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             TestItems.LinkBit = false;
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(Convert.ToInt32(0770.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(3740.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
         }
     }

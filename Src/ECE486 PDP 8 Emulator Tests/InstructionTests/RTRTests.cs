@@ -21,15 +21,13 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 5649,
                 InstructionRegister = Convert.ToInt32(7012.ToString(), 8)
-
-
             };
 
 
             InstructionResult ExpectedItems = new InstructionResult()
             {
-                accumulatorOctal = 0000,
-                LinkBit = true,
+                accumulatorOctal = 400,
+                LinkBit = false,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 5650,
@@ -59,7 +57,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionItems TestItems = new InstructionItems()
             {
                 accumulatorOctal = 0000,
-                LinkBit = true,
+                LinkBit = false,
                 MemoryAddress = 0,
 
                 MemoryValueOctal = 0000,
@@ -71,7 +69,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ExpectedItems = new InstructionResult()
             {
                 accumulatorOctal = 0000,
-                LinkBit = true,
+                LinkBit = false,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
                 pcCounter = 5650,
@@ -95,12 +93,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(false, ActualResult.LinkBit);
 
             // Test2 Failed
-            //TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
-            //TestItems.LinkBit = true;
+            TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
+            TestItems.LinkBit = true;
 
-            //ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            //Assert.AreEqual(Convert.ToInt32(2000.ToString(), 8), ActualResult.accumulatorOctal);
-            //Assert.AreEqual(false, ActualResult.LinkBit);
+            ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(Convert.ToInt32(2000.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(false, ActualResult.LinkBit);
 
             // Test3 Failed
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);

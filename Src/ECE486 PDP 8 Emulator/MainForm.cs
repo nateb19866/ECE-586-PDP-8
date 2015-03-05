@@ -72,7 +72,7 @@ namespace ECE486_PDP_8_Emulator
 
 
             //Run the task asynchronously
-            var t = Task.Factory.StartNew(() => ProgramExecuter.ExecuteProgram(txtProgramPath.Text, txtTraceFolder.Text))
+            var t = Task.Factory.StartNew(() => ProgramExecuter.ExecuteProgram(txtProgramPath.Text, txtTraceFolder.Text, Convert.ToInt32(TxtOsrSwitchBits.Text,16)))
             .ContinueWith(task =>
             {
                 IsRunning = false;
