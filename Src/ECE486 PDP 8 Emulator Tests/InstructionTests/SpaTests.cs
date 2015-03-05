@@ -20,7 +20,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5649,
+                pcCounter = 1700,
                 InstructionRegister = Convert.ToInt32(7510.ToString(), 8)
 
 
@@ -33,7 +33,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5650,
+                pcCounter = 1702,
                 InstructionRegister = Convert.ToInt32(7510.ToString(), 8),
                 SetMemValue = false
 
@@ -67,7 +67,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                  MemoryAddress = 0,
 
                  MemoryValueOctal = 0000,
-                 pcCounter = 5649,
+                 pcCounter = 1700,
                  InstructionRegister = Convert.ToInt32(7510.ToString(), 8)
              };
 
@@ -78,7 +78,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                  LinkBit = true,
                  MemoryAddress = 0,
                  MemoryValueOctal = 0000,
-                 pcCounter = 5650,
+                 pcCounter = 1702,
                  InstructionRegister = Convert.ToInt32(7510.ToString(), 8),
                  SetMemValue = false
              };
@@ -90,7 +90,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              Assert.AreEqual(0, ActualResult.accumulatorOctal);
              
 
-             //AC - 0, PC + 2
+             //AC - 0 positive AC, PC + 2
              
              TestItems.accumulatorOctal = 0;
              TestItems.pcCounter = 0;
@@ -99,7 +99,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(2, ActualResult.pcCounter);
 
-             //AC - all 1s, PC - 0 remains unchanged
+             //AC - all 1s, PC + 1 AC is Negative
 
              TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
              TestItems.pcCounter = 0;
@@ -108,7 +108,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(1, ActualResult.pcCounter);
 
-             //AC - all 1s, PC - all 1s => PCout - all 1s
+             //AC - all 1s, PC - all 1s => PCout - returns to 0
 
              TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
@@ -118,11 +118,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
         
              //Test 1
-             TestItems.accumulatorOctal = Convert.ToInt32(4777.ToString(), 8);
+             TestItems.accumulatorOctal = Convert.ToInt32(1000.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-             Assert.AreEqual(Convert.ToInt32(7771.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
 
              //Test 1st octal value
              TestItems.accumulatorOctal = Convert.ToInt32(2777.ToString(), 8);
@@ -152,14 +152,14 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(12.ToString(), 8), ActualResult.pcCounter);
 
-             //test 5th octal value
+             //AC positive, PC reached 7777 so it again initializes to 0 and is incremented by 1.
              TestItems.accumulatorOctal = Convert.ToInt32(1.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-             //test 6th octal value
+             //AC negative, PC reached 7777 so it again initializes to 0
              TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 

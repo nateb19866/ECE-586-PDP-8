@@ -11,7 +11,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
     {
         [TestMethod]
         public void TestM2SNLArgumentPassthrough()
-
+            // all values are decimals
         {
             InstructionItems TestItems = new InstructionItems()
             {
@@ -19,7 +19,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5649,
+                pcCounter = 1600,
                 InstructionRegister = Convert.ToInt32(7420.ToString(), 8)
 
 
@@ -32,7 +32,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5650,
+                pcCounter = 1602,
                 InstructionRegister = Convert.ToInt32(7420.ToString(), 8),
                 SetMemValue = false
 
@@ -62,11 +62,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionItems TestItems = new InstructionItems()
             {
                  accumulatorOctal = 0000,
-                 LinkBit = true,
+                 LinkBit = false,
                  MemoryAddress = 0,
 
                  MemoryValueOctal = 0000,
-                 pcCounter = 5649,
+                 pcCounter = 1564,
                  InstructionRegister = Convert.ToInt32(7420.ToString(), 8)
              };
 
@@ -74,10 +74,10 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              InstructionResult ExpectedItems = new InstructionResult()
              {
                  accumulatorOctal = 0000,
-                 LinkBit = true,
+                 LinkBit = false,
                  MemoryAddress = 0,
                  MemoryValueOctal = 0000,
-                 pcCounter = 5650,
+                 pcCounter = 1565,
                  InstructionRegister = Convert.ToInt32(7420.ToString(), 8),
                  SetMemValue = false
              };
@@ -152,14 +152,14 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(2527.ToString(), 8), ActualResult.pcCounter);
 
-             //test 5th octal value
+             //Link bit is non zero, PC reached 7777 so it again initializes to 0 and gets incremented by 1.
              TestItems.LinkBit = true;
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-             //test 6th octal value
+             //Link bit is zero, PC reached 7777 so it again initializes to 0
              TestItems.LinkBit = false;
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 

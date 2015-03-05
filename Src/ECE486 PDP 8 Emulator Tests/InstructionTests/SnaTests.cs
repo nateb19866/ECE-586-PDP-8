@@ -20,8 +20,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5649,
-                InstructionRegister = Convert.ToInt32(7440.ToString(), 8)
+                pcCounter = 1500,
+                InstructionRegister = Convert.ToInt32(7450.ToString(), 8)
 
 
             };
@@ -32,8 +32,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5650,
-                InstructionRegister = Convert.ToInt32(7440.ToString(), 8),
+                pcCounter = 1501,
+                InstructionRegister = Convert.ToInt32(7450.ToString(), 8),
                 SetMemValue = false
 
             };
@@ -66,7 +66,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                  MemoryAddress = 0,
 
                  MemoryValueOctal = 0000,
-                 pcCounter = 5649,
+                 pcCounter = 1500,
                  InstructionRegister = Convert.ToInt32(7450.ToString(), 8)
              };
 
@@ -77,7 +77,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                  LinkBit = true,
                  MemoryAddress = 0,
                  MemoryValueOctal = 0000,
-                 pcCounter = 5650,
+                 pcCounter = 1501,
                  InstructionRegister = Convert.ToInt32(7450.ToString(), 8),
                  SetMemValue = false
              };
@@ -90,7 +90,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              
            
 
-             //AC - 0, PC - 0 increments PC since accumulator is zero
+             //AC - 0, PC - PC + 1
             
              TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
@@ -99,7 +99,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(1, ActualResult.pcCounter);
 
-             //AC - 1, PC - 0 PC remains unchanged
+             //AC - 1, PC - PC + 2
              TestItems.accumulatorOctal = Convert.ToInt32(1.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
@@ -107,7 +107,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(2, ActualResult.pcCounter);
 
-             //AC - 10, PC - 1 => PCout - 1
+             //AC - 10, PC - 1 => PCout - 3
              TestItems.accumulatorOctal = Convert.ToInt32(10.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(1.ToString(), 8);
             
@@ -152,14 +152,14 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(2527.ToString(), 8), ActualResult.pcCounter);
 
-             //test 5th octal value
-             TestItems.accumulatorOctal = Convert.ToInt32(1.ToString(), 8);
+             //AC is zero, PC reached 7777 so it again initializes to 0.
+             TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
 
-             //test 6th octal value
+             //AC non zero, PC reached 7777 so it again initializes to 0 and gets incremented by 1.
              TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 

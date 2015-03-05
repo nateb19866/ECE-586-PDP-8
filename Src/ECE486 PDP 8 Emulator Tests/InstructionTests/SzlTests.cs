@@ -17,10 +17,10 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             {
                 accumulatorOctal = 0000,
-                LinkBit = true,
+                LinkBit = false,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5649,
+                pcCounter = 1300,
                 InstructionRegister = Convert.ToInt32(7430.ToString(), 8)
 
 
@@ -30,10 +30,10 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ExpectedItems = new InstructionResult()
             {
                 accumulatorOctal = 0000,
-                LinkBit = true,
+                LinkBit = false,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 5650,
+                pcCounter = 1302,
                 InstructionRegister = Convert.ToInt32(7430.ToString(), 8),
                 SetMemValue = false
 
@@ -67,7 +67,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
 
                 MemoryValueOctal = 0000,
-                pcCounter = 5649,
+                pcCounter = 1300,
                 InstructionRegister = Convert.ToInt32(7430.ToString(), 8)
             };
 
@@ -78,7 +78,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
-                pcCounter = 5650,
+                pcCounter = 1301,
                 InstructionRegister = Convert.ToInt32(7430.ToString(), 8),
                 SetMemValue = false
             };
@@ -99,7 +99,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(1, ActualResult.pcCounter);
 
-            //link - 0 PC gets incremented cause link bit is non zero (1)
+            //link - 0 PC gets incremented by 2 cause link bit is non zero (1)
 
             TestItems.LinkBit = false;
             TestItems.pcCounter = 0;
@@ -108,7 +108,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(2, ActualResult.pcCounter);
 
-            //link - 1, PC - 1 => PCout - 0
+            //link - 1, PC - 7770 => PCout - 7771
 
             TestItems.LinkBit = true;
             TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
@@ -139,11 +139,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(Convert.ToInt32(4004.ToString(), 8), ActualResult.pcCounter);
 
             //test 3rd octal value
-            TestItems.LinkBit = true;
+            TestItems.LinkBit = false;
             TestItems.pcCounter = Convert.ToInt32(240.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(Convert.ToInt32(241.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(Convert.ToInt32(242.ToString(), 8), ActualResult.pcCounter);
 
             //test 4th octal value
             TestItems.LinkBit = false;
