@@ -380,7 +380,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // Rotate 13 Bit Link/AC right by 1
 
             // AND with mask to get 12 bits with rotate right once
-            int finalAC = ((TestWord1Bytes >> 1) | (TestWord1Bytes << 12)) & 0xfff;
+            int finalAC = ((TestWord1Bytes >> 1) | (TestWord1Bytes << 12));
+            finalAC = finalAC & 0xFFF;
             // AND with mask to get 13th bit with rotate right once
             tempLink = ((((TestWord1Bytes >> 1) | (TestWord1Bytes << 12)) >> 12) & 1);
 
@@ -390,12 +391,16 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else
                 LinkReturn = true;
 
+            instItems.accumulatorOctal = finalAC;
+
             int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+            instItems.LinkBit = LinkReturn;
 
             return new InstructionResult()
             {
-                accumulatorOctal = finalAC,
-                LinkBit = LinkReturn,
+                accumulatorOctal = instItems.accumulatorOctal,
+                LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
@@ -411,11 +416,39 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult RTRInstruction(InstructionResult instItems)
         {
+            /* RTR instr */
+            //int tempLink = 0;
+            //bool LinkReturn;
+
+            //int TestWord1Bytes = instItems.accumulatorOctal;
+            //// Put Link Bit into 13th bit of AC
+            //if (instItems.LinkBit == true)
+            //    TestWord1Bytes |= (1 << 12);
+            //else // Link bit false = 0
+            //    TestWord1Bytes &= ~(1 << 12);
+
+            //// Rotate 13 Bit Link/AC right by 1
+
+            //// AND with mask to get 12 bits with rotate right once
+            //int finalAC = ((TestWord1Bytes >> 2) | (TestWord1Bytes << 11)) & 0xfff;
+            //// AND with mask to get 13th bit with rotate right once
+            //tempLink = ((((TestWord1Bytes >> 2) | (TestWord1Bytes << 11)) >> 12) & 1);
+
+            //// Set Link Bit to bool accordingly
+            //if (tempLink == 0)
+            //    LinkReturn = false;
+            //else
+            //    LinkReturn = true;
+
+            //int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+
+            /* RTR instr */
+
             int tempLink = 0;
             bool LinkReturn;
 
             //Converting to byte array to make things easier.
-           int TestWord1Bytes = instItems.accumulatorOctal;
+            int TestWord1Bytes = instItems.accumulatorOctal;
             // Put Link Bit into 13th bit of AC
             if (instItems.LinkBit == true)
                 TestWord1Bytes |= (1 << 12);
@@ -425,9 +458,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // Rotate 13 Bit Link/AC right by 1
 
             // AND with mask to get 12 bits with rotate right once
-            int finalAC = ((TestWord1Bytes >> 2) | (TestWord1Bytes << 11)) & 0xfff;
+            int finalAC = ((TestWord1Bytes >> 1) | (TestWord1Bytes << 12));
+            finalAC = finalAC & 0xFFF;
             // AND with mask to get 13th bit with rotate right once
-            tempLink = ((((TestWord1Bytes >> 2) | (TestWord1Bytes << 11)) >> 12) & 1);
+            tempLink = ((((TestWord1Bytes >> 1) | (TestWord1Bytes << 12)) >> 12) & 1);
 
             // Set Link Bit to bool accordingly
             if (tempLink == 0)
@@ -435,18 +469,31 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else
                 LinkReturn = true;
 
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.accumulatorOctal = finalAC;
+
+            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF; ;
+
+            instItems.LinkBit = LinkReturn;
 
             return new InstructionResult()
             {
-                accumulatorOctal = finalAC,
-                LinkBit = LinkReturn,
+                //accumulatorOctal = finalAC,
+                //LinkBit = LinkReturn,
+                //MemoryAddress = instItems.MemoryAddress,
+                //MemoryValueOctal = instItems.MemoryValueOctal,
+                //InstructionRegister = instItems.InstructionRegister,
+                //BranchTaken = false,
+                //pcCounter = IncrementedPcCounter,
+                //SetMemValue = false
+                accumulatorOctal = instItems.accumulatorOctal,
+                LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false
+
             };
         }
 
@@ -610,7 +657,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
         public InstructionResult M3_CLA(InstructionResult instItems)
         {
             int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
-
 
             return new InstructionResult()
             {
