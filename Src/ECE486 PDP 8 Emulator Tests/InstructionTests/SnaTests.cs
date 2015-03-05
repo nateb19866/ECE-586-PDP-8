@@ -88,34 +88,37 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              Assert.AreEqual(0, ActualResult.accumulatorOctal);
              
-           
+            /* Test for PC skip next instruction if AC is not 0 */
 
-             //AC - 0, PC - PC + 1
-            
+             // Test AC = 0, PC does not skip
              TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
-
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(1, ActualResult.pcCounter);
 
-             //AC - 1, PC - PC + 2
+
+             //Test AC = 1, PC skips next instruction
              TestItems.accumulatorOctal = Convert.ToInt32(1.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
-
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(2, ActualResult.pcCounter);
 
-             //AC - 10, PC - 1 => PCout - 3
+
+             //Test AC = 10, PC skips next instruction
              TestItems.accumulatorOctal = Convert.ToInt32(10.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(1.ToString(), 8);
             
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(3, ActualResult.pcCounter);
         
+             /* 
+              * Below tests are for negative and positive AC recognition.  Ensure 
+              * PC skips whether positive or negative
+              */
 
-             //Test lowest octal value
+             //Test AC is negative, PC skips next instruction
              TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
@@ -123,7 +126,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
 
 
-             //Test 1st octal value
+             //Test AC positive, PC skips next instruction
              TestItems.accumulatorOctal = Convert.ToInt32(0777.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
@@ -131,35 +134,35 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
 
 
-             //test 2nd octal value
+             //Test AC negative, PC skips next instruction
              TestItems.accumulatorOctal = Convert.ToInt32(4001.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7771.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(7773.ToString(), 8), ActualResult.pcCounter);
 
-             //test 3rd octal value
+             //Test AC positive, PC skips next instruction
              TestItems.accumulatorOctal = Convert.ToInt32(2525.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(240.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(242.ToString(), 8), ActualResult.pcCounter);
 
-             //test 4th octal value
+             //Test AC negative, PC skips next instruction
              TestItems.accumulatorOctal = Convert.ToInt32(4001.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(2525.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(2527.ToString(), 8), ActualResult.pcCounter);
 
-             //AC is zero, PC reached 7777 so it again initializes to 0.
+             //Test AC is zero, PC is 7777 and does not skip.
              TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
 
-             //AC non zero, PC reached 7777 so it again initializes to 0 and gets incremented by 1.
+             //Test AC non zero, PC is 7777 and skips next instruction.
              TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 

@@ -89,27 +89,29 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
+            /* Test cases for PC skipping next instruction if Link is false */
 
-            //link bit - 1 PC + 1
-
+            // Test Link true and PC does not skip
             TestItems.LinkBit = true;
             TestItems.pcCounter = 0;
-
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(1, ActualResult.pcCounter);
 
-            //link - 0 PC gets incremented by 2 cause link bit is non zero (1)
 
+            //Test Link false, PC skips next instruction
             TestItems.LinkBit = false;
             TestItems.pcCounter = 0;
-
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(2, ActualResult.pcCounter);
 
-            //link - 1, PC - 7770 => PCout - 7771
-
+            /* 
+             * Below Tests ensure that PC only skips when Link is false
+             * Testing for PC similar to previous test cases. Alternating
+             * whether PC increments correctly, given various octals.
+             * */
+            //Test Link true, PC does not skip
             TestItems.LinkBit = true;
             TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 

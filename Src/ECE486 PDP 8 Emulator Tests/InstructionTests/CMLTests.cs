@@ -22,7 +22,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 pcCounter = 1500,
                 InstructionRegister = Convert.ToInt32(7020.ToString(), 8)
 
-
             };
 
 
@@ -32,7 +31,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = false,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 1502,
+                pcCounter = 1501,
                 InstructionRegister = Convert.ToInt32(7020.ToString(), 8),
                 SetMemValue = false
             };
@@ -86,19 +85,23 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(false, ActualResult.LinkBit);
 
-            // Test1
-            TestItems.LinkBit = true;
+            // Test link complements from true
+            TestItems.LinkBit = true; 
+            TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            
             Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-            // Test2
+
+            // Test link complements from false
             TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            
-            Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(true, ActualResult.LinkBit); 
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+
         }
     }
 }

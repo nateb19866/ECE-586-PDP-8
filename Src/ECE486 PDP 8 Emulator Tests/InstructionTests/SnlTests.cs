@@ -88,7 +88,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              Assert.AreEqual(0, ActualResult.accumulatorOctal);
              
-           
+            /* Test for PC skipping next instruction if Link is not false */
 
              //link - 1, PC - 2 => PC skip 1 since link bit is not zero
 
@@ -108,8 +108,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(1, ActualResult.pcCounter);
 
-             //link - 1, PC + 2
-
+             //Test link true with PC last octal 0
              TestItems.LinkBit = true;
              TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
@@ -117,49 +116,49 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
         
-             //Test lowest octal value
+             //Test link false with PC last octal 0
              TestItems.LinkBit = false;
              TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(7771.ToString(), 8), ActualResult.pcCounter);
 
-             //Test 1st octal value
+             //Test link true with PC end bits 1
              TestItems.LinkBit = true;
              TestItems.pcCounter = Convert.ToInt32(4001.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(4003.ToString(), 8), ActualResult.pcCounter);
 
-             //test 2nd octal value
+             //Test link false with end bits 1
              TestItems.LinkBit = false;
              TestItems.pcCounter = Convert.ToInt32(4002.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(4003.ToString(), 8), ActualResult.pcCounter);
 
-             //test 3rd octal value
+             //Test link false
              TestItems.LinkBit = false;
              TestItems.pcCounter = Convert.ToInt32(240.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(241.ToString(), 8), ActualResult.pcCounter);
 
-             //test 4th octal value
+             //Test link true with PC starting 0 and alternating 1's
              TestItems.LinkBit = true;
              TestItems.pcCounter = Convert.ToInt32(2525.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(2527.ToString(), 8), ActualResult.pcCounter);
 
-             //Link bit is non zero, PC reached 7777 so it again initializes to 0 and gets incremented by 1.
+             //Link bit is non zero, PC reached 7777 so it again increments to 0 and gets incremented by 2.
              TestItems.LinkBit = true;
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-             //Link bit is zero, PC reached 7777 so it again initializes to 0
+             //Link bit is zero, PC reached 7777 so it increments to 0
              TestItems.LinkBit = false;
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 

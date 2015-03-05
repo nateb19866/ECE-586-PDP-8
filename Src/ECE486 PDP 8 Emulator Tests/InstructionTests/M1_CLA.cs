@@ -32,7 +32,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 1502,
+                pcCounter = 1501,
                 InstructionRegister = Convert.ToInt32(7200.ToString(), 8),
                 SetMemValue = false
             };
@@ -74,7 +74,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
-                pcCounter = 1502,
+                pcCounter = 1501,
                 InstructionRegister = Convert.ToInt32(7200.ToString(), 8),
                 SetMemValue = false
 
@@ -86,19 +86,21 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
            
-            // Test1
+            // Test for AC clear and PC increments
             TestItems.accumulatorOctal = Convert.ToInt32(0000.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(0000.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-
             Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-            // Test2
+            // Test for AC can hold max octal and PC increments
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-
             Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
         }
     }
 }

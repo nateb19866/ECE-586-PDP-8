@@ -22,8 +22,6 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 1400,
                 InstructionRegister = Convert.ToInt32(7600.ToString(), 8)
-
-
             };
 
 
@@ -33,7 +31,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 1402,
+                pcCounter = 1401,
                 InstructionRegister = Convert.ToInt32(7600.ToString(), 8),
                 SetMemValue = false
 
@@ -92,32 +90,39 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             //Always clears Accumulator
 
             TestItems.accumulatorOctal = 1;
-
+            TestItems.pcCounter = Convert.ToInt32(0000.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-            //test 2
+
+            // Test AC clears and PC increments
 
             TestItems.accumulatorOctal = Convert.ToInt32(240.ToString(), 8);
-
+            TestItems.pcCounter = Convert.ToInt32(0000.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
-            //test 3
+            //Test AC clears given 3 octals = 1 and PC increments
 
             TestItems.accumulatorOctal = Convert.ToInt32(7770.ToString(), 8);
-
+            TestItems.pcCounter = Convert.ToInt32(0000.ToString(), 8);
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            //Test for all 1s address goes back to 0000
+            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+
+            //Test AC clears givevn all 4 octals 1 and PC increments
 
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(0000.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
         }
     }
 }

@@ -90,28 +90,27 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
-            //test whether the PC increments always
+            /* Test cases ensure PC always skip */
+
+           // Test for PC starting 0
             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(2, ActualResult.pcCounter);
 
-            //Increments PC value
+            //Test for PC with end bits 1s
             TestItems.pcCounter = Convert.ToInt32(4001.ToString(), 8);
-
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(4003.ToString(), 8), ActualResult.pcCounter);
 
-            //test 3
-
+            ///Test for PC with last octal 0
             TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
 
-            //Test for all 1s address goes back to 0000
-
+            //Test for PC skip correctly from 7777
             TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);

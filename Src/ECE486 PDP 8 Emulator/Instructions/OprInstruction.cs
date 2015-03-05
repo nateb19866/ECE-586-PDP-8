@@ -183,7 +183,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                
                 //CLA - mask 000 010 000 000 - hex 0000 1000 0000
                 if((instItems.InstructionRegister & 0x80) == 0x80)
-                    instItems =M2_CLAInstruction(instItems);
+                    instItems = M2_CLAInstruction(instItems);
 
                 //OSR - mask 000 000 000 100 - hex 0000 0000 0100
                 if ((instItems.InstructionRegister & 0x4) == 0x4)
@@ -270,7 +270,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
 
-            instItems.accumulatorOctal = (~instItems.accumulatorOctal) & 0xFFF;
+            instItems.accumulatorOctal = ~(instItems.accumulatorOctal) & 0xFFF;
 
             // complement every bit of AC
             return new InstructionResult()
@@ -318,7 +318,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         public InstructionResult IACInstruction(InstructionResult instItems)
         {
             int tempLink = 0;
-
+            int tempAC = 0;
             //Used with CMA, this computes the 2's complement.
             //Used with CLA, this loads the constant 1.
 
@@ -329,11 +329,13 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 instItems.accumulatorOctal &= ~(1 << 12);
 
             // Link and AC value by 1
-            instItems.accumulatorOctal = ++instItems.accumulatorOctal;
+            tempAC = ++instItems.accumulatorOctal;
 
             // AND with mask to get last 12 bits
-            instItems.accumulatorOctal = instItems.accumulatorOctal & 0xFFF;
-            tempLink = (instItems.accumulatorOctal >> 12) & 0x1;
+            instItems.accumulatorOctal = tempAC & 0xFFF;
+           
+            // AND with mask to get 13th bit
+            tempLink = ((tempAC & 0x01FFF) >> 12) & 0x1;
 
             // Set Link Bit to bool accordingly
             if (tempLink == 0)
@@ -343,6 +345,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             // Mask PC to ensure no overflow
             instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
+
 
             return new InstructionResult()
             {
