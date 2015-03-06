@@ -12,6 +12,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
         [TestMethod]
         public void TestM2SNLArgumentPassthrough()
             // all values are decimals
+            //Skips only if Link Bit is non zero (True)
         {
             InstructionItems TestItems = new InstructionItems()
             {
@@ -56,7 +57,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
          [TestMethod]
          public void TestM2SNLOperation()
          {
-             //Need to initialize the instruction items for the first time
+             //Link bit - false (0), PCout - PC + 1
             
             
             InstructionItems TestItems = new InstructionItems()
@@ -166,5 +167,62 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.pcCounter);
 
         }
+
+         [TestMethod]
+         public void TestM2SNLCombination()
+         {
+             //Test for OR Sub group Skips if at least one condition from SMA SZA SNL is True.
+             //Test for combination of SMA and SNL - 111 101 010 000
+             //AC - positive (no skip), Link - 1 (skip), PCout - PC + 2 (SNL is True)
+
+             InstructionItems TestItems = new InstructionItems()
+             {
+                 accumulatorOctal = 0x200,
+                 LinkBit = true,
+                 MemoryAddress = 0,
+
+                 MemoryValueOctal = 0000,
+                 pcCounter = 1400,
+                 InstructionRegister = Convert.ToInt32(7520.ToString(), 8)
+             };
+
+
+             InstructionResult ExpectedItems = new InstructionResult()
+             {
+                 accumulatorOctal = 0x200,
+                 LinkBit = true,
+                 MemoryAddress = 0,
+                 MemoryValueOctal = 0000,
+                 pcCounter = 1402,
+                 InstructionRegister = Convert.ToInt32(7520.ToString(), 8),
+                 SetMemValue = false
+             };
+
+             IInstruction TestOprInstruction = new OprInstruction();
+
+             InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+
+             Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
+             Assert.AreEqual(ExpectedItems.LinkBit, ActualResult.LinkBit);
+             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
+             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
+             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+
+             //AC - positive (no skip) Link bit - 0 (no skip), PCout - PC + 1, (Both conditions are False)
+             TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
+             TestItems.LinkBit = false;
+             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
+
+             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+
+             //AC - Negative (skip) Link bit - 1 (skip), PCout - PC + 2 (Both are True)
+             TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
+             TestItems.LinkBit = true;
+             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
+
+             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+             Assert.AreEqual(Convert.ToInt32(2.ToString(), 8), ActualResult.pcCounter);
+         }
     }
 }

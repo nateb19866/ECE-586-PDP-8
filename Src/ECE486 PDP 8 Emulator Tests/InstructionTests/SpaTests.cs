@@ -15,12 +15,14 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
         {
             InstructionItems TestItems = new InstructionItems()
 
+            //Skips only if AC is positive.
+
             {
-                accumulatorOctal = 0000,
+                accumulatorOctal = 0000,    //Sign bit is zero - Positive
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
-                pcCounter = 1700,
+                pcCounter = 1700,          //PC skips a instruction.
                 InstructionRegister = Convert.ToInt32(7510.ToString(), 8)
 
 
@@ -57,12 +59,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
          [TestMethod]
          public void TestM2SPAOperation()
          {
-             //Need to initialize the instruction items for the first time
+             //AC - Negative, PCout - PC + 1
             
             
             InstructionItems TestItems = new InstructionItems()
             {
-                 accumulatorOctal = 0000,
+                 accumulatorOctal = 7000,
                  LinkBit = true,
                  MemoryAddress = 0,
 
@@ -74,11 +76,11 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              InstructionResult ExpectedItems = new InstructionResult()
              {
-                 accumulatorOctal = 0000,
+                 accumulatorOctal = 7000,
                  LinkBit = true,
                  MemoryAddress = 0,
                  MemoryValueOctal = 0000,
-                 pcCounter = 1702,
+                 pcCounter = 1701,
                  InstructionRegister = Convert.ToInt32(7510.ToString(), 8),
                  SetMemValue = false
              };
@@ -87,7 +89,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
 
-             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+             Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
 
              /* Test for PC + 2 only if AC is positive */
 
@@ -164,5 +166,61 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
 
         }
+
+         [TestMethod]
+         public void TestM2SPACombination()
+         {
+             //Test for AND Sub group Skips only if all conditions (SMA SZA SNL) are True.
+             //Test for combination of SPA and SNA - 111 101 101 000
+             //AC - Negative (No skip), AC - Non Zero (skip), PCout - PC + 1 (Only SNA is True) 
+
+
+             InstructionItems TestItems = new InstructionItems()
+             {
+                 accumulatorOctal = 0x800,
+                 LinkBit = true,
+                 MemoryAddress = 0,
+
+                 MemoryValueOctal = 0000,
+                 pcCounter = 1400,
+                 InstructionRegister = Convert.ToInt32(7550.ToString(), 8)
+             };
+
+
+             InstructionResult ExpectedItems = new InstructionResult()
+             {
+                 accumulatorOctal = 0x800,
+                 LinkBit = true,
+                 MemoryAddress = 0,
+                 MemoryValueOctal = 0000,
+                 pcCounter = 1401,
+                 InstructionRegister = Convert.ToInt32(7550.ToString(), 8),
+                 SetMemValue = false
+             };
+
+             IInstruction TestOprInstruction = new OprInstruction();
+
+             InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+
+             Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
+             Assert.AreEqual(ExpectedItems.LinkBit, ActualResult.LinkBit);
+             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
+             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
+             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+
+             //AC - Positive (Skip), AC - Non Zero (Skip), PCout - PC + 2 (Both SPA and SNA are True)
+             TestItems.accumulatorOctal = Convert.ToInt32(10.ToString(), 8);
+             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
+
+             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+             Assert.AreEqual(Convert.ToInt32(2.ToString(), 8), ActualResult.pcCounter);
+
+             //AC - Positive (Skip), AC - Zero (No skip), PCout - PC + 1 (Only SPA is True)
+             TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
+             TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+
+             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+         }
     }
 }
