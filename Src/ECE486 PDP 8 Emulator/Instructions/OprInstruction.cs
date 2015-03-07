@@ -84,7 +84,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 Rslt = Group2Microcodes(Rslt);
 
             }
-         
+
+
+            // all u-3 instructions will just return result b/c not found in u-1 or u-2
+            // can clean up functions at end for u-3s
            
             return Rslt;
         }
@@ -112,7 +115,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     bool PassSMA = false;
                     bool PassSZA = false;
                     bool PassSNL = false;
-                     instItems.BranchType = Constants.BranchType.Conditional;
+                    instItems.BranchType = Constants.BranchType.Conditional;
 
                     //SMA - mask 000 001 000 000 - hex 0000 0100 0000
                     if ((instItems.InstructionRegister & 0x40) == 0x40)
@@ -181,7 +184,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             
 
                
-                //CLA - mask 000 010 000 000 - hex 0000 1000 0000
+                //M2_CLA - mask 000 010 000 000 - hex 0000 1000 0000
                 if((instItems.InstructionRegister & 0x80) == 0x80)
                     instItems = M2_CLAInstruction(instItems);
 
@@ -572,10 +575,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
         }
 
         // Microinstruction set 3: Handle by only incrementing PC and instr count.
-        public InstructionResult M3_CLA(InstructionResult instItems)
+        public InstructionResult M3_CLAInstruction(InstructionResult instItems)
         {
             instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
-            instItems.accumulatorOctal = 0 & 0xFFF;
 
             return new InstructionResult()
             {

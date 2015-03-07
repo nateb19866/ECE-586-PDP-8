@@ -90,90 +90,91 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             //Test clears AC and PC increments
             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+            //TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            //Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
 
             //Test PC increments from 0
             TestItems.pcCounter = Convert.ToInt32(1.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+            //TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(2.ToString(), 8), ActualResult.pcCounter);
+           // Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            
 
 
             //Test PC increments from max, back to 0
             TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+           // TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+           // Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
 
             //Test PC alternating pattern of 1s and 0s - Start with 1
             TestItems.pcCounter = Convert.ToInt32(5252.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+           // TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(5253.ToString(), 8), ActualResult.pcCounter);
+            //Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
 
             //Test PC alternating pattern of 1s and 0s - Start with 0
             TestItems.pcCounter = Convert.ToInt32(2525.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+           // TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(2526.ToString(), 8), ActualResult.pcCounter);
+           // Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
 
             //Test PC for first and last octals, ensure not losing octals on ends
             TestItems.pcCounter = Convert.ToInt32(0770.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+           // TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(771.ToString(), 8), ActualResult.pcCounter);
+           // Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
 
             //Test PC end bits 1's
             TestItems.pcCounter = Convert.ToInt32(4001.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+           // TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(4002.ToString(), 8), ActualResult.pcCounter);
+          //  Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
 
             //Test PC last octals 0s
             TestItems.pcCounter = Convert.ToInt32(700.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+           // TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(701.ToString(), 8), ActualResult.pcCounter);
+           // Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
             //Test PC last octal increments from non-zero
             TestItems.pcCounter = Convert.ToInt32(771.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+           // TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(772.ToString(), 8), ActualResult.pcCounter);
+          //  Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
             //Test PC last 3 octals 7, results 1777
             TestItems.pcCounter = Convert.ToInt32(777.ToString(), 8);
-            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+          //  TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-            Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(1000.ToString(), 8), ActualResult.pcCounter);
+           // Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
         }
     }
