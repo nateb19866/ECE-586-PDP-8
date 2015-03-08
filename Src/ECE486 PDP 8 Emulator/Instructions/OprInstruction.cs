@@ -105,11 +105,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         private InstructionResult Group2Microcodes(InstructionResult instItems)
         {
-            
-            if ( (Constants.Microcode)instItems.InstructionRegister != Constants.Microcode.M2_CLA
-                && (Constants.Microcode)instItems.InstructionRegister != Constants.Microcode.OSR
-                )
-            {
+
                 //OR group - when 8th bit is 0
                 if ((instItems.InstructionRegister & 0x8) == 0x0)
                 {
@@ -169,13 +165,19 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     {
                         instItems.pcCounter++;
                         instItems.BranchTaken = true;
+
+                        //SKP - unconditional branch
+                        if (PassSNA == null && PassSPA == null && PassSZL == null)
+                        {
+                            instItems.BranchType = Constants.BranchType.Unconditional;
+                        }
                     }
 
    
 
 
                 }
-            }
+
             
 
                
