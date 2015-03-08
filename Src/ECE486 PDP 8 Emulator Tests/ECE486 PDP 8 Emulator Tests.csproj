@@ -55,7 +55,7 @@
     <Compile Include="InstructionFactoryTests.cs" />
     <Compile Include="InstructionTests\AndTests.cs" />
     <Compile Include="InstructionTests\DcaTests.cs" />
-    <Compile Include="InstructionTests\IotTests.cs" />
+    <Compile Include="InstructionTests\KcfTests.cs" />
     <Compile Include="InstructionTests\IszTests.cs" />
     <Compile Include="InstructionTests\JmpTests.cs" />
     <Compile Include="InstructionTests\JmsTests.cs" />
@@ -84,6 +84,18 @@
     <Compile Include="InstructionTests\SwpTests.cs" />
     <Compile Include="InstructionTests\CamTests.cs" />
     <Compile Include="InstructionTests\NopTests.cs" />
+    <Compile Include="InstructionTests\KsfTests.cs" />
+    <Compile Include="InstructionTests\KccTests.cs" />
+    <Compile Include="InstructionTests\KrsTests.cs" />
+    <Compile Include="InstructionTests\KrbTests.cs" />
+    <Compile Include="InstructionTests\TflTests.cs" />
+    <Compile Include="InstructionTests\TsfTests.cs" />
+    <Compile Include="InstructionTests\TcfTests.cs" />
+    <Compile Include="InstructionTests\TpcTests.cs" />
+    <Compile Include="InstructionTests\TlsTests.cs" />
+    <Compile Include="InstructionTests\SkonTests.cs" />
+    <Compile Include="InstructionTests\IonTests.cs" />
+    <Compile Include="InstructionTests\IofTests.cs" />
     <Compile Include="LoggerTests.cs" />
     <Compile Include="ProgramExecuterTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

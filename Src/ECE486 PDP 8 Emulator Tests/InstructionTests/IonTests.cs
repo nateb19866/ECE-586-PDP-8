@@ -8,10 +8,10 @@ using ECE486_PDP_8_Emulator.Instructions;
 namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 {
     [TestClass]
-    public class IotTests
+    public class IonTests
     {
         [TestMethod]
-        public void TestIotArgumentPassthrough()
+        public void TestIonArgumentPassthrough()
         {
             InstructionItems TestItems = new InstructionItems()
             {
@@ -20,10 +20,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = 7777,
                 pcCounter = 1,
-                InstructionRegister = Convert.ToInt32(6002.ToString(), 8),
+                InstructionRegister = Convert.ToInt32(6001.ToString(), 8),
                 OsrSwitchBits = 0xFFF
-
-
             };
 
 
@@ -34,7 +32,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = 7777,
                 pcCounter = 2,
-                InstructionRegister = Convert.ToInt32(6002.ToString(), 8),
+                InstructionRegister = Convert.ToInt32(6001.ToString(), 8),
                 SetMemValue = false
             };
 
@@ -58,9 +56,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
         }
 
-
         [TestMethod]
-        public void TestIotOperation()
+        public void TestIonOperation()
         {
             //First is test 0 anded with 0 - need to initialize the instruction items for the first time
             InstructionItems TestItems = new InstructionItems()
@@ -71,7 +68,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
                 MemoryValueOctal = 0000,
                 pcCounter = 5649,
-                InstructionRegister = Convert.ToInt32(6002.ToString(), 8)
+                InstructionRegister = Convert.ToInt32(6001.ToString(), 8)
             };
 
 
@@ -82,7 +79,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
                 pcCounter = 5650,
-                InstructionRegister = Convert.ToInt32(6002.ToString(), 8),
+                InstructionRegister = Convert.ToInt32(6001.ToString(), 8),
                 SetMemValue = false
 
             };
@@ -94,7 +91,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
 
             /* Test cases place octals into PC and observe PC incremented by 1 */
-         
+
             //Test 0
             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
 
@@ -106,35 +103,35 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(2.ToString(), 8), ActualResult.pcCounter);
-            
+
 
             //Test all 1's, should loop back to 0
             TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
-            
+
 
             //Test alternating pattern of 1s and 0s - Start with 1
             TestItems.pcCounter = Convert.ToInt32(5252.ToString(), 8);
 
             ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(5253.ToString(), 8), ActualResult.pcCounter);
-            
+
 
             //Test alternating pattern of 1s and 0s - Start with 0
             TestItems.pcCounter = Convert.ToInt32(2525.ToString(), 8);
 
             ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(2526.ToString(), 8), ActualResult.pcCounter);
-            
+
 
             //Test 0 for first and last octals, ensure not losing octals on ends
             TestItems.pcCounter = Convert.ToInt32(0770.ToString(), 8);
 
             ActualResult = TestIotInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0771.ToString(), 8), ActualResult.pcCounter);
-            
+
 
             //Test end 1's
             TestItems.pcCounter = Convert.ToInt32(4001.ToString(), 8);
@@ -169,5 +166,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
         }
     }
+
 }
+
+
 
