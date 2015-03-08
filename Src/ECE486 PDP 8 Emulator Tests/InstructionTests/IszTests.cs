@@ -108,7 +108,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
 
 
-            //Test 1: results mem Valu = 2
+            //Test 1: results mem Value = 2
             TestItems.MemoryValueOctal = Convert.ToInt32(1.ToString(), 8);
             TestItems.pcCounter = Convert.ToInt32(1.ToString(), 8);
 
