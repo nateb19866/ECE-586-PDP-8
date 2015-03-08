@@ -131,15 +131,26 @@ namespace ECE486_PDP_8_Emulator
                //Update the stats on the type of instruction being executed
                pdp8Stats.InstructionTypeExecutions[CurOp.Instruction.instructionType.ToString()] =
                  (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions[CurOp.Instruction.instructionType.ToString()]) + 1).ToString();
+
+               //Log group 3 microcodes
+               if((InstructionParams.InstructionRegister & 0xF01) == 0xF01)
+                   pdp8Stats.InstructionTypeExecutions["Grp3Microcode"] =
+                 (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions["Grp3Microcode"]) + 1).ToString();
+
                if (Result.IsHalted)
                    break;
 
            }
 
-           //Update stats one last time
-           pdp8Stats.ClockCyclesExecuted++;
-           pdp8Stats.InstructionsExecuted++;
-           pdp8Stats.InstructionTypeExecutions["OPR"] = (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions["OPR"]) + 1).ToString();
+           //If the HLT instruction by itself was called, need to update these stats, otherwise it was part of a microcode sequence.
+           if (Utils.DecimalToOctal(InstructionRegisterOctal) == (int)Constants.Microcode.HLT)
+           {
+               //Update stats one last time
+               pdp8Stats.ClockCyclesExecuted++;
+               pdp8Stats.InstructionsExecuted++;
+               pdp8Stats.InstructionTypeExecutions["OPR"] = (Convert.ToInt32(pdp8Stats.InstructionTypeExecutions["OPR"]) + 1).ToString();
+           }
+
            pdp8Stats.MemTraceFilePath = traceLogger.FinalMemTrFileName;
            pdp8Stats.BranchTraceFilePath = traceLogger.FinalBranchTrFileName;
 

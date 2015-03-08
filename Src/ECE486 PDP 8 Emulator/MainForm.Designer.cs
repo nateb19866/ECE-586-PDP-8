@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TxtOsrSwitchBits = new System.Windows.Forms.TextBox();
             this.btnTraceFolderPicker = new System.Windows.Forms.Button();
             this.btnProgPathPicker = new System.Windows.Forms.Button();
             this.btnRunProgram = new System.Windows.Forms.Button();
@@ -57,8 +59,7 @@
             this.lblInstExecuted = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMemContents = new System.Windows.Forms.TextBox();
-            this.TxtOsrSwitchBits = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblGrp3Microcodes = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -91,6 +92,22 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Run a Program";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(2, 95);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "OSR Bits (Hex):";
+            // 
+            // TxtOsrSwitchBits
+            // 
+            this.TxtOsrSwitchBits.Location = new System.Drawing.Point(86, 90);
+            this.TxtOsrSwitchBits.Name = "TxtOsrSwitchBits";
+            this.TxtOsrSwitchBits.Size = new System.Drawing.Size(150, 20);
+            this.TxtOsrSwitchBits.TabIndex = 7;
             // 
             // btnTraceFolderPicker
             // 
@@ -163,7 +180,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgBar,
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 506);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(768, 22);
             this.statusStrip1.TabIndex = 3;
@@ -173,7 +190,7 @@
             // 
             this.statusProgBar.Name = "statusProgBar";
             this.statusProgBar.Size = new System.Drawing.Size(100, 16);
-            this.statusProgBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.statusProgBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.statusProgBar.Visible = false;
             // 
             // statusLabel
@@ -193,7 +210,7 @@
             this.groupBox2.Controls.Add(this.lblInstExecuted);
             this.groupBox2.Location = new System.Drawing.Point(27, 206);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(401, 266);
+            this.groupBox2.Size = new System.Drawing.Size(401, 278);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Statistics of Last Program";
@@ -201,7 +218,7 @@
             // btnOpenBranchTrFile
             // 
             this.btnOpenBranchTrFile.Enabled = false;
-            this.btnOpenBranchTrFile.Location = new System.Drawing.Point(247, 234);
+            this.btnOpenBranchTrFile.Location = new System.Drawing.Point(247, 248);
             this.btnOpenBranchTrFile.Name = "btnOpenBranchTrFile";
             this.btnOpenBranchTrFile.Size = new System.Drawing.Size(136, 23);
             this.btnOpenBranchTrFile.TabIndex = 6;
@@ -212,7 +229,7 @@
             // btnOpenMemTrFile
             // 
             this.btnOpenMemTrFile.Enabled = false;
-            this.btnOpenMemTrFile.Location = new System.Drawing.Point(10, 234);
+            this.btnOpenMemTrFile.Location = new System.Drawing.Point(10, 248);
             this.btnOpenMemTrFile.Name = "btnOpenMemTrFile";
             this.btnOpenMemTrFile.Size = new System.Drawing.Size(136, 23);
             this.btnOpenMemTrFile.TabIndex = 5;
@@ -231,6 +248,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblGrp3Microcodes);
             this.groupBox3.Controls.Add(this.lblInstTad);
             this.groupBox3.Controls.Add(this.lblInstMicrocodes);
             this.groupBox3.Controls.Add(this.lblInstIot);
@@ -241,7 +259,7 @@
             this.groupBox3.Controls.Add(this.lblInstAnd);
             this.groupBox3.Location = new System.Drawing.Point(10, 99);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(373, 129);
+            this.groupBox3.Size = new System.Drawing.Size(373, 143);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Instructions Executed";
@@ -354,38 +372,31 @@
             this.txtMemContents.Location = new System.Drawing.Point(455, 78);
             this.txtMemContents.Multiline = true;
             this.txtMemContents.Name = "txtMemContents";
-            this.txtMemContents.Size = new System.Drawing.Size(294, 394);
+            this.txtMemContents.Size = new System.Drawing.Size(294, 405);
             this.txtMemContents.TabIndex = 6;
             this.txtMemContents.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // TxtOsrSwitchBits
+            // lblGrp3Microcodes
             // 
-            this.TxtOsrSwitchBits.Location = new System.Drawing.Point(86, 90);
-            this.TxtOsrSwitchBits.Name = "TxtOsrSwitchBits";
-            this.TxtOsrSwitchBits.Size = new System.Drawing.Size(150, 20);
-            this.TxtOsrSwitchBits.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(2, 95);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "OSR Bits (Hex):";
+            this.lblGrp3Microcodes.AutoSize = true;
+            this.lblGrp3Microcodes.Location = new System.Drawing.Point(122, 118);
+            this.lblGrp3Microcodes.Name = "lblGrp3Microcodes";
+            this.lblGrp3Microcodes.Size = new System.Drawing.Size(106, 13);
+            this.lblGrp3Microcodes.TabIndex = 10;
+            this.lblGrp3Microcodes.Text = "Group 3 Microcodes:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 517);
+            this.ClientSize = new System.Drawing.Size(768, 528);
             this.Controls.Add(this.txtMemContents);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
-            this.MinimumSize = new System.Drawing.Size(784, 556);
+            this.MinimumSize = new System.Drawing.Size(784, 567);
             this.Name = "MainForm";
             this.Text = "PDP 8 Simulator";
             this.groupBox1.ResumeLayout(false);
@@ -434,5 +445,6 @@
         private System.Windows.Forms.Button btnOpenMemTrFile;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TxtOsrSwitchBits;
+        private System.Windows.Forms.Label lblGrp3Microcodes;
     }
 }

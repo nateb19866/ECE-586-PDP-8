@@ -59,19 +59,21 @@ namespace ECE486_PDP_8_Emulator
             lblClockCycles.Text = "Total Clock Cycles: " ;
             lblInstExecuted.Text = "Total Instructions Executed: " ;
             lblInstAnd.Text = "AND: " ;
-            lblInstAnd.Text = "ISZ: ";
-            lblInstAnd.Text = "DCA: ";
-            lblInstAnd.Text = "JMS: ";
-            lblInstAnd.Text = "JMP: " ;
-            lblInstAnd.Text = "TAD: ";
-            lblInstAnd.Text = "IOT: ";
-            lblInstAnd.Text = "Microcodes: ";
+            lblInstIsz.Text = "ISZ: ";
+            lblInstDca.Text = "DCA: ";
+            lblInstJms.Text = "JMS: ";
+            lblInstJmp.Text = "JMP: " ;
+            lblInstTad.Text = "TAD: ";
+            lblInstIot.Text = "IOT: ";
+            lblInstMicrocodes.Text = "Microcodes: ";
+            lblGrp3Microcodes.Text = "Group 3 Microcodes: ";
 
             //Clear memory contents
             txtMemContents.Text = String.Empty;
 
             int FinalOsrBits = 0;
 
+            //Catch any errors with invalid values
             try
             {
                 FinalOsrBits = Convert.ToInt32(TxtOsrSwitchBits.Text, 16);
@@ -108,6 +110,8 @@ namespace ECE486_PDP_8_Emulator
                 lblInstTad.Text = "TAD: " + Result.InstructionTypeExecutions[Constants.OpCode.TAD.ToString()];
                 lblInstIot.Text = "IOT: " + Result.InstructionTypeExecutions[Constants.OpCode.IOT.ToString()];
                 lblInstMicrocodes.Text = "Microcodes: " + Result.InstructionTypeExecutions[Constants.OpCode.OPR.ToString()];
+                lblGrp3Microcodes.Text = "Group 3 Microcodes: " + Result.InstructionTypeExecutions["Grp3Microcode"];
+
 
                 //Print memory contents
                 StringBuilder FinalMemContents = new StringBuilder();

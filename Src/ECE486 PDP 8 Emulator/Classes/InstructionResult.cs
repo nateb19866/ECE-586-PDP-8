@@ -12,5 +12,6 @@ namespace ECE486_PDP_8_Emulator.Classes
        public bool BranchTaken;
        public Constants.BranchType? BranchType;
        public bool IsHalted;
+    
     }
 }

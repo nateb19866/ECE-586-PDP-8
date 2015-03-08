@@ -188,7 +188,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     instItems = OSRInstruction(instItems);
 
 
-                //Skip HLT
+                //HLT - mask 000 000 000 100 - hex 0000 0000 0010
+                if ((instItems.InstructionRegister & 0x2) == 0x2)
+                    instItems.IsHalted = true;
             
 
             return instItems;

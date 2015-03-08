@@ -22,6 +22,7 @@ namespace ECE486_PDP_8_Emulator.Classes
            InstructionTypeExecutions[Constants.OpCode.JMS.ToString()] = "0";
            InstructionTypeExecutions[Constants.OpCode.OPR.ToString()] = "0";
            InstructionTypeExecutions[Constants.OpCode.TAD.ToString()] = "0";
+           InstructionTypeExecutions["Grp3Microcode"] = "0";
 
        }
        public int InstructionsExecuted = 0;
