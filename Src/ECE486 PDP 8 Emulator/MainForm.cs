@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ECE486_PDP_8_Emulator
+namespace ECE486_PDP_8_Emulator.Forms
 {
     public partial class MainForm : Form
     {

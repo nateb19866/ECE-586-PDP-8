@@ -29,10 +29,11 @@ namespace ECE486_PDP_8_Emulator
                     return new JmpInstruction();
                 case Constants.OpCode.IOT:
                     return new IotInstruction();
-                case Constants.OpCode.OPR:
-                    return new OprInstruction();
+                    //The only other option is the OprInstruction
                 default:
-                    throw new InvalidOperationException();
+                    return new OprInstruction();
+                
+                  
             }
 
         }

@@ -84,6 +84,8 @@
     <Compile Include="InstructionTests\SwpTests.cs" />
     <Compile Include="InstructionTests\CamTests.cs" />
     <Compile Include="InstructionTests\NopTests.cs" />
+    <Compile Include="LoggerTests.cs" />
+    <Compile Include="ProgramExecuterTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

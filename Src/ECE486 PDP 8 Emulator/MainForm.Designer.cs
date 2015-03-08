@@ -1,4 +1,4 @@
-﻿namespace ECE486_PDP_8_Emulator
+﻿namespace ECE486_PDP_8_Emulator.Forms
 {
     partial class MainForm
     {

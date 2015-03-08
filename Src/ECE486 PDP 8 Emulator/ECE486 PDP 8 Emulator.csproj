@@ -46,9 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinLoader.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Classes\BranchTraceRow.cs" />
     <Compile Include="Classes\InstructionItems.cs" />
     <Compile Include="Classes\InstructionResult.cs" />

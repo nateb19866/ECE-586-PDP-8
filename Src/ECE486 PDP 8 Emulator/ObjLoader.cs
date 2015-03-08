@@ -23,7 +23,8 @@ namespace ECE486_PDP_8_Emulator
                 int[,] MemArray = new int[4096,2];  // Complete Memory Array, Fix to determine complete array length
 
 
-              
+                if (File.ReadAllLines(filePath).LongCount() == 0)
+                    throw new ArgumentNullException("Blank file detected!");
 
                 using (StreamReader TxtFile = new StreamReader(filePath))
                 {
@@ -38,7 +39,7 @@ namespace ECE486_PDP_8_Emulator
                       
                         //Catch exception with odd rows in file
                         if((line2 = TxtFile.ReadLine()) == null)
-                            throw new NullReferenceException("The file contains an invalid number of rows!");
+                            throw new InvalidDataException("The file contains an invalid number of rows!");
 
                         //Convert values to ints
                         int StartInt = Convert.ToInt32(line.Trim().First().ToString());
@@ -46,10 +47,12 @@ namespace ECE486_PDP_8_Emulator
 
 
                         //If the beginning of the program does not contain a memory reference, assume starting at page 1
-                        if(StartInt == 0 && StartOfFile)
+                        if (StartInt == 0 && StartOfFile)
+                        {
                             //200 octal(000 010 000 000) in hex(0000 1000 0000) 
                             MemArrayCnt = 0x80;
-
+                            IncrementCtr = false;
+                        }
 
                         //If it contains a memory reference, set the value to whatever the memory reference is, and make sure not to increment the address for the next loop
                         if(StartInt == 1)

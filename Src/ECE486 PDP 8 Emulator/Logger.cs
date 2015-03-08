@@ -25,10 +25,10 @@ namespace ECE486_PDP_8_Emulator
 
 
        private List<MemTraceRow> MemTrace = new List<MemTraceRow>();
-       private int MemTraceCount = 0;
+
 
        private List<BranchTraceRow> BranchTrace = new List<BranchTraceRow>();
-       private int BranchTraceCount = 0;
+
 
        public Logger(string traceFolderPath)
        {
@@ -40,7 +40,7 @@ namespace ECE486_PDP_8_Emulator
                + DateTime.Now.Day.ToString() + "_"
                + DateTime.Now.Hour.ToString()
                + DateTime.Now.Minute.ToString()
-               + DateTime.Now.Second.ToString()
+               + DateTime.Now.Second.ToString() + "_" + Guid.NewGuid()
                + TraceExtension;
 
 
@@ -50,7 +50,7 @@ namespace ECE486_PDP_8_Emulator
              + DateTime.Now.Day.ToString() + "_"
              + DateTime.Now.Hour.ToString()
              + DateTime.Now.Minute.ToString()
-             + DateTime.Now.Second.ToString()
+             + DateTime.Now.Second.ToString() + "_" + Guid.NewGuid()
              + TraceExtension;
        }
         ~Logger()
@@ -63,16 +63,16 @@ namespace ECE486_PDP_8_Emulator
 
            //To avoid unnecessary I/O, track a number of memory events before dumping to disk
            MemTrace.Add(new MemTraceRow() { Address = address, OperationType = operationType });
-           MemTraceCount++;
+          
 
-           if(MemTraceCount > Convert.ToInt32(Resources.RowsBeforeDumpToFile))
+           if(MemTrace.Count > Convert.ToInt32(Resources.RowsBeforeDumpToFile))
            {
 
                DumpMemCacheToFile();
 
                //Truncate memory array and reset counter
                MemTrace = new List<MemTraceRow>();
-               MemTraceCount = 0;
+             
            }
 
        }
@@ -82,16 +82,16 @@ namespace ECE486_PDP_8_Emulator
 
            //To avoid unnecessary I/O, track a number of memory events before dumping to disk
            BranchTrace.Add(rowToAppend);
-           BranchTraceCount++;
+         
 
-           if (BranchTraceCount > Convert.ToInt32(Resources.RowsBeforeDumpToFile))
+           if (BranchTrace.Count > Convert.ToInt32(Resources.RowsBeforeDumpToFile))
            {
 
                DumpBranchCacheToFile();
 
                //Truncate memory array and reset counter
                BranchTrace = new List<BranchTraceRow>();
-               BranchTraceCount = 0;
+               
            }
 
        }
@@ -99,7 +99,10 @@ namespace ECE486_PDP_8_Emulator
        //Dumps the contents of all trace files to disk
        public void DumpAllCachesToFile()
        {
-           DumpMemCacheToFile();
+           if(MemTrace.Count>0)
+            DumpMemCacheToFile();
+
+           if(BranchTrace.Count>0)
            DumpBranchCacheToFile();
        }
 
@@ -136,7 +139,7 @@ namespace ECE486_PDP_8_Emulator
                } 
                foreach (var TraceRow in BranchTrace)
                {
-                   sw.WriteLine("{0}	{1}		{2}		{3}		{4}", Utils.DecimalToOctal(TraceRow.ProgramCounter).ToString(), TraceRow.BranchType.ToString(), Utils.DecimalToOctal(TraceRow.MemoryAddress).ToString(), TraceRow.branchTaken.ToString());
+                   sw.WriteLine("{0}	{1}		{2}		{3}", Utils.DecimalToOctal(TraceRow.ProgramCounter).ToString(), TraceRow.BranchType.ToString(), Utils.DecimalToOctal(TraceRow.MemoryAddress).ToString(), TraceRow.branchTaken.ToString());
                    
                }
            }

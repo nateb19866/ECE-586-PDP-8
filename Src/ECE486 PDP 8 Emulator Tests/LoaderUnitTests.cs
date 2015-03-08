@@ -4,6 +4,7 @@ using ECE486_PDP_8_Emulator;
 using ECE486_PDP_8_Emulator.Classes;
 using ECE486_PDP_8_Emulator.Interfaces;
 using ECE486_PDP_8_Emulator_Tests.Properties;
+using System.IO;
 
 namespace ECE486_PDP_8_Emulator_Tests
 {
@@ -30,6 +31,52 @@ namespace ECE486_PDP_8_Emulator_Tests
             Assert.AreEqual(Convert.ToInt32(3.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xA9, false, false));
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xAA, false, false));
 
+        }
+
+
+        [TestMethod]
+        public void TestBlankStartAddress()
+        {
+            ILoader FileLoader = new ObjLoader();
+            LoaderResult TestMemArray = FileLoader.LoadFile(Resources.TestFilePath + "/TestBlankStartMemAddr.obj");
+            //Instruction section - 200 octal = 0x80 Hex
+            Assert.AreEqual(Convert.ToInt32(7300.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x80, false, false));
+            Assert.AreEqual(Convert.ToInt32(1250.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x81, false, false));
+            Assert.AreEqual(Convert.ToInt32(1251.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x82, false, false));
+            Assert.AreEqual(Convert.ToInt32(3252.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x83, false, false));
+            Assert.AreEqual(Convert.ToInt32(7402.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x84, false, false));
+            Assert.AreEqual(Convert.ToInt32(5200.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x85, false, false));
+
+            //Data section - 0250 octal (000 010 101 000) = 0x0A8(0000 1010 1000) hex
+            Assert.AreEqual(Convert.ToInt32(2.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xA8, false, false));
+            Assert.AreEqual(Convert.ToInt32(3.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xA9, false, false));
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xAA, false, false));
+
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestBlankFileException()
+        {
+            ILoader FileLoader = new ObjLoader();
+            LoaderResult TestMemArray = FileLoader.LoadFile(Resources.TestFilePath + "/TestBlankFile.obj");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidDataException))]
+        public void TestOddRowException()
+        {
+            ILoader FileLoader = new ObjLoader();
+            LoaderResult TestMemArray = FileLoader.LoadFile(Resources.TestFilePath + "/TestOddRowException.obj");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void TestOutOfRangeException()
+        {
+            ILoader FileLoader = new ObjLoader();
+            LoaderResult TestMemArray = FileLoader.LoadFile(Resources.TestFilePath + "/TestOutOfRange.obj");
         }
     }
 }
