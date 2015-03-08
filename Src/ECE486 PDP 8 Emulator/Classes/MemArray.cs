@@ -50,9 +50,7 @@ namespace ECE486_PDP_8_Emulator
            //Fire the event to handle the trace file
            OnTraced(EventArgs.Empty, address, isInstruction?Constants.OpType.InstructionFetch:Constants.OpType.DataRead);
 
-           if (address >= MemoryArray.Length)
-               throw new InvalidOperationException("The address " + address.ToString() + " is invalid.  The appropriate range is 0-4095");
-           
+          
            return MemoryArray[address,0];
         }
 

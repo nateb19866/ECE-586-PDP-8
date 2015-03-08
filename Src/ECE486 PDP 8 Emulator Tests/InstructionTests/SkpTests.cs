@@ -104,7 +104,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(4003.ToString(), 8), ActualResult.pcCounter);
 
-            ///Test for PC with last octal 0
+            //Test for PC with last octal 0
             TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);

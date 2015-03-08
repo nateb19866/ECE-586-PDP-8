@@ -44,7 +44,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits =instItems.OsrSwitchBits
             };
 
 

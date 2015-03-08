@@ -22,13 +22,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                    // Always increment PC initially and mask
                     pcCounter = (++instItems.pcCounter) & 0xFFF,
                      SetMemValue = false,
-                     BranchType = null
+              BranchType = null,
+              OsrSwitchBits = instItems.OsrSwitchBits
             };
-            if (((Constants.Microcode)instItems.InstructionRegister) == Constants.Microcode.NOP)
-                Rslt = NopInstruction(Rslt);
+            if (((Constants.Microcode)Utils.DecimalToOctal(instItems.InstructionRegister)) == Constants.Microcode.NOP)
+                return Rslt;
 
             //Group 1 microinstruction - mask with 000 100 000 000, or 0001 000 0000 in hex
-            else if((instItems.InstructionRegister & 0x100) == 0 )
+            else if ((instItems.InstructionRegister & 0x100) == 0)
             {
                 //Perform Seq 1 operations
 
@@ -79,7 +80,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             }
 
             //Group 2 microinstruction - mask with 000 100 000 001, or 0001 0000 0001 in hex
-            else if((instItems.InstructionRegister & 0x101) == 0x100)
+            else if ((instItems.InstructionRegister & 0x101) == 0x100)
             {
                 Rslt = Group2Microcodes(Rslt);
 
@@ -170,13 +171,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                         instItems.BranchTaken = true;
                     }
 
-                    else if (PassSNA == null && PassSPA == null && PassSZL == null)
-                    {
-                        instItems.pcCounter++;
-                        instItems.BranchTaken = true;
-                        instItems.BranchType = Constants.BranchType.Unconditional;
-
-                    }
+   
 
 
                 }
@@ -199,26 +194,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             return instItems;
         }
        
-        /*
-        * NOP instruction does nothing. Passes all parameters as is.
-        */
 
-        private InstructionResult NopInstruction(InstructionResult instItems)
-        {
-           instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
-
-            return new InstructionResult()
-            {
-                accumulatorOctal = instItems.accumulatorOctal,
-                BranchTaken = false,
-                LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryAddress,
-                MemoryValueOctal = instItems.MemoryValueOctal,
-                InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
-                SetMemValue = false
-            };
-        }
 
         /*
         * M1_CLA instruction Clears AC.
@@ -239,7 +215,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -261,7 +238,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -288,7 +266,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -310,7 +289,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -359,7 +339,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -371,7 +352,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
 
             int tempLink = 0;
-            bool LinkReturn;
+           
             int tempAC;
 
             // Put Link Bit into 13th bit of AC
@@ -407,7 +388,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -433,7 +415,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
 
             };
         }
@@ -445,7 +428,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
         public InstructionResult RALInstruction(InstructionResult instItems)
         {
             int tempLink = 0;
-            bool LinkReturn;
+         
             int tempAC;
 
           
@@ -482,7 +465,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -508,33 +492,12 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = false,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
 
             };
         }
 
-
-        /*
-      * SKP instruction increments to skip next instruction. Passes all remaining parameters as is.
-      */
-
-        private InstructionResult SkpInstruction(InstructionResult instItems)
-        {
-
-            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
-
-            return new InstructionResult()
-            {
-                accumulatorOctal = instItems.accumulatorOctal,
-                BranchTaken = false,
-                LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryAddress,
-                MemoryValueOctal = instItems.MemoryValueOctal,
-                InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
-                SetMemValue = false
-            };
-        }
 
         /*
        *M2_CLA instruction: clears AC.
@@ -553,7 +516,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 BranchTaken = instItems.BranchTaken,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -570,93 +534,12 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = instItems.pcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
         // Microinstruction set 3: Handle by only incrementing PC and instr count.
-        public InstructionResult M3_CLAInstruction(InstructionResult instItems)
-        {
-            instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
-
-            return new InstructionResult()
-            {
-                accumulatorOctal = instItems.accumulatorOctal,
-                BranchTaken = false,
-                LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryAddress,
-                MemoryValueOctal = instItems.MemoryValueOctal,
-                InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
-                SetMemValue = false
-            };
-        }
-
-        public InstructionResult MQL(InstructionResult instItems)
-        {
-            instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
-
-            return new InstructionResult()
-            {
-                accumulatorOctal = instItems.accumulatorOctal,
-                BranchTaken = false,
-                LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryAddress,
-                MemoryValueOctal = instItems.MemoryValueOctal,
-                InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
-                SetMemValue = false
-            };
-        }
-
-        public InstructionResult MQA(InstructionResult instItems)
-        {
-            instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
-
-            return new InstructionResult()
-            {
-                accumulatorOctal = instItems.accumulatorOctal,
-                BranchTaken = false,
-                LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryAddress,
-                MemoryValueOctal = instItems.MemoryValueOctal,
-                InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
-                SetMemValue = false
-            };
-        }
-
-        public InstructionResult SWP(InstructionResult instItems)
-        {
-            instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
-
-            return new InstructionResult()
-            {
-                accumulatorOctal = instItems.accumulatorOctal,
-                BranchTaken = false,
-                LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryAddress,
-                MemoryValueOctal = instItems.MemoryValueOctal,
-                InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
-                SetMemValue = false
-            };
-        }
-
-        public InstructionResult CAM(InstructionResult instItems)
-        {
-            instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
-            return new InstructionResult()
-            {
-                accumulatorOctal = instItems.accumulatorOctal,
-                BranchTaken = false,
-                LinkBit = instItems.LinkBit,
-                MemoryAddress = instItems.MemoryAddress,
-                MemoryValueOctal = instItems.MemoryValueOctal,
-                InstructionRegister = instItems.InstructionRegister,
-                pcCounter = instItems.pcCounter,
-                SetMemValue = false
-            };
-        }
+      
     }
 }

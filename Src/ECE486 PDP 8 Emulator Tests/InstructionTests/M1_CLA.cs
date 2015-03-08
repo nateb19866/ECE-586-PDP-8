@@ -20,7 +20,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 1500,
-                InstructionRegister = Convert.ToInt32(7200.ToString(), 8)
+                InstructionRegister = Convert.ToInt32(7200.ToString(), 8),
+                OsrSwitchBits = 0xFFF
 
 
             };
@@ -49,6 +50,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(0xFFF, ActualResult.OsrSwitchBits);
+
+            //Test instruction properties
+            Assert.AreEqual(1, TestOprInstruction.clockCycles);
+            Assert.AreEqual(Constants.OpCode.OPR, TestOprInstruction.instructionType);
+
         }
 
 

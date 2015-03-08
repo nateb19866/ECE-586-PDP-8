@@ -20,7 +20,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 0,
                 MemoryValueOctal = 7777,
                 pcCounter = 1,
-                InstructionRegister = Convert.ToInt32(6002.ToString(), 8)
+                InstructionRegister = Convert.ToInt32(6002.ToString(), 8),
+                OsrSwitchBits = 0xFFF
 
 
             };
@@ -49,6 +50,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(0xFFF, ActualResult.OsrSwitchBits);
+
+            //Test instruction properties
+            Assert.AreEqual(0, TestIotInstruction.clockCycles);
+            Assert.AreEqual(Constants.OpCode.IOT, TestIotInstruction.instructionType);
+
         }
 
 

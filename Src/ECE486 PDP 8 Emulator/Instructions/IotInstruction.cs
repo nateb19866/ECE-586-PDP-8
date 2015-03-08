@@ -10,7 +10,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 {
     public class IotInstruction : IInstruction
     {
-        private int ClockCycles = 1;
+        private int ClockCycles = 0;
         private Constants.OpCode InstructionType = Constants.OpCode.IOT;
 
         public InstructionResult ExecuteInstruction(InstructionItems instItems)
@@ -81,7 +81,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 
@@ -99,7 +100,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult KCC(InstructionItems instItems)
@@ -116,7 +118,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult KRS(InstructionItems instItems)
@@ -133,7 +136,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult KRB(InstructionItems instItems)
@@ -149,7 +153,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
           
@@ -166,7 +171,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TSF(InstructionItems instItems)
@@ -182,7 +188,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TCF(InstructionItems instItems)
@@ -198,7 +205,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TPC(InstructionItems instItems)
@@ -214,7 +222,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TLS(InstructionItems instItems)
@@ -230,7 +239,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
            
@@ -247,7 +257,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
             
@@ -264,7 +275,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult IOF(InstructionItems instItems)
@@ -280,7 +292,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = IncrementedPcCounter,
-                SetMemValue = false
+                SetMemValue = false,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 

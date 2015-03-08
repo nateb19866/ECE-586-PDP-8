@@ -70,9 +70,18 @@ namespace ECE486_PDP_8_Emulator
             //Clear memory contents
             txtMemContents.Text = String.Empty;
 
+            int FinalOsrBits = 0;
 
+            try
+            {
+                FinalOsrBits = Convert.ToInt32(TxtOsrSwitchBits.Text, 16);
+            }
+            catch (Exception)
+            {
+               FinalOsrBits = 0;
+            }
             //Run the task asynchronously
-            var t = Task.Factory.StartNew(() => ProgramExecuter.ExecuteProgram(txtProgramPath.Text, txtTraceFolder.Text, Convert.ToInt32(TxtOsrSwitchBits.Text,16)))
+            var t = Task.Factory.StartNew(() => ProgramExecuter.ExecuteProgram(txtProgramPath.Text, txtTraceFolder.Text, FinalOsrBits))
             .ContinueWith(task =>
             {
                 IsRunning = false;

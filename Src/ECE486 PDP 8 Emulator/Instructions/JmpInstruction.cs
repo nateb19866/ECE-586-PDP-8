@@ -31,7 +31,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 BranchTaken = true,
-                BranchType = Constants.BranchType.Unconditional
+                BranchType = Constants.BranchType.Unconditional,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
 

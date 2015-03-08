@@ -2,6 +2,20 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ECE486_PDP_8_Emulator;
 using ECE486_PDP_8_Emulator.Classes;
+namespace ECE486_PDP_8_Emulator.Tests
+{
+    [TestClass()]
+    public class UtilsTests
+    {
+        [TestMethod()]
+        public void GetPageTest()
+        {
+            int rslt = Utils.GetPage(0xDF0);
+
+            Assert.AreEqual(0x1B, rslt);
+        }
+    }
+}
 
 namespace ECE486_PDP_8_Emulator_Tests
 {

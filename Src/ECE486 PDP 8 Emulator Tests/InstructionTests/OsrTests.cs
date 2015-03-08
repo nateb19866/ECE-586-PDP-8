@@ -35,7 +35,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 7777,
-                pcCounter = 1802,
+                pcCounter = 1801,
                 InstructionRegister = Convert.ToInt32(7404.ToString(), 8),
                 SetMemValue = false
 

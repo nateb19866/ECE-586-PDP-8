@@ -35,7 +35,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 SetMemValue = true,
                 BranchTaken = true,
-                BranchType = Constants.BranchType.Subroutine
+                BranchType = Constants.BranchType.Subroutine,
+                OsrSwitchBits = instItems.OsrSwitchBits
             };
 
 

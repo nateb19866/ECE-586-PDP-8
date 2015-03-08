@@ -20,13 +20,14 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryAddress = 123,
                 MemoryValueOctal = 4095,
                 pcCounter = 123,
-                InstructionRegister = 7402
+                InstructionRegister = 7402,
+                OsrSwitchBits = 0xFFF
             };
 
 
             InstructionResult ExpectedItems = new InstructionResult()
             {
-                accumulatorOctal = 0,
+                accumulatorOctal = 1,
                 LinkBit = true,
                 MemoryAddress = 123,
                 MemoryValueOctal = 0,
@@ -52,6 +53,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
             Assert.AreEqual(true, ActualResult.BranchTaken);
             Assert.AreEqual(ExpectedItems.BranchType, ActualResult.BranchType);
+            Assert.AreEqual(0xFFF, ActualResult.OsrSwitchBits);
+
+            //Test instruction properties
+            Assert.AreEqual(2, TestIszInstruction.clockCycles);
+            Assert.AreEqual(Constants.OpCode.ISZ, TestIszInstruction.instructionType);
+
         }
 
 

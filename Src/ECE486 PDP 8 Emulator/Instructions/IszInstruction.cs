@@ -50,7 +50,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                pcCounter = instItems.pcCounter,
                // Conditional Branch from skip if mem Value = 0
                BranchTaken = (instItems.MemoryValueOctal == 0),
-               BranchType = Constants.BranchType.Conditional
+               BranchType = Constants.BranchType.Conditional,
+               OsrSwitchBits = instItems.OsrSwitchBits
 
            };
         }
