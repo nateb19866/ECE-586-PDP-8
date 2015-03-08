@@ -29,6 +29,8 @@ namespace ECE486_PDP_8_Emulator.Tests
 
             TestLogger.DumpAllCachesToFile();
 
+
+
             using (StreamReader TxtFile = new StreamReader(TestLogger.FinalMemTrFileName))
             {
                 string line = TxtFile.ReadLine();
@@ -56,24 +58,31 @@ namespace ECE486_PDP_8_Emulator.Tests
 
             }
 
-            //Test flushing cache
-            for (int i = 1; i <= Convert.ToInt32(Resources.RowsBeforeDumpToFile); i++)
-            {
-                TestLogger.AppendToMemTraceFile(this, null, 145, Constants.OpType.DataRead);
-         
 
-            TestLogger.AppendToBranchTraceFile(this, null, new BranchTraceRow() { branchTaken = true, BranchType = Constants.BranchType.Conditional, MemoryAddress = 345, ProgramCounter = 23 });
+        
+        }
+
+        [TestMethod]
+        public void TestFlushingLoggerCache()
+        {
+            Logger TestLogger2 = new Logger(Resources.TestFilePath + "\\");
+            //Test flushing cache
+            for (int i = 0; i <= Convert.ToInt32(Resources.RowsBeforeDumpToFile); i++)
+            {
+                TestLogger2.AppendToMemTraceFile(this, null, 145, Constants.OpType.DataRead);
+
+
+                TestLogger2.AppendToBranchTraceFile(this, null, new BranchTraceRow() { branchTaken = true, BranchType = Constants.BranchType.Conditional, MemoryAddress = 345, ProgramCounter = i });
             }
 
 
-           Assert.AreEqual(Convert.ToInt32(Resources.RowsBeforeDumpToFile)+1 ,File.ReadLines(TestLogger.FinalMemTrFileName).Count());
-           Assert.AreEqual(Convert.ToInt32(Resources.RowsBeforeDumpToFile)+1, File.ReadLines(TestLogger.FinalBranchTrFileName).Count());
+            Assert.AreEqual(Convert.ToInt32(Resources.RowsBeforeDumpToFile)+1, File.ReadLines(TestLogger2.FinalMemTrFileName).Count());
+            Assert.AreEqual(Convert.ToInt32(Resources.RowsBeforeDumpToFile)+1, File.ReadLines(TestLogger2.FinalBranchTrFileName).Count());
 
-           TestLogger.DumpAllCachesToFile();
+            TestLogger2.DumpAllCachesToFile();
+            Assert.AreEqual(Convert.ToInt32(Resources.RowsBeforeDumpToFile) + 2, File.ReadLines(TestLogger2.FinalMemTrFileName).Count());
+            Assert.AreEqual(Convert.ToInt32(Resources.RowsBeforeDumpToFile) + 2, File.ReadLines(TestLogger2.FinalBranchTrFileName).Count());
 
-
-            File.Delete(TestLogger.FinalBranchTrFileName);
-            File.Delete(TestLogger.FinalMemTrFileName);
         }
 
 

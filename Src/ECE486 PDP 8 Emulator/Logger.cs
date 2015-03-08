@@ -20,9 +20,6 @@ namespace ECE486_PDP_8_Emulator
        public string FinalBranchTrFileName = "";
 
 
-      private bool MemTraceFileCreated = false;
-       private bool BranchTraceFileCreated = false;
-
 
        private List<MemTraceRow> MemTrace = new List<MemTraceRow>();
 
@@ -34,7 +31,7 @@ namespace ECE486_PDP_8_Emulator
        {
            this.TraceFolderPath = traceFolderPath;
 
-          FinalMemTrFileName = TraceFolderPath + "\\" + MemTraceFileName + "_"
+          FinalMemTrFileName = TraceFolderPath + (!TraceFolderPath.EndsWith("\\")?"\\":"") + MemTraceFileName + "_"
                + DateTime.Now.Year.ToString()
                + DateTime.Now.Month.ToString()
                + DateTime.Now.Day.ToString() + "_"
@@ -44,7 +41,7 @@ namespace ECE486_PDP_8_Emulator
                + TraceExtension;
 
 
-          FinalBranchTrFileName = TraceFolderPath + "\\" + BranchTraceFileName + "_"
+          FinalBranchTrFileName = TraceFolderPath + (!TraceFolderPath.EndsWith("\\") ? "\\" : "") + BranchTraceFileName + "_"
              + DateTime.Now.Year.ToString()
              + DateTime.Now.Month.ToString()
              + DateTime.Now.Day.ToString() + "_"
@@ -65,7 +62,7 @@ namespace ECE486_PDP_8_Emulator
            MemTrace.Add(new MemTraceRow() { Address = address, OperationType = operationType });
           
 
-           if(MemTrace.Count > Convert.ToInt32(Resources.RowsBeforeDumpToFile))
+           if(MemTrace.Count >= Convert.ToInt32(Resources.RowsBeforeDumpToFile))
            {
 
                DumpMemCacheToFile();
@@ -84,7 +81,7 @@ namespace ECE486_PDP_8_Emulator
            BranchTrace.Add(rowToAppend);
          
 
-           if (BranchTrace.Count > Convert.ToInt32(Resources.RowsBeforeDumpToFile))
+           if (BranchTrace.Count >= Convert.ToInt32(Resources.RowsBeforeDumpToFile))
            {
 
                DumpBranchCacheToFile();
@@ -108,15 +105,26 @@ namespace ECE486_PDP_8_Emulator
 
        private void DumpMemCacheToFile()
        {
-           
-           
-           using (StreamWriter sw = File.CreateText(FinalMemTrFileName))
+
+           if (!File.Exists(FinalMemTrFileName))
            {
-               if(!MemTraceFileCreated)
+               using (StreamWriter sw = File.CreateText(FinalMemTrFileName))
                {
-                   sw.WriteLine("Addr	OpType");
-                   MemTraceFileCreated = true;
+                 
+                       sw.WriteLine("Addr	OpType");
+                   
+                   
+
+                   foreach (var MemTraceRow in MemTrace)
+                   {
+                       sw.WriteLine("{0}	{1}", Utils.DecimalToOctal(MemTraceRow.Address).ToString(), MemTraceRow.OperationType.ToString());
+                   }
                }
+           }
+           else
+               using (StreamWriter sw = File.AppendText(FinalMemTrFileName))
+           {
+        
 
                foreach (var MemTraceRow in MemTrace)
                {
@@ -127,21 +135,35 @@ namespace ECE486_PDP_8_Emulator
 
        private void DumpBranchCacheToFile()
        {
-         
-           
-           using (StreamWriter sw = File.CreateText(FinalBranchTrFileName))
-           {
 
-               if (!BranchTraceFileCreated)
+           if (!File.Exists(FinalBranchTrFileName))
+           {
+               using (StreamWriter sw = File.CreateText(FinalBranchTrFileName))
                {
-                   sw.WriteLine("PCtr	Type	Addr	Taken?");
-                   BranchTraceFileCreated = true;
-               } 
-               foreach (var TraceRow in BranchTrace)
-               {
-                   sw.WriteLine("{0}	{1}		{2}		{3}", Utils.DecimalToOctal(TraceRow.ProgramCounter).ToString(), TraceRow.BranchType.ToString(), Utils.DecimalToOctal(TraceRow.MemoryAddress).ToString(), TraceRow.branchTaken.ToString());
+
+                 
+                       sw.WriteLine("PCtr	Type	Addr	Taken?");
+                      
                    
+                   foreach (var TraceRow in BranchTrace)
+                   {
+                       sw.WriteLine("{0}	{1}		{2}		{3}", Utils.DecimalToOctal(TraceRow.ProgramCounter).ToString(), TraceRow.BranchType.ToString(), Utils.DecimalToOctal(TraceRow.MemoryAddress).ToString(), TraceRow.branchTaken.ToString());
+
+                   }
                }
+           }
+           else
+           {
+               using (StreamWriter sw = File.AppendText(FinalBranchTrFileName))
+               {
+
+                   foreach (var TraceRow in BranchTrace)
+                   {
+                       sw.WriteLine("{0}	{1}		{2}		{3}", Utils.DecimalToOctal(TraceRow.ProgramCounter).ToString(), TraceRow.BranchType.ToString(), Utils.DecimalToOctal(TraceRow.MemoryAddress).ToString(), TraceRow.branchTaken.ToString());
+
+                   }
+               }
+
            }
        }
     }

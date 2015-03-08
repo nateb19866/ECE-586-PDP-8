@@ -173,12 +173,29 @@ namespace ECE486_PDP_8_Emulator.Forms
 
         private void btnOpenMemTrFile_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(LastMemTrFilePath);
+            try
+            {
+                System.Diagnostics.Process.Start(LastMemTrFilePath);
+            }
+            catch (Exception)
+            {
+                
+                //Skip blank file
+            }
+           
         }
 
         private void btnOpenBranchTrFile_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(LastBranchTrFilePath);
+            try
+            {
+                System.Diagnostics.Process.Start(LastBranchTrFilePath);
+            }
+                //Skip blank file
+            catch (Exception)
+            {
+
+            } 
         }
     }
 }
