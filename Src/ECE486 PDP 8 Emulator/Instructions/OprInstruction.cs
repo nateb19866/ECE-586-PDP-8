@@ -264,11 +264,11 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 accumulatorOctal = instItems.accumulatorOctal,
                 //If used in conjunction with CLA, set all 12 bits of AC to 1 ( = 7777 )
                 // b/c CLA will always operate first
-                LinkBit = false,
+                LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                BranchTaken = false,
+                BranchTaken = instItems.BranchTaken,
                 pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
