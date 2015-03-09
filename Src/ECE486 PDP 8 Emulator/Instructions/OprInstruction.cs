@@ -143,6 +143,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     bool? PassSNA = null;
                     bool? PassSZL = null;
                     instItems.BranchType = Constants.BranchType.Conditional;
+
                     //SPA - mask 000 001 001 000 - hex 0000 0100 1000
                     if ((instItems.InstructionRegister & 0x48) == 0x48)
                         PassSPA = instItems.accumulatorOctal <= 0x7FF;
@@ -184,11 +185,12 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 //M2_CLA - mask 000 010 000 000 - hex 0000 1000 0000
                 if((instItems.InstructionRegister & 0x80) == 0x80)
                     instItems = M2_CLAInstruction(instItems);
+                    
 
                 //OSR - mask 000 000 000 100 - hex 0000 0000 0100
                 if ((instItems.InstructionRegister & 0x4) == 0x4)
                     instItems = OSRInstruction(instItems);
-
+                   
 
                 //HLT - mask 000 000 000 100 - hex 0000 0000 0010
                 if ((instItems.InstructionRegister & 0x2) == 0x2)
@@ -524,6 +526,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
+
+        /* OSR Instruction
+         * ORs Switch Register with Accumulator */
 
         private InstructionResult OSRInstruction(InstructionResult instItems)
         {
