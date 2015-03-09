@@ -65,6 +65,35 @@ namespace ECE486_PDP_8_Emulator_Tests
 
         }
 
+        [TestMethod]
+        public void TestOutofOrderObjLoading()
+        {
+
+            ILoader FileLoader = new ObjLoader();
+            LoaderResult TestMemArray = FileLoader.LoadFile(Resources.TestFilePath + "/OutofOrderAddressing.obj");
+
+            //Instruction section - 200 octal = 0x80 Hex
+            Assert.AreEqual(Convert.ToInt32(7200.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x80, false, false));
+            Assert.AreEqual(Convert.ToInt32(3250.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x81, false, false));
+            Assert.AreEqual(Convert.ToInt32(1252.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x82, false, false));
+            Assert.AreEqual(Convert.ToInt32(3251.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x83, false, false));
+            Assert.AreEqual(Convert.ToInt32(1250.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x84, false, false));
+
+            //250 octal = 0x80 Hex
+            Assert.AreEqual(Convert.ToInt32(1251.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xA8, false, false));
+            Assert.AreEqual(Convert.ToInt32(3250.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xA9, false, false));
+            Assert.AreEqual(Convert.ToInt32(7240.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xAA, false, false));
+            Assert.AreEqual(Convert.ToInt32(1251.ToString(), 8), TestMemArray.FinishedArray.GetValue(0xAB, false, false));
+
+            // 230 octal = 0x98
+            Assert.AreEqual(Convert.ToInt32(7440.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x98, false, false));
+            Assert.AreEqual(Convert.ToInt32(5203.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x99, false, false));
+            Assert.AreEqual(Convert.ToInt32(7402.ToString(), 8), TestMemArray.FinishedArray.GetValue(0x9A, false, false));
+
+        }
+
+
+
 
         [TestMethod]
         public void TestBlankStartAddress()
