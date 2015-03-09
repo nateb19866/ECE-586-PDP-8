@@ -93,6 +93,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
             Assert.AreEqual(true, ActualResult.IsHalted);
         }
     }

@@ -53,8 +53,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
             Assert.AreEqual(true, ActualResult.BranchTaken);
-            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
-            //its considering skip as conditional branch???
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
+           
         }
 
 
@@ -92,6 +92,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             /* Test cases ensure PC always skip */
 
@@ -100,24 +101,28 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(2, ActualResult.pcCounter);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             //Test for PC with end bits 1s
             TestItems.pcCounter = Convert.ToInt32(4001.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(4003.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             //Test for PC with last octal 0
             TestItems.pcCounter = Convert.ToInt32(7770.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             //Test for PC skip correctly from 7777
             TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
         }
        
 
@@ -161,6 +166,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
             Assert.AreEqual(true, ActualResult.IsHalted);
 
         }

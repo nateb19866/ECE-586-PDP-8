@@ -12,7 +12,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
     {
 
         [TestMethod]
-        public void TestOsrArgumentPassthrough()
+        public void TestM2OsrArgumentPassthrough()
         {
 
             InstructionItems TestItems = new InstructionItems()
@@ -57,7 +57,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
         [TestMethod]
-        public void TestOsrOperation()
+        public void TestM2OsrOperation()
         {
             //Need to initialize the instruction items for the first time
 
@@ -164,6 +164,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1000.ToString(), 8), ActualResult.pcCounter);
+            
 
         }
 
@@ -207,6 +208,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
             Assert.AreEqual(true, ActualResult.IsHalted);
         }
     }
