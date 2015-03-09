@@ -136,7 +136,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     else
                         instItems.BranchTaken = false;
                 }
-                else if ((instItems.InstructionRegister & 0x8) == 0x1)
+                else if ((instItems.InstructionRegister & 0x8) == 0x8)
                 {
 
                     bool? PassSPA = null;
