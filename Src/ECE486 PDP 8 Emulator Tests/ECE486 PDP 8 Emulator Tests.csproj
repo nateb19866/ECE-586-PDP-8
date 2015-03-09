@@ -54,11 +54,19 @@
     <Compile Include="Classes\StatisticsTests.cs" />
     <Compile Include="InstructionFactoryTests.cs" />
     <Compile Include="InstructionTests\AndTests.cs" />
+    <Compile Include="InstructionTests\CMAandRARandRAL.cs" />
+    <Compile Include="InstructionTests\CMAandRAR_CMLandRAL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InstructionTests\CMLandCLA_CLLandCMA.cs" />
     <Compile Include="InstructionTests\DcaTests.cs" />
+    <Compile Include="InstructionTests\IACandRAR.cs" />
     <Compile Include="InstructionTests\KcfTests.cs" />
     <Compile Include="InstructionTests\IszTests.cs" />
     <Compile Include="InstructionTests\JmpTests.cs" />
     <Compile Include="InstructionTests\JmsTests.cs" />
+    <Compile Include="InstructionTests\RALandRAR.cs" />
+    <Compile Include="InstructionTests\RTLandRTR.cs" />
     <Compile Include="InstructionTests\TadTests.cs" />
     <Compile Include="InstructionTests\SmaTests.cs" />
     <Compile Include="InstructionTests\SnaTests.cs" />
