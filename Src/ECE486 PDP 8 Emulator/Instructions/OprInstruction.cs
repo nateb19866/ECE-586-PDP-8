@@ -106,8 +106,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
         private InstructionResult Group2Microcodes(InstructionResult instItems)
         {
 
-                //OR group - when 8th bit is 0
-                if ((instItems.InstructionRegister & 0x8) == 0x0)
+                //OR group - when 8th bit is 0 and there are bits in the middle sections
+                if ((instItems.InstructionRegister & 0x8) == 0x0 && (instItems.InstructionRegister & 0x070) > 0)
                 {
                     bool PassSMA = false;
                     bool PassSZA = false;
@@ -136,7 +136,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                     else
                         instItems.BranchTaken = false;
                 }
-                else
+                else if ((instItems.InstructionRegister & 0x8) == 0x1)
                 {
 
                     bool? PassSPA = null;

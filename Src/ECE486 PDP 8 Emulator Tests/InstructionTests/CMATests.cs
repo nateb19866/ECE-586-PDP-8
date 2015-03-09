@@ -31,7 +31,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ExpectedItems = new InstructionResult()
             {
                 accumulatorOctal = Convert.ToInt32(7777.ToString(), 8),
-                LinkBit = false,
+                LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 1501,

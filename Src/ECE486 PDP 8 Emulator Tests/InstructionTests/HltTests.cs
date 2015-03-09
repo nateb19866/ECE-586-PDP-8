@@ -68,7 +68,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
                 MemoryValueOctal = 0000,
                 pcCounter = 1400,
-                InstructionRegister = Convert.ToInt32(7412.ToString(), 8)
+                InstructionRegister = Convert.ToInt32(7602.ToString(), 8)
             };
 
 
@@ -78,8 +78,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
-                pcCounter = 1402,
-                InstructionRegister = Convert.ToInt32(7412.ToString(), 8),
+                pcCounter = 1401,
+                InstructionRegister = Convert.ToInt32(7602.ToString(), 8),
                 SetMemValue = false
             };
 
@@ -92,8 +92,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
-            Assert.AreEqual(true, ActualResult.BranchTaken);
-            Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(null, ActualResult.BranchType);
             Assert.AreEqual(true, ActualResult.IsHalted);
         }
     }
