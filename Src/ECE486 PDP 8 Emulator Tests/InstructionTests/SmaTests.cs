@@ -36,7 +36,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8),
                 pcCounter = 1252,
                 InstructionRegister = Convert.ToInt32(7500.ToString(), 8),
-                SetMemValue = false
+                SetMemValue = false,
+                BranchTaken = true,
+                BranchType = Constants.BranchType.Conditional
 
             };
 
@@ -52,6 +54,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(ExpectedItems.BranchTaken, ActualResult.BranchTaken);
+            Assert.AreEqual(ExpectedItems.BranchType, ActualResult.BranchType);
+
         }
 
 
@@ -81,7 +86,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                  MemoryValueOctal = 0000,
                  pcCounter = 0001,
                  InstructionRegister = Convert.ToInt32(7500.ToString(), 8),
-                 SetMemValue = false
+                 SetMemValue = false,
+                 BranchTaken = false,
+                 BranchType = Constants.BranchType.Conditional
              };
 
              IInstruction TestOprInstruction = new OprInstruction();
@@ -89,15 +96,19 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
 
              Assert.AreEqual(0, ActualResult.accumulatorOctal);
+             Assert.AreEqual(ExpectedItems.BranchTaken, ActualResult.BranchTaken);
+             Assert.AreEqual(ExpectedItems.BranchType, ActualResult.BranchType);
              
            // NOTE: PC always increments to next instruction ( + 1 ), it will only skip ( +2 ) if conditions are met
 
              //AC - 0, PC + 1 goes to next instr, not skips ( +2 )
              TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
-             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
+             TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8); 
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(false, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //AC positive , PC + 1
              TestItems.accumulatorOctal = Convert.ToInt32(1.ToString(), 8);
@@ -105,6 +116,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(false, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
 
              //AC - 10, PC + 1
@@ -113,6 +126,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(false, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
 
              //PC skips next instruction when AC is negative
@@ -121,6 +136,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(true, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //PC remains with 3 octals 1 but AC not neg
              TestItems.accumulatorOctal = Convert.ToInt32(0777.ToString(), 8);
@@ -128,6 +145,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(7771.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(false, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //PC skips next instruction when AC negative
              TestItems.accumulatorOctal = Convert.ToInt32(4001.ToString(), 8);
@@ -135,6 +154,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(7773.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(true, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //PC + 1 when AC is positive, recognize rotating 1's with starting 0
              TestItems.accumulatorOctal = Convert.ToInt32(2525.ToString(), 8);
@@ -142,6 +163,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(241.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(false, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //PC + 2 when AC is negative, starting 1 ( middle octals 0s )
              TestItems.accumulatorOctal = Convert.ToInt32(4001.ToString(), 8);
@@ -149,13 +172,17 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(2527.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(true, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //PC + 1 if AC is positive , 1
              TestItems.accumulatorOctal = Convert.ToInt32(1.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
-             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(false, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
+             Assert.AreEqual(ExpectedItems.BranchType, ActualResult.BranchType);
 
              //PC skips next instruction when AC is negative
              TestItems.accumulatorOctal = Convert.ToInt32(7000.ToString(), 8);
@@ -163,6 +190,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(true, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
          }
          [TestMethod]
@@ -205,6 +234,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
              Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
              Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
              Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+             Assert.AreEqual(true, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //AC - positive (No skip), AC - Non Zero (No skip), PCout - PC + 1 (Both conditions are false)
              TestItems.accumulatorOctal = Convert.ToInt32(10.ToString(), 8);
@@ -212,13 +243,17 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(false, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
              //AC - positive (No skip), AC - Zero (skip), PCout - PC + 2 (SZA is true)
              TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
              TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
-
+             
              ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
              Assert.AreEqual(Convert.ToInt32(2.ToString(), 8), ActualResult.pcCounter);
+             Assert.AreEqual(true, ActualResult.BranchTaken);
+             Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
          }
     }
 }

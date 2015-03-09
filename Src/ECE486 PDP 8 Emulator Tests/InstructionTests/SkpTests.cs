@@ -52,6 +52,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
+            //its considering skip as conditional branch???
         }
 
 
@@ -116,6 +119,50 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
         }
+       
 
+        [TestMethod]
+        public void TestM2SKPCombination()
+        {
+            //Test for combination of SKP and HLT - 111 100 001 010
+            //Always servers skip first and then Halts.
+            //Halt priority 3 and skip priority 1
+
+            InstructionItems TestItems = new InstructionItems()
+            {
+                accumulatorOctal = 1000,
+                LinkBit = true,
+                MemoryAddress = 0,
+
+                MemoryValueOctal = 0000,
+                pcCounter = 1400,
+                InstructionRegister = Convert.ToInt32(7412.ToString(), 8)
+            };
+
+
+            InstructionResult ExpectedItems = new InstructionResult()
+            {
+                accumulatorOctal = 1000,
+                LinkBit = true,
+                MemoryAddress = 0,
+                MemoryValueOctal = 0000,
+                pcCounter = 1402,
+                InstructionRegister = Convert.ToInt32(7412.ToString(), 8),
+                SetMemValue = false
+            };
+
+            IInstruction TestOprInstruction = new OprInstruction();
+
+            InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+
+            Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
+            Assert.AreEqual(ExpectedItems.LinkBit, ActualResult.LinkBit);
+            Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
+            Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(true, ActualResult.IsHalted);
+
+        }
     }
 }

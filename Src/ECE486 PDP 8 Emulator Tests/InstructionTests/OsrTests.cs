@@ -166,6 +166,49 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(Convert.ToInt32(1000.ToString(), 8), ActualResult.pcCounter);
 
         }
+
+        [TestMethod]
+        public void TestM2OSRCombination()
+        {
+            //Test for combination of OSR and HLT - 111 100 001 010
+          
+           
+
+            InstructionItems TestItems = new InstructionItems()
+            {
+                accumulatorOctal = 1000,
+                LinkBit = true,
+                MemoryAddress = 0,
+
+                MemoryValueOctal = 0000,
+                pcCounter = 1400,
+                InstructionRegister = Convert.ToInt32(7412.ToString(), 8)
+            };
+
+
+            InstructionResult ExpectedItems = new InstructionResult()
+            {
+                accumulatorOctal = 1000,
+                LinkBit = true,
+                MemoryAddress = 0,
+                MemoryValueOctal = 0000,
+                pcCounter = 1402,
+                InstructionRegister = Convert.ToInt32(7412.ToString(), 8),
+                SetMemValue = false
+            };
+
+            IInstruction TestOprInstruction = new OprInstruction();
+
+            InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+
+            Assert.AreEqual(ExpectedItems.accumulatorOctal, ActualResult.accumulatorOctal);
+            Assert.AreEqual(ExpectedItems.LinkBit, ActualResult.LinkBit);
+            Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
+            Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
+            Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(true, ActualResult.IsHalted);
+        }
     }
 }
 

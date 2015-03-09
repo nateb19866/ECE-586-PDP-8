@@ -52,6 +52,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
             Assert.AreEqual(0xFFF, ActualResult.OsrSwitchBits);
 
+
             //Test instruction properties
             Assert.AreEqual(1, TestOprInstruction.clockCycles);
             Assert.AreEqual(Constants.OpCode.OPR, TestOprInstruction.instructionType);

@@ -49,6 +49,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            
         }
 
 
@@ -86,6 +88,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            
+            
 
             //Always clears Accumulator
 
@@ -95,6 +99,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            
 
 
             // Test AC clears and PC increments
@@ -105,6 +110,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            
 
             //Test AC clears given 3 octals = 1 and PC increments
 
@@ -114,6 +121,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            
 
             //Test AC clears given all 4 octals 1 and PC increments
 
@@ -123,6 +132,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            
         }
 
 
@@ -165,6 +176,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            
         }
 
     }

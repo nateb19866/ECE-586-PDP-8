@@ -51,6 +51,9 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
             Assert.AreEqual(ExpectedItems.InstructionRegister, ActualResult.InstructionRegister);
             Assert.AreEqual(ExpectedItems.SetMemValue, ActualResult.SetMemValue);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
+
         }
 
 
@@ -88,6 +91,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             /* Test cases for PC skipping next instruction if Link is false */
 
@@ -97,6 +102,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(1, ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
 
             //Test Link false, PC skips next instruction
@@ -105,6 +112,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(2, ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             /* 
              * Below Tests ensure that PC only skips when Link is false
@@ -118,6 +127,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7771.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //Test lowest octal value
             TestItems.LinkBit = false;
@@ -125,6 +136,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //Test 1st octal value
             TestItems.LinkBit = true;
@@ -132,6 +145,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(4002.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //test 2nd octal value
             TestItems.LinkBit = false;
@@ -139,6 +154,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(4004.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //test 3rd octal value
             TestItems.LinkBit = false;
@@ -146,6 +163,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(242.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //test 4th octal value
             TestItems.LinkBit = false;
@@ -153,6 +172,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(2527.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //test 5th octal value
             TestItems.LinkBit = true;
@@ -160,6 +181,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //test 6th octal value
             TestItems.LinkBit = false;
@@ -167,6 +190,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
 
         }
@@ -210,6 +235,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //AC - Positive (Skip) Link bit - 0 (Skip), PCout - PC + 2, (Both conditions are True)
             TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
@@ -218,6 +245,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //AC - Negative (No skip) Link bit - 1 (No skip), PCout - PC + 1 (Both are False)
             TestItems.accumulatorOctal = Convert.ToInt32(0.ToString(), 8);
@@ -226,6 +255,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
         }
 
         [TestMethod]
@@ -268,6 +299,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //AC - Negative Non Zero (SPA - No Skip, SNA - Skip), Link bit - 1 (No Skip), PCout - PC + 1 (Only SNA is True)
 
@@ -277,6 +310,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
 
             //AC - Zero (SPA - Skip, SNA - Skip), Link bit - 1 (No Skip), PCout - PC + 1 (SZL is False)
 
@@ -286,6 +321,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(Constants.BranchType.Conditional, ActualResult.BranchType);
         }
     }
 }
