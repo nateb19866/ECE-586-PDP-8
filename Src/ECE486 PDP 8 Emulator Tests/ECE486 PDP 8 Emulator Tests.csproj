@@ -96,6 +96,7 @@
     <Compile Include="InstructionTests\SkonTests.cs" />
     <Compile Include="InstructionTests\IonTests.cs" />
     <Compile Include="InstructionTests\IofTests.cs" />
+    <Compile Include="InstructionTests\HltTests.cs" />
     <Compile Include="LoggerTests.cs" />
     <Compile Include="ProgramExecuterTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
