@@ -92,6 +92,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             InstructionResult ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
 
             Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
             Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             /* Test cases ensure PC always skip */
@@ -101,6 +102,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(2, ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
             Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             //Test for PC with end bits 1s
@@ -108,6 +110,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(4003.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
             Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             //Test for PC with last octal 0
@@ -115,6 +118,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(7772.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
             Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
 
             //Test for PC skip correctly from 7777
@@ -122,6 +126,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(1.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(true, ActualResult.BranchTaken);
             Assert.AreEqual(Constants.BranchType.Unconditional, ActualResult.BranchType);
         }
        
@@ -132,6 +137,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             //Test for combination of SKP and HLT - 111 100 001 010
             //Always servers skip first and then Halts.
             //Halt priority 3 and skip priority 1
+            //PCout = PC + 2, HLT = true
 
             InstructionItems TestItems = new InstructionItems()
             {

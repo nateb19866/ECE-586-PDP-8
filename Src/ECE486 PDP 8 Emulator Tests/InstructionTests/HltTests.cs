@@ -49,6 +49,8 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(ExpectedItems.MemoryAddress, ActualResult.MemoryAddress);
             Assert.AreEqual(ExpectedItems.MemoryValueOctal, ActualResult.MemoryValueOctal);
             Assert.AreEqual(ExpectedItems.pcCounter, ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(null, ActualResult.BranchType);
             Assert.AreEqual(true, ActualResult.IsHalted);
 
         }
@@ -74,7 +76,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             InstructionResult ExpectedItems = new InstructionResult()
             {
-                accumulatorOctal = 0000,    //it is not performing cla before hlt ???
+                accumulatorOctal = 0000,
                 LinkBit = true,
                 MemoryAddress = 0,
                 MemoryValueOctal = 0000,
@@ -95,6 +97,21 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(false, ActualResult.BranchTaken);
             Assert.AreEqual(null, ActualResult.BranchType);
             Assert.AreEqual(true, ActualResult.IsHalted);
+
+            // Test CLA and HLT
+            // CLears AC, PCout = PC + 1
+            // HLT = true
+
+            TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+
+            ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(0, ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
+            Assert.AreEqual(false, ActualResult.BranchTaken);
+            Assert.AreEqual(null, ActualResult.BranchType);
+            Assert.AreEqual(true, ActualResult.IsHalted);
+
         }
     }
 }
