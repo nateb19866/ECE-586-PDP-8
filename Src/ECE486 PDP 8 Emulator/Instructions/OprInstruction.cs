@@ -521,7 +521,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 BranchTaken = instItems.BranchTaken,
                 pcCounter = instItems.pcCounter,
                 SetMemValue = false,
-                OsrSwitchBits = instItems.OsrSwitchBits
+                OsrSwitchBits = instItems.OsrSwitchBits,
+                 BranchType = instItems.BranchType
+                
             };
         }
 
@@ -539,7 +541,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 InstructionRegister = instItems.InstructionRegister,
                 pcCounter = instItems.pcCounter,
                 SetMemValue = false,
-                OsrSwitchBits = instItems.OsrSwitchBits
+                OsrSwitchBits = instItems.OsrSwitchBits,
+                BranchType = instItems.BranchType
             };
         }
 
