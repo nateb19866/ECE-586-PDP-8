@@ -141,8 +141,8 @@ namespace ECE486_PDP_8_Emulator
                using (StreamWriter sw = File.CreateText(FinalBranchTrFileName))
                {
 
-                 
-                       sw.WriteLine("PCtr	Type	Addr	Taken?");
+
+                   sw.WriteLine("PCtr	Type			Addr		Taken?");
                       
                    
                    foreach (var TraceRow in BranchTrace)

@@ -45,7 +45,7 @@ namespace ECE486_PDP_8_Emulator
            
             if (IsIndirect)
             {
-                FinalOperation.FinalMemAddress = Convert.ToInt32(memoryArray.GetValue(EffectiveMemoryAddress, false, true).ToString(),8);
+                FinalOperation.FinalMemAddress = memoryArray.GetValue(EffectiveMemoryAddress, false, true);
                 FinalOperation.ExtraClockCyles = 1;
 
                 if(IsAutoIncrementRegister(EffectiveMemoryAddress ))

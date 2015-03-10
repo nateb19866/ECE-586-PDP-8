@@ -44,7 +44,7 @@ namespace ECE486_PDP_8_Emulator.Tests
             using (StreamReader TxtFile = new StreamReader(TestLogger.FinalBranchTrFileName))
             {
                 string line = TxtFile.ReadLine();
-                Assert.AreEqual("PCtr	Type	Addr	Taken?", line);
+                Assert.AreEqual("PCtr	Type			Addr		Taken?", line);
 
                 line = TxtFile.ReadLine();
 
