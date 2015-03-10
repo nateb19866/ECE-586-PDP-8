@@ -26,7 +26,7 @@ namespace ECE486_PDP_8_Emulator
             int OpCode = addressValueOctal >> 9;
             int Offset = addressValueOctal & 0x7F;
 
-            bool IsIndirect = ((addressValueOctal & 0x100) >> 8) == 1;
+            bool IsIndirect = ((addressValueOctal & 0x100) >> 8) == 1 && (Constants.OpCode)OpCode != Constants.OpCode.IOT && (Constants.OpCode)OpCode != Constants.OpCode.OPR;
 
             bool IsCurPage = ((addressValueOctal & 0x080) >> 7) == 1;
 
@@ -41,6 +41,7 @@ namespace ECE486_PDP_8_Emulator
             if (IsCurPage)
                 EffectiveMemoryAddress = Offset | (curPageInt << 7);
 
+           
            
             if (IsIndirect)
             {
