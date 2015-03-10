@@ -13,9 +13,6 @@ namespace ECE486_PDP_8_Emulator.Tests
     [TestClass()]
     public class LoggerTests
     {
-
-
-
         [TestMethod()]
         public void TestLoggerTest()
         {
