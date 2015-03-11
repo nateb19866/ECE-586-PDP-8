@@ -40,8 +40,8 @@ namespace ECE486_PDP_8_Emulator
             //Handle auto-increment addresses - since array is in decimal, addresses are 8-15
             if (Utils.IsAutoIncrementRegister(address) && isIndirect)
             {
-                //Because the value stored in the array is in octal, need to convert to decimal, add one, and then convert back to octal
-                MemoryArray[address, 0] = Utils.DecimalToOctal( Convert.ToInt32(MemoryArray[address, 0].ToString(), 8) + 1);
+                //Auto-increment register
+                MemoryArray[address, 0] = 0xFFF & (MemoryArray[address, 0] + 1);
                 
                 //Set the valid bit
                 MemoryArray[address, 1] = 1;
