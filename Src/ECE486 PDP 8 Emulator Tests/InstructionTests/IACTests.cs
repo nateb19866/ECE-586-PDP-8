@@ -199,7 +199,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(4000.ToString(), 8), ActualResult.accumulatorOctal);
-            Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(false, ActualResult.LinkBit);
             Assert.AreEqual(Convert.ToInt32(0771.ToString(), 8), ActualResult.pcCounter);
         }
     }

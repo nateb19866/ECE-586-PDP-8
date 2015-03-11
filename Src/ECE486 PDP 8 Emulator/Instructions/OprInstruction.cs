@@ -301,31 +301,19 @@ namespace ECE486_PDP_8_Emulator.Instructions
             //Used with CMA, this computes the 2's complement.
             //Used with CLA, this loads the constant 1.
             int tempAC = 0;
-            int tempLink = 0;
+            
 
-            // Link and AC value increment by 1
+            //Increment the accumulator
             tempAC = ++instItems.accumulatorOctal;
 
-            // AND with mask to get last 12 bits
-            instItems.accumulatorOctal = tempAC & 0xFFF;
+
+            //If there is a carry out, complement the link bit
+            if (tempAC > 0xFFF)
+                instItems.LinkBit = !instItems.LinkBit;
+
+            //Mask to keep it within 12 bits
+            tempAC = (tempAC & 0xFFF);
            
-            // AND with mask to get 13th bit
-            tempLink = ((tempAC & 0x01FFF) >> 12) & 0x1;
-
-            // Check if Carry out occurred on incremented Link and AC
-            if ( tempAC == 0x800 || tempAC == 0 )
-            {
-                //complement link bit if carry out occurred
-                tempLink = (~tempLink) & 0x1;
-                // set AC to 0
-                instItems.accumulatorOctal = 0;
-            }
-
-            // Set Link Bit to bool accordingly
-            if (tempLink == 0)
-                instItems.LinkBit = false;
-            else
-                instItems.LinkBit = true;
 
             // Mask PC to ensure no overflow
             instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
@@ -333,7 +321,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             return new InstructionResult()
             {
-                accumulatorOctal = instItems.accumulatorOctal,
+                accumulatorOctal = tempAC,
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,

@@ -29,32 +29,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
             * 
             */
 
-            if (instItems.MemoryValueOctal <= 0x7FF && instItems.accumulatorOctal <= 0x7FF && FinalAC > 0x7FF)
-           {
-               instItems.LinkBit = !instItems.LinkBit;
-               instItems.accumulatorOctal = instItems.accumulatorOctal & 0x000007FF;
-           }
-
-            //if one is positive and other is negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
-            else if (instItems.MemoryValueOctal > 0x7FF && instItems.accumulatorOctal <= 0x7FF && FinalAC > 0xFFF)
-            {
-                instItems.LinkBit = !instItems.LinkBit;
-                instItems.accumulatorOctal = instItems.accumulatorOctal & 0x00000FFF;
-            }
-
-            //if one is positive and other is negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
-            else if (instItems.MemoryValueOctal <= 0x7FF && instItems.accumulatorOctal > 0x7FF && FinalAC > 0xFFF)
-            {
-                instItems.LinkBit = !instItems.LinkBit;
-                instItems.accumulatorOctal = instItems.accumulatorOctal & 0x00000FFF;
-            }
-
-                //if they're both negative, check to see if there is an overflow, and if so, complement the link bit and mask out the carryout bit
-            else if (instItems.MemoryValueOctal > 0x7FF && instItems.accumulatorOctal > 0x7FF && FinalAC > 0xFFF)
-           {
-               instItems.LinkBit = !instItems.LinkBit;
-               instItems.accumulatorOctal = instItems.accumulatorOctal & 0x00000FFF;
-           }
+          if (FinalAC > 0xFFF)
+          {
+              instItems.LinkBit = !instItems.LinkBit;
+          }
 
 
            // Mask to ensure no overflow for manipulated data
