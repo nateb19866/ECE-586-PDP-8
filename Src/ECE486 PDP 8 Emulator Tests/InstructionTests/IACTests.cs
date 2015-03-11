@@ -191,6 +191,16 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(Convert.ToInt32(3777.ToString(), 8), ActualResult.accumulatorOctal);
             Assert.AreEqual(false, ActualResult.LinkBit);
             Assert.AreEqual(Convert.ToInt32(0771.ToString(), 8), ActualResult.pcCounter);
+
+            // Test AC positive and incremented caused carry, complement link
+            TestItems.accumulatorOctal = Convert.ToInt32(3777.ToString(), 8);
+            TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(0770.ToString(), 8);
+
+            ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(Convert.ToInt32(4000.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(0771.ToString(), 8), ActualResult.pcCounter);
         }
     }
 }

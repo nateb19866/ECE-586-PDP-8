@@ -32,7 +32,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
             if (instItems.MemoryValueOctal <= 0x7FF && instItems.accumulatorOctal <= 0x7FF && FinalAC > 0x7FF)
            {
                instItems.LinkBit = !instItems.LinkBit;
-
                instItems.accumulatorOctal = instItems.accumulatorOctal & 0x000007FF;
            }
 

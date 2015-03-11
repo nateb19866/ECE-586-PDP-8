@@ -155,7 +155,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
                     //SZL - mask 000 000 011 000 - hex 0000 0001 1000
                     if ((instItems.InstructionRegister & 0x18) == 0x18)
-                        //PassSZL = !instItems.LinkBit;
                         PassSZL = instItems.LinkBit == false ;
 
 
@@ -174,14 +173,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
                         }
                     }
 
-   
-
-
                 }
 
             
-
-               
                 //M2_CLA - mask 000 010 000 000 - hex 0000 1000 0000
                 if((instItems.InstructionRegister & 0x80) == 0x80)
                     instItems = M2_CLAInstruction(instItems);
@@ -267,7 +261,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                BranchTaken = instItems.BranchTaken,
+                BranchTaken = false,
                 pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
@@ -306,19 +300,35 @@ namespace ECE486_PDP_8_Emulator.Instructions
        
             //Used with CMA, this computes the 2's complement.
             //Used with CLA, this loads the constant 1.
+            int tempAC = 0;
+            int tempLink = 0;
 
+            // Link and AC value increment by 1
+            tempAC = ++instItems.accumulatorOctal;
 
-            instItems.accumulatorOctal++;
+            // AND with mask to get last 12 bits
+            instItems.accumulatorOctal = tempAC & 0xFFF;
+           
+            // AND with mask to get 13th bit
+            tempLink = ((tempAC & 0x01FFF) >> 12) & 0x1;
 
-            if(instItems.accumulatorOctal == 0x800)
+            // Check if Carry out occurred on incremented Link and AC
+            if ( tempAC == 0x800 || tempAC == 0 )
             {
-                instItems.LinkBit = !instItems.LinkBit;
+                //complement link bit if carry out occurred
+                tempLink = (~tempLink) & 0x1;
+                // set AC to 0
                 instItems.accumulatorOctal = 0;
             }
-            else if(instItems.accumulatorOctal == 0)
-            {
-                instItems.LinkBit = !instItems.LinkBit;
-            }
+
+            // Set Link Bit to bool accordingly
+            if (tempLink == 0)
+                instItems.LinkBit = false;
+            else
+                instItems.LinkBit = true;
+
+            // Mask PC to ensure no overflow
+            instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
 
 
             return new InstructionResult()
@@ -501,7 +511,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
-                LinkBit = instItems.LinkBit,
+                LinkBit = false,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
