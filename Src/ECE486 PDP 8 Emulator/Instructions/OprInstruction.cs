@@ -303,34 +303,22 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult IACInstruction(InstructionResult instItems)
         {
-            int tempLink = 0;
-            int tempAC = 0;
+       
             //Used with CMA, this computes the 2's complement.
             //Used with CLA, this loads the constant 1.
 
-            // Put Link Bit into 13th bit of AC
-            if (instItems.LinkBit == true)
-                instItems.accumulatorOctal |= (1 << 12);
-            else // Link bit false = 0
-                instItems.accumulatorOctal &= ~(1 << 12);
 
-            // Link and AC value by 1
-            tempAC = ++instItems.accumulatorOctal;
+            instItems.accumulatorOctal++;
 
-            // AND with mask to get last 12 bits
-            instItems.accumulatorOctal = tempAC & 0xFFF;
-           
-            // AND with mask to get 13th bit
-            tempLink = ((tempAC & 0x01FFF) >> 12) & 0x1;
-
-            // Set Link Bit to bool accordingly
-            if (tempLink == 0)
-                instItems.LinkBit = false;
-            else
-                instItems.LinkBit = true;
-
-            // Mask PC to ensure no overflow
-            instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
+            if(instItems.accumulatorOctal == 0x800)
+            {
+                instItems.LinkBit = !instItems.LinkBit;
+                instItems.accumulatorOctal = 0;
+            }
+            else if(instItems.accumulatorOctal == 0)
+            {
+                instItems.LinkBit = !instItems.LinkBit;
+            }
 
 
             return new InstructionResult()

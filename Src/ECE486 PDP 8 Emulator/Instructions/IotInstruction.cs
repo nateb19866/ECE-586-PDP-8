@@ -56,11 +56,11 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 case Constants.IOCode.ION:
                     Rslt = ION(instItems);
                     break;
-                case Constants.IOCode.IOF:
+               default:
+                    //Only other case is Constants.IOCode.IOF:
                     Rslt = IOF(instItems);
                     break;
-                default:
-                    break;
+                
             }
 
             return Rslt;
