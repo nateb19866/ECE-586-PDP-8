@@ -155,7 +155,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
                     //SZL - mask 000 000 011 000 - hex 0000 0001 1000
                     if ((instItems.InstructionRegister & 0x18) == 0x18)
-                        PassSZL = !instItems.LinkBit;
+                        //PassSZL = !instItems.LinkBit;
+                        PassSZL = instItems.LinkBit == false ;
 
 
                     if ((PassSNA == null || PassSNA == true)
@@ -255,15 +256,13 @@ namespace ECE486_PDP_8_Emulator.Instructions
         {
             instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
 
-            instItems.accumulatorOctal = ~(instItems.accumulatorOctal) & 0xFFF;
+            instItems.accumulatorOctal = (~(instItems.accumulatorOctal)) & 0xFFF;
 
             // complement every bit of AC
             return new InstructionResult()
             {
                 // complement every bit of AC
                 accumulatorOctal = instItems.accumulatorOctal,
-                //If used in conjunction with CLA, set all 12 bits of AC to 1 ( = 7777 )
-                // b/c CLA will always operate first
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,

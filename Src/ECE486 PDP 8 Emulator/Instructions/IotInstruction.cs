@@ -69,9 +69,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
         // Only increment PC for all IOs
         public InstructionResult KCF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
        
-
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -80,7 +79,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
@@ -88,9 +87,8 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult KSF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
            
-
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
@@ -99,14 +97,15 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
+
         public InstructionResult KCC(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
        
 
             return new InstructionResult()
@@ -117,14 +116,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult KRS(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
             
 
             return new InstructionResult()
@@ -135,14 +134,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult KRB(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -152,7 +151,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
@@ -160,7 +159,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
           
         public InstructionResult TFL(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -170,14 +169,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TSF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -187,14 +186,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TCF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -204,14 +203,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TPC(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -221,14 +220,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult TLS(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -238,7 +237,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
@@ -246,7 +245,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
            
         public InstructionResult SKON(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -256,7 +255,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
@@ -264,7 +263,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             
         public InstructionResult ION(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -274,14 +273,14 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };
         }
         public InstructionResult IOF(InstructionItems instItems)
         {
-            int IncrementedPcCounter = (++instItems.pcCounter) & 0xFFF;
+            instItems.pcCounter = (++instItems.pcCounter) & 0xFFF;
 
             return new InstructionResult()
             {
@@ -291,7 +290,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                pcCounter = IncrementedPcCounter,
+                pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
             };

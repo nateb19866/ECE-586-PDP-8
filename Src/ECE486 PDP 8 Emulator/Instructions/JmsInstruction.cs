@@ -26,7 +26,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             return new InstructionResult()
             {
-
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,

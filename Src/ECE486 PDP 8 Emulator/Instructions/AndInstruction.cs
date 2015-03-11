@@ -21,13 +21,12 @@ namespace ECE486_PDP_8_Emulator.Instructions
             int TestWord1Bytes = instItems.accumulatorOctal;
             int TestWord2Bytes = instItems.MemoryValueOctal;
 
-            // AND AC and Value.
+            // AND AC and Value, Mask AC to ensure no overflow.
             int FinalWord = (TestWord1Bytes & TestWord2Bytes) & 0xFFF;
 
-            // Mask AC to ensure no overflow.
             instItems.accumulatorOctal = FinalWord;
 
-            // Increment PC to next instruction and mask to ensure no overflow.
+            // Increment PC to next instruction.
             int IncrementedPcCounter = (++instItems.pcCounter);
 
             // Mask PC to ensure no overflow.
