@@ -261,7 +261,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
-                BranchTaken = instItems.BranchTaken,
+                BranchTaken = false,
                 pcCounter = instItems.pcCounter,
                 SetMemValue = false,
                 OsrSwitchBits = instItems.OsrSwitchBits
@@ -317,11 +317,13 @@ namespace ECE486_PDP_8_Emulator.Instructions
             // AND with mask to get 13th bit
             tempLink = ((tempAC & 0x01FFF) >> 12) & 0x1;
 
-            // Check if Carry out occured on incremented AC
-            if (tempAC > 0x7FF)
+            // Check if Carry out occurred on incremented Link and AC
+            if ( tempAC == 0x800 || tempAC == 0 )
             {
                 //complement link bit if carry out occurred
                 tempLink = (~tempLink) & 0x1;
+                // set AC to 0
+                instItems.accumulatorOctal = 0;
             }
 
             // Set Link Bit to bool accordingly
@@ -514,7 +516,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
-                LinkBit = instItems.LinkBit,
+                LinkBit = false,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
