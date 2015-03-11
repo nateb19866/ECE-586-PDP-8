@@ -301,10 +301,10 @@ namespace ECE486_PDP_8_Emulator.Instructions
             //Used with CMA, this computes the 2's complement.
             //Used with CLA, this loads the constant 1.
 
-            // Link and AC value increment by 1
+            // AC value increment by 1
             tempAC = ++instItems.accumulatorOctal;
 
-            // Check if Carry out occurred on incremented Link and AC
+            // Check if Carry out occurred on incremented AC
             if ( tempAC == 0x800 )
             {
                 //complement link bit if carry out occurred
