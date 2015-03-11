@@ -280,6 +280,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             {
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = !(instItems.LinkBit),
+                // If used in conjunction with CLL, this sets the link bit to one.
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
@@ -296,27 +297,23 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult IACInstruction(InstructionResult instItems)
         {
-            
-            int tempAC = 0;
+       
             //Used with CMA, this computes the 2's complement.
             //Used with CLA, this loads the constant 1.
+            int tempAC = 0;
+            
 
-            // AC value increment by 1
+            //Increment the accumulator
             tempAC = ++instItems.accumulatorOctal;
 
-            // Check if Carry out occurred on incremented AC
-            if ( tempAC == 0x800 )
-            {
-                //complement link bit if carry out occurred
-                instItems.LinkBit = !instItems.LinkBit;
-                // set AC to 0
-                instItems.accumulatorOctal = 0;
-            }
-            else if (tempAC == 0)
+
+            //If there is a carry out, complement the link bit
+            if (tempAC > 0xFFF)
                 instItems.LinkBit = !instItems.LinkBit;
 
-            // AND with mask to get last 12 bits
-            instItems.accumulatorOctal = tempAC & 0xFFF;
+            //Mask to keep it within 12 bits
+            tempAC = (tempAC & 0xFFF);
+           
 
             // Mask PC to ensure no overflow
             instItems.pcCounter = (instItems.pcCounter) & 0xFFF;
@@ -324,7 +321,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
             return new InstructionResult()
             {
-                accumulatorOctal = instItems.accumulatorOctal,
+                accumulatorOctal = tempAC,
                 LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
@@ -502,7 +499,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             return new InstructionResult()
             {
                 accumulatorOctal = instItems.accumulatorOctal,
-                LinkBit = false,
+                LinkBit = instItems.LinkBit,
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
