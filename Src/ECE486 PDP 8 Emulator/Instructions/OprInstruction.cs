@@ -155,7 +155,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
                     //SZL - mask 000 000 011 000 - hex 0000 0001 1000
                     if ((instItems.InstructionRegister & 0x18) == 0x18)
-                        //PassSZL = !instItems.LinkBit;
                         PassSZL = instItems.LinkBit == false ;
 
 
@@ -174,14 +173,9 @@ namespace ECE486_PDP_8_Emulator.Instructions
                         }
                     }
 
-   
-
-
                 }
 
             
-
-               
                 //M2_CLA - mask 000 010 000 000 - hex 0000 1000 0000
                 if((instItems.InstructionRegister & 0x80) == 0x80)
                     instItems = M2_CLAInstruction(instItems);
@@ -314,7 +308,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             else // Link bit false = 0
                 instItems.accumulatorOctal &= ~(1 << 12);
 
-            // Link and AC value by 1
+            // Link and AC value increment by 1
             tempAC = ++instItems.accumulatorOctal;
 
             // AND with mask to get last 12 bits
@@ -322,6 +316,13 @@ namespace ECE486_PDP_8_Emulator.Instructions
            
             // AND with mask to get 13th bit
             tempLink = ((tempAC & 0x01FFF) >> 12) & 0x1;
+
+            // Check if Carry out occured on incremented AC
+            if (tempAC > 0x7FF)
+            {
+                //complement link bit if carry out occurred
+                tempLink = (~tempLink) & 0x1;
+            }
 
             // Set Link Bit to bool accordingly
             if (tempLink == 0)
