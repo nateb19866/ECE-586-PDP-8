@@ -103,12 +103,12 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
             // Test AC all 1s with link false
             TestItems.accumulatorOctal = Convert.ToInt32(7777.ToString(), 8);
-            TestItems.LinkBit = true;
+            TestItems.LinkBit = false;
             TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
 
             ActualResult = TestOprInstruction.ExecuteInstruction(TestItems);
             Assert.AreEqual(Convert.ToInt32(0000.ToString(), 8), ActualResult.accumulatorOctal);
-            Assert.AreEqual(false, ActualResult.LinkBit);
+            Assert.AreEqual(true, ActualResult.LinkBit);
             Assert.AreEqual(Convert.ToInt32(0.ToString(), 8), ActualResult.pcCounter);
 
             // Test AC all 0s with link true
