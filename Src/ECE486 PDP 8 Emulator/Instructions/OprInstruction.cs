@@ -280,7 +280,6 @@ namespace ECE486_PDP_8_Emulator.Instructions
             {
                 accumulatorOctal = instItems.accumulatorOctal,
                 LinkBit = !(instItems.LinkBit),
-                // If used in conjunction with CLL, this sets the link bit to one.
                 MemoryAddress = instItems.MemoryAddress,
                 MemoryValueOctal = instItems.MemoryValueOctal,
                 InstructionRegister = instItems.InstructionRegister,
@@ -297,40 +296,27 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
         public InstructionResult IACInstruction(InstructionResult instItems)
         {
-            int tempLink = 0;
+            
             int tempAC = 0;
             //Used with CMA, this computes the 2's complement.
             //Used with CLA, this loads the constant 1.
 
-            // Put Link Bit into 13th bit of AC
-            if (instItems.LinkBit == true)
-                instItems.accumulatorOctal |= (1 << 12);
-            else // Link bit false = 0
-                instItems.accumulatorOctal &= ~(1 << 12);
-
             // Link and AC value increment by 1
             tempAC = ++instItems.accumulatorOctal;
 
-            // AND with mask to get last 12 bits
-            instItems.accumulatorOctal = tempAC & 0xFFF;
-           
-            // AND with mask to get 13th bit
-            tempLink = ((tempAC & 0x01FFF) >> 12) & 0x1;
-
             // Check if Carry out occurred on incremented Link and AC
-            if ( tempAC == 0x800 || tempAC == 0 )
+            if ( tempAC == 0x800 )
             {
                 //complement link bit if carry out occurred
-                tempLink = (~tempLink) & 0x1;
+                instItems.LinkBit = !instItems.LinkBit;
                 // set AC to 0
                 instItems.accumulatorOctal = 0;
             }
+            else if (tempAC == 0)
+                instItems.LinkBit = !instItems.LinkBit;
 
-            // Set Link Bit to bool accordingly
-            if (tempLink == 0)
-                instItems.LinkBit = false;
-            else
-                instItems.LinkBit = true;
+            // AND with mask to get last 12 bits
+            instItems.accumulatorOctal = tempAC & 0xFFF;
 
             // Mask PC to ensure no overflow
             instItems.pcCounter = (instItems.pcCounter) & 0xFFF;

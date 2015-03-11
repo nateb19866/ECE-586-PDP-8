@@ -28,9 +28,9 @@ namespace ECE486_PDP_8_Emulator
 
                 using (StreamReader TxtFile = new StreamReader(filePath))
                 {
-                      int MemArrayCnt = 0;  // Index for MemArray. Looking for 1xx+
-                      bool StartOfFile = true;
-                     string line = null;
+                    int MemArrayCnt = 0;  // Index for MemArray. Looking for 1xx+
+                    bool StartOfFile = true;
+                    string line = null;
                     string line2 = null;
                     bool IncrementCtr = true;
                     // Read all lines into MemArray until EOF is reached
