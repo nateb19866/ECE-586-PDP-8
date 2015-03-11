@@ -31,7 +31,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
 
           if (FinalAC > 0xFFF)
           {
-              instItems.LinkBit = !instItems.LinkBit;
+              instItems.LinkBit = !instItems.LinkBit; 
           }
 
 
