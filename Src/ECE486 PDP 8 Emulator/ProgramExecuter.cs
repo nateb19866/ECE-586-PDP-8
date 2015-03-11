@@ -61,9 +61,12 @@ namespace ECE486_PDP_8_Emulator
                Operation CurOp = Utils.DecodeOperationAddress(InstructionRegisterOctal, Pdp8MemArray, CurPage);
 
                int MemValueOctal = 0;
-               if(CurOp.Instruction.instructionType != Constants.OpCode.OPR 
-                   && CurOp.Instruction.instructionType != Constants.OpCode.IOT
-                   && CurOp.Instruction.instructionType != Constants.OpCode.DCA)
+
+               //Only retrieve value of that memory address for the instructions that need it
+               if(CurOp.Instruction.instructionType == Constants.OpCode.AND ||
+                   CurOp.Instruction.instructionType == Constants.OpCode.TAD ||
+                   CurOp.Instruction.instructionType == Constants.OpCode.ISZ
+                   )
                    MemValueOctal =  Pdp8MemArray.GetValue(CurOp.FinalMemAddress, false, false);
 
 

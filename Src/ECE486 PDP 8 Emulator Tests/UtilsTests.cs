@@ -50,7 +50,7 @@ namespace ECE486_PDP_8_Emulator_Tests
             int CurPage = 1;
 
             //For page 0, no auto-increment test with indirect
-            TestMemArray[1, 0] = 4444;
+            TestMemArray[1, 0] = 444;
             TestMemArray[1, 1] = 1;
 
 
@@ -75,7 +75,7 @@ namespace ECE486_PDP_8_Emulator_Tests
 
             //test 0 page, indirect, no auto-increment register
             RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1401.ToString(), 8), TestPdp8MemArray, CurPage);
-            Assert.AreEqual(Convert.ToInt32(4444.ToString(), 8), RsltOp.FinalMemAddress);
+            Assert.AreEqual(444, RsltOp.FinalMemAddress);
             Assert.AreEqual(1, RsltOp.ExtraClockCyles);
             Assert.AreEqual(true, RsltOp.IsIndirect);
 
@@ -95,13 +95,13 @@ namespace ECE486_PDP_8_Emulator_Tests
 
             //Test cur page, no indirect
             RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1222.ToString(), 8), TestPdp8MemArray, CurPage);
-            Assert.AreEqual(Convert.ToInt32(222.ToString(),8), RsltOp.FinalMemAddress);
+            Assert.AreEqual(Convert.ToInt32(222.ToString(), 8), RsltOp.FinalMemAddress);
             Assert.AreEqual(0, RsltOp.ExtraClockCyles);
             Assert.AreEqual(false, RsltOp.IsIndirect);
 
             //Test cur page, indirect, and opcode
             RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1600.ToString(), 8), TestPdp8MemArray, CurPage);
-            Assert.AreEqual(Convert.ToInt32(2222.ToString(),8), RsltOp.FinalMemAddress);
+            Assert.AreEqual(2222, RsltOp.FinalMemAddress);
             Assert.AreEqual(1, RsltOp.ExtraClockCyles);
             Assert.AreEqual(true, RsltOp.IsIndirect);
             Assert.AreEqual(Constants.OpCode.TAD, RsltOp.Instruction.instructionType);
