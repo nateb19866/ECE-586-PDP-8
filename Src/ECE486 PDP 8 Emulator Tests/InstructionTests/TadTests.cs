@@ -224,6 +224,19 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(false, ActualResult.LinkBit);
             Assert.AreEqual(Convert.ToInt32(1011.ToString(), 8), ActualResult.pcCounter);
 
+            //Test (11) test AC for carry out with 1 negative value 1 positive values, link start false
+
+            TestItems.MemoryValueOctal = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.accumulatorOctal = Convert.ToInt32(0002.ToString(), 8);
+            TestItems.LinkBit = false;
+            TestItems.pcCounter = Convert.ToInt32(1010.ToString(), 8);
+
+            ActualResult = TestTadInstruction.ExecuteInstruction(TestItems);
+            Assert.AreEqual(Convert.ToInt32(0001.ToString(), 8), ActualResult.accumulatorOctal);
+            Assert.AreEqual(Convert.ToInt32(7777.ToString(), 8), ActualResult.MemoryValueOctal);
+            Assert.AreEqual(true, ActualResult.LinkBit);
+            Assert.AreEqual(Convert.ToInt32(1011.ToString(), 8), ActualResult.pcCounter);
+
         }
     }
 }
