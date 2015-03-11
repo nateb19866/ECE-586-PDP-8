@@ -19,7 +19,7 @@ namespace ECE486_PDP_8_Emulator.Instructions
             * Increment Eff Addr and place into PC */
 
             // PC to mem Value, mask to ensure no overflow
-            instItems.MemoryValueOctal = instItems.pcCounter & 0xFFF;
+            instItems.MemoryValueOctal = (instItems.pcCounter + 1) & 0xFFF;
 
            // Increment Eff Addr., mask off overflow, place into PC
             instItems.pcCounter = (instItems.MemoryAddress + 1) & 0xFFF;
