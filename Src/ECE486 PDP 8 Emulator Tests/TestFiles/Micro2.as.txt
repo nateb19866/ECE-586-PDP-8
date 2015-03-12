@@ -1,0 +1,44 @@
+
+/
+/ Program : This program checks for Micro Code Group 2 instructions
+/
+/-------------------------------------------
+/
+/ Code Section
+/
+*0200			
+Main,   cla cll		//AC = 0, LB = F
+	tad A		// AC = 7120 & LB = F	
+	tad B		// AC = 3564 & LB = T
+	sma		//AC is Positive
+	tad C		// AC = 3564 & LB = T
+	cla		// AC = 0000 & LB = T
+        sza		//Sza is True
+        dca D		// skip this instruction
+        iac		// AC = 0001 & LB = T
+        snl		//LB = 1 true
+	cll		// skip this instruction
+	spa		//AC is positive - True
+	cla		// skip this instruction
+	sna		//AC = 0001 - True
+	tad E		// skip this instruction 
+	skp		//Always skip
+	tad A		// skip this instruction
+	sma sza snl	//Or group
+	nop		// skip this instruction
+	spa sna szl	//AND group
+	tad D		// AC = 1235 & LINK = T
+	osr         
+	hlt
+	jmp Main	
+	
+/
+/ Data Section
+/
+*0250 
+A, 	7120		
+B, 	4444 		
+C, 	0
+D,      1234
+E,	7777
+$Main
