@@ -131,6 +131,7 @@ namespace ECE486_PDP_8_Emulator
                    sw.WriteLine("{0}	{1}", Utils.DecimalToOctal(MemTraceRow.Address).ToString(), MemTraceRow.OperationType.ToString());
                }
            }
+           MemTrace = new List<MemTraceRow>();
        }
 
        private void DumpBranchCacheToFile()
@@ -151,6 +152,8 @@ namespace ECE486_PDP_8_Emulator
 
                    }
                }
+
+             
            }
            else
            {
@@ -165,6 +168,7 @@ namespace ECE486_PDP_8_Emulator
                }
 
            }
+           BranchTrace = new List<BranchTraceRow>(); 
        }
     }
 }

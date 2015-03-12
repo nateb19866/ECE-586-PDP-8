@@ -32,7 +32,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
                 accumulatorOctal = 0000,
                 LinkBit = true,
                 MemoryAddress = 543,
-                MemoryValueOctal = 1,
+                MemoryValueOctal = 2,
                 pcCounter = 544,
                 InstructionRegister = Convert.ToInt32(7402.ToString(), 8),
                 SetMemValue = true
@@ -98,7 +98,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             /* Test that PC, Eff Addr, and mem Value update correctly */
 
             //Test (1) Value can hold max PC
-            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7776.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(1111.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(1111.ToString(), 8);
 
@@ -108,7 +108,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
             //Test (2) Value can hold max PC, then PC = 0
-            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7776.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(0.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(7777.ToString(), 8);
 
@@ -118,7 +118,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
             //Test (3) Value can hold max PC and EA increments from 0
-            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7776.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(4226.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(0.ToString(), 8);
 
@@ -128,7 +128,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
             //Test (4) Value can hold 0 PC and EA increments from 1
-            TestItems.pcCounter = Convert.ToInt32(0.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(4227.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(1.ToString(), 8);
 
@@ -138,7 +138,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
             //Test (5) Value can hold max PC and Value 1st octal increments correctly
-            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7776.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(0.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(7770.ToString(), 8);
 
@@ -148,7 +148,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
 
 
             //Test (6) Value updates and Value 2nd octal increments
-            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7776.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(0.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(7707.ToString(), 8);
 
@@ -157,7 +157,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(Convert.ToInt32(7710.ToString(), 8), ActualResult.pcCounter);
 
             //Test (7) Value updates and Value 3rd octal increments
-            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7776.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(1.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(7077.ToString(), 8);
 
@@ -166,7 +166,7 @@ namespace ECE486_PDP_8_Emulator_Tests.InstructionTests
             Assert.AreEqual(Convert.ToInt32(7100.ToString(), 8), ActualResult.pcCounter);
 
             //Test (8) Value updates and Value 3rd octal increments, then PC = 1
-            TestItems.pcCounter = Convert.ToInt32(7777.ToString(), 8);
+            TestItems.pcCounter = Convert.ToInt32(7776.ToString(), 8);
             TestItems.MemoryValueOctal = Convert.ToInt32(2.ToString(), 8);
             TestItems.MemoryAddress = Convert.ToInt32(0777.ToString(), 8);
 
