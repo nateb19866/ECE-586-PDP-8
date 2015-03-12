@@ -89,7 +89,7 @@ namespace ECE486_PDP_8_Emulator_Tests
             //test 0 page, indirect, auto-increment register
             RsltOp = Utils.DecodeOperationAddress(Convert.ToInt32(1411.ToString(), 8), TestPdp8MemArray, CurPage);
             Assert.AreEqual(5, RsltOp.FinalMemAddress);
-            Assert.AreEqual(3, RsltOp.ExtraClockCyles);
+            Assert.AreEqual(2, RsltOp.ExtraClockCyles);
             Assert.AreEqual(true, RsltOp.IsIndirect);
 
 

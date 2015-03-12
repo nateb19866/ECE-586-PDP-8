@@ -36,10 +36,16 @@ namespace ECE486_PDP_8_Emulator
       
        public int GetValue(int address, bool isInstruction, bool isIndirect)
         {
-           
-            //Handle auto-increment addresses - since array is in decimal, addresses are 8-15
+
+
+            //Fire the event to handle the trace file
+            OnTraced(EventArgs.Empty, address, isInstruction ? Constants.OpType.InstructionFetch : Constants.OpType.DataRead);
+
+           //Handle auto-increment addresses - since array is in decimal, addresses are 8-15
             if (Utils.IsAutoIncrementRegister(address) && isIndirect)
             {
+
+                OnTraced(EventArgs.Empty, address, Constants.OpType.DataWrite);
                 //Auto-increment register
                 MemoryArray[address, 0] = 0xFFF & (MemoryArray[address, 0] + 1);
                 
@@ -47,9 +53,7 @@ namespace ECE486_PDP_8_Emulator
                 MemoryArray[address, 1] = 1;
             }
 
-           //Fire the event to handle the trace file
-           OnTraced(EventArgs.Empty, address, isInstruction?Constants.OpType.InstructionFetch:Constants.OpType.DataRead);
-
+ 
           
            return MemoryArray[address,0];
         }

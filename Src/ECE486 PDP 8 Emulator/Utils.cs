@@ -49,7 +49,7 @@ namespace ECE486_PDP_8_Emulator
                 FinalOperation.ExtraClockCyles = 1;
 
                 if(IsAutoIncrementRegister(EffectiveMemoryAddress ))
-                    FinalOperation.ExtraClockCyles += 2;
+                    FinalOperation.ExtraClockCyles += 1;
 
             }
             else
